@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 距离值 -->
+    <dimen name="content_margin_inside">5dip</dimen> <!-- 页面内容距内边距或左右元素距离  -->
+    <dimen name="content_margin_outside">10dip</dimen> <!-- 页面内容距屏幕或页面元素之间距离  -->
+    <dimen name="content_margin_vertical">15dip</dimen> <!-- 页面内容上下部分距离(较大的)  -->
+    <dimen name="item_cg_margin_vertical">15dip</dimen> <!-- 主页类目垂直距离  -->
+    
+    <!-- 选择图片 -->
+    <dimen name="ui_10_dip">10dip</dimen> 
+
+    <!-- PinnedHeaderListView -->
+    <dimen name="selectcity_group_item_padding">14dp</dimen>
+    <dimen name="bladeview_popup_height">80dp</dimen>
+    <dimen name="bladeview_fontsize">12sp</dimen>
+    <dimen name="bladeview_popup_fontsize">20sp</dimen>
+    
+    
+    <dimen name="letter_text_size">14sp</dimen>
+
+	<dimen name="text_size0">17sp</dimen>
+	<dimen name="text_size1">16sp</dimen>
+	<dimen name="text_size2">15sp</dimen>
+	<dimen name="text_size3">14sp</dimen>
+	<dimen name="text_size4">13sp</dimen>
+	<dimen name="text_size5">12sp</dimen>
+	<dimen name="text_size6">10sp</dimen>
+	<dimen name="text_size7">9sp</dimen>
+</resources>

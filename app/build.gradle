@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'laike'
+            keyPassword 'laikelaike'
+            storeFile file('C:/Users/a/.android/laike.keystore')
+            storePassword 'laikelaike'
+        }
+    }
     compileSdkVersion 21
     buildToolsVersion "22.0.1"
-
     defaultConfig {
         applicationId "com.njk"
         minSdkVersion 14
@@ -15,6 +22,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['jniLibs']
         }
     }
 }
@@ -22,4 +38,13 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
+    compile project(':ptr-lib')
+    compile project(':volley')
+    compile 'in.srain.cube:clog:1.0.2'
+    compile 'in.srain.cube:cube-sdk:1.0.44.39-SNAPSHOT@aar'
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/gson-2.2.2.jar')
+    compile files('libs/ormlite-android-4.48.jar')
+    compile files('libs/ormlite-core-4.48.jar')
+    compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
 }
