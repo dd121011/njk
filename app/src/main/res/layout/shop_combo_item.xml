@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:paddingLeft="@dimen/content_margin_vertical"
+        android:paddingRight="@dimen/content_margin_vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dip"
+            android:layout_marginTop="@dimen/content_margin_vertical"
+            android:background="@drawable/combo_item_bg"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="40dip"
+            android:paddingTop="@dimen/content_margin_outside"
+            android:paddingRight="@dimen/content_margin_outside"
+            android:paddingBottom="@dimen/content_margin_outside" >
+
+            <TextView
+                android:id="@+id/combo_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="洗剪吹"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size1" />
+
+            <TextView
+                android:id="@+id/combo_info_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="洗剪吹详情介绍文字下这里展示洗剪吹详情介绍文字下这里展示"
+                android:textColor="@color/text_color3"
+                android:textSize="@dimen/text_size2" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/combo_item_img"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:src="@mipmap/combo_icon1" />
+    </RelativeLayout>
+
+</LinearLayout>

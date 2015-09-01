@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/content_margin_outside"
+        android:paddingTop="@dimen/content_margin_outside" >
+
+        <LinearLayout
+            android:id="@+id/event_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/event_icon" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="@dimen/content_margin_outside" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="@dimen/text_size1"
+                    android:textColor="@color/text_color1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="农家超实惠"/>
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginTop="@dimen/content_margin_inside"
+                    android:textSize="@dimen/text_size3"
+                    android:textColor="@color/text_color3"
+                    android:singleLine="true"
+                    android:text="最新活动，大派送~"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"           
+            android:layout_marginBottom="@dimen/content_margin_outside"
+            android:layout_marginTop="@dimen/content_margin_outside"
+            android:background="@color/text_color6" />
+        
+        
+        <LinearLayout
+            android:id="@+id/cheap_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/strategy_icon" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="@dimen/content_margin_outside" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="@dimen/text_size1"
+                    android:textColor="@color/text_color1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="农家旅游攻略"/>
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginTop="@dimen/content_margin_inside"
+                    android:textSize="@dimen/text_size3"
+                    android:textColor="@color/text_color3"
+                    android:singleLine="true"
+                    android:text="最新活动，大派送~"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="@dimen/content_margin_outside"
+            android:layout_marginTop="@dimen/content_margin_outside"
+            android:background="@color/text_color6" 
+            android:visibility="gone"/>
+        
+        
+        <LinearLayout
+            android:id="@+id/vip_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/vip_icon" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="@dimen/content_margin_outside" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="@dimen/text_size1"
+                    android:textColor="@color/text_color1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="折扣会员卡"/>
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginTop="@dimen/content_margin_inside"
+                    android:textSize="@dimen/text_size3"
+                    android:textColor="@color/text_color3"
+                    android:singleLine="true"
+                    android:text="最新活动，大派送~"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="@dimen/content_margin_outside"
+            android:layout_marginTop="@dimen/content_margin_outside"
+            android:background="@color/text_color6" />
+        
+        
+        <LinearLayout
+            android:id="@+id/health_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" 
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/health_icon" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" 
+                android:layout_marginLeft="@dimen/content_margin_outside" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:textSize="@dimen/text_size1"
+                    android:textColor="@color/text_color1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="野味超市"/>
+                
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginTop="@dimen/content_margin_inside"
+                    android:textSize="@dimen/text_size3"
+                    android:textColor="@color/text_color3"
+                    android:singleLine="true"
+                    android:text="最新活动，大派送~"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginBottom="@dimen/content_margin_outside"
+            android:layout_marginTop="@dimen/content_margin_outside"
+            android:background="@color/text_color6" />
+    </LinearLayout>
+
+</LinearLayout>

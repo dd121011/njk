@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="pop_bg_color">#f1f1f1</color> 
+    
+    
+    <color name="text_color0">#ffffff</color>
+    <color name="text_color1">#000000</color>
+    <color name="text_color2">#484848</color>
+    <color name="text_color3">#a6a6a6</color>
+    <color name="text_color4">#c5c5c5</color>
+    <color name="text_color5">#ff4800</color>
+    <color name="text_color6">#e5e5e5</color>
+    <color name="text_color7">#1a1d21</color>
+    <color name="text_color8">#fefefe</color>
+    <color name="text_color9">#efeff4</color>
+    
+    <!-- 店铺详情页 -->
+    <color name="angling_text_color">#faa015</color>
+    <color name="angling_text_bg_color">#f8dfb8</color>
+    <color name="pick_text_color">#129127</color>
+    <color name="pick_text_bg_color">#a0fcaf</color>
+    <color name="angling2_text_color">#0597cd</color>
+    <color name="angling2_text_bg_color">#c0eeff</color>
+    
+    
+     <!-- 上传图片添加的颜色 -->
+	 <color name="none_color">#00000000</color>
+	 <color name="plugin_camera_black">#000000</color>
+	 <color name="albumback">#E1E0DE</color>
+    
+    
+	 <!-- 引导页相关颜色 -->
+    <color name="default_circle_indicator_page_color">#00000000</color>
+    <color name="default_circle_indicator_fill_color">#FFFFFFFF</color>
+
+    <integer name="default_circle_indicator_orientation">0</integer>
+
+    <color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
+
+    <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
+    <dimen name="default_circle_indicator_radius">3dp</dimen>
+
+    <bool name="default_circle_indicator_centered">true</bool>
+    <bool name="default_circle_indicator_snap">false</bool>
+    
+     <!-- PinnedHeaderListView -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#CACACA</color>
+
+</resources>

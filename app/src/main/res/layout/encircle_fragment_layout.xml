@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#69b11b"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/content_margin_outside" 
+            android:visibility="invisible">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_back_btn"
+                android:clickable="false"
+                android:text=""
+                android:textColor="@color/text_color0"
+                android:textSize="@dimen/text_size3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/switch_hot_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/content_margin_inside" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:checked="true"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="热门"
+                    android:textColor="@drawable/encircle_switch_text_color"
+                    android:textSize="@dimen/text_size1" />
+
+                <ImageView
+                    android:layout_width="@dimen/content_margin_inside"
+                    android:layout_height="@dimen/content_margin_inside"
+                    android:layout_marginTop="2dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/encircle_switch_dotted" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/switch_local_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/content_margin_inside" >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@null"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="同城"
+                    android:textColor="@drawable/encircle_switch_text_color"
+                    android:textSize="@dimen/text_size1" />
+                <ImageView
+                    android:layout_width="@dimen/content_margin_inside"
+                    android:layout_height="@dimen/content_margin_inside"
+                    android:layout_marginTop="2dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/encircle_switch_dotted"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/content_margin_outside" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/camera_btn"
+                android:clickable="false"
+                android:text=""
+                android:textColor="@color/text_color0"
+                android:textSize="@dimen/text_size3" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+            android:id="@+id/fragment_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/title_layout" />
+</RelativeLayout>

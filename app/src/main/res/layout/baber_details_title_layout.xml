@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/top_title_background"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/content_margin_outside" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_back_btn"
+                android:clickable="false" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/back_btn"
+            android:layout_marginTop="30dip"
+            android:scaleType="fitXY"
+            android:src="@mipmap/barber_details_top_line"
+            android:visibility="invisible" />
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/face_img_tmp"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/content_margin_vertical"
+            android:layout_marginTop="@dimen/content_margin_inside"
+            android:src="@mipmap/img_default_icon"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="2dip"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <LinearLayout
+            android:id="@+id/share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/content_margin_outside" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/top_share_btn"
+                android:clickable="false" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_outside"
+        android:gravity="bottom|center_horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/content_margin_inside"
+            android:text="李梦瑶"
+            android:textColor="@color/text_color0"
+            android:textSize="@dimen/text_size0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设计总监"
+            android:textColor="@color/text_color5"
+            android:textSize="@dimen/text_size5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_outside"
+        android:gravity="center" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/content_margin_inside"
+            android:src="@mipmap/shop_adress_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="李梦瑶"
+            android:textColor="@color/text_color6"
+            android:textSize="@dimen/text_size3" />
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:layout_marginRight="@dimen/content_margin_outside"
+            android:background="@color/text_color6" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/content_margin_inside"
+            android:src="@mipmap/shop_details_adress_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设计总监"
+            android:textColor="@color/text_color6"
+            android:textSize="@dimen/text_size3" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_outside"
+        android:scaleType="fitXY"
+        android:src="@mipmap/barber_details_line" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/content_margin_outside"
+        android:paddingRight="@dimen/content_margin_outside"
+        android:paddingTop="@dimen/content_margin_outside"
+        android:text="标签：美丽生活从这里开始，选择审美造型，打造属于你的美丽。"
+        android:textColor="@color/text_color6"
+        android:textSize="@dimen/text_size3" />
+
+    <com.njk.view.MyGridView
+        android:id="@+id/barber_face_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="90dp"
+        android:fadingEdge="none"
+        android:focusable="false"
+        android:gravity="center"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="6"
+        android:padding="@dimen/content_margin_outside"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth" >
+    </com.njk.view.MyGridView>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/barber_details_line" />
+
+</LinearLayout>

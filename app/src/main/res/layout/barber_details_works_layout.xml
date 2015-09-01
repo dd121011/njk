@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.njk.view.MyGridView
+        android:id="@+id/barber_works_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:focusable="false"
+        android:gravity="center"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:padding="@dimen/content_margin_outside"
+        android:horizontalSpacing="@dimen/content_margin_outside"
+        android:verticalSpacing="@dimen/content_margin_outside"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth" >
+    </com.njk.view.MyGridView>
+
+</LinearLayout>

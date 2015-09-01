@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/content_margin_outside" 
+        android:background="@color/text_color0">
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/face_img"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_icon"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="0dip"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="王猛瞄"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin_inside"
+                android:text="丽人由我开始"
+                android:textColor="@color/text_color3"
+                android:textSize="@dimen/text_size3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/text_color6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal"
+        android:padding="@dimen/content_margin_outside"
+        android:layout_marginBottom="@dimen/content_margin_outside"
+        android:gravity="center_vertical"
+        android:background="@color/text_color0">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/my_client_subscribe_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2456次预约"
+            android:textColor="@color/text_color5"
+            android:textSize="@dimen/text_size4" 
+            android:layout_marginLeft="@dimen/content_margin_inside"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客情维护"
+            android:textColor="@color/text_color5"
+            android:textSize="@dimen/text_size4" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/yellow_next_icon"
+            android:layout_marginLeft="@dimen/content_margin_inside" />
+    </LinearLayout>
+
+</LinearLayout>

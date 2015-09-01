@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_margin_outside"
+        android:orientation="vertical" 
+        android:background="@color/text_color0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/content_margin_inside" >
+
+            <ImageView
+                android:id="@+id/item_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/test1" />
+
+            <ImageView
+                android:id="@+id/item_border_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/event_border" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:paddingLeft="@dimen/content_margin_vertical"
+            android:paddingRight="@dimen/content_margin_vertical"
+            android:paddingBottom="@dimen/content_margin_outside">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="审美造型上地店送200元代金券"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size1" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginBottom="@dimen/content_margin_outside"
+                android:layout_marginTop="@dimen/content_margin_outside"
+                android:background="@color/text_color6" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="活动时间：8-29-31"
+                    android:textColor="@color/text_color1"
+                    android:textSize="@dimen/text_size0" />
+
+                <Button
+                    android:id="@+id/event_get_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/event_get_btn"
+                    android:text="去看看"
+                    android:textColor="@color/text_color0"
+                    android:textSize="@dimen/text_size1" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

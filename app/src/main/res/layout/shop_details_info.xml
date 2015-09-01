@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/text_color0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:padding="@dimen/content_margin_outside">
+
+        <ImageView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/test1" />
+
+        <ImageView
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/test1"
+            android:layout_marginLeft="@dimen/content_margin_outside"/>
+    </LinearLayout>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_margin_outside"
+        android:lineSpacingExtra="@dimen/content_margin_inside"
+        android:text="首次采用双曲面侧屏设计的三星GALAXY S6 edge虽然价格昂贵，但却似乎受到了更多消费者的欢迎。为此，三星准备调整产能技术，生产更多的GALAXY S6 edge来满足市场需求。根据韩国网站etnews的报道称，三星GALAXY S6和S6 edge的销量预计可打成平手，而三星正计划三倍生产GALAXY S6 edge。"/>
+
+</LinearLayout>

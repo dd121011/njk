@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <com.njk.view.SelectableRoundedImageView
+        android:id="@+id/face_img"
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:src="@mipmap/img_default_icon"
+        android:scaleType="centerCrop"
+        app:sriv_border_color="@color/text_color0"
+        app:sriv_border_width="0dip"
+        app:sriv_left_bottom_corner_radius="48dip"
+        app:sriv_left_top_corner_radius="16dip"
+        app:sriv_oval="true"
+        app:sriv_right_bottom_corner_radius="16dip"
+        app:sriv_right_top_corner_radius="0dip" />
+
+    <TextView
+        android:id="@+id/name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_inside"
+        android:text="5054"
+        android:textColor="@color/text_color6"
+        android:textSize="@dimen/text_size5" />
+
+</LinearLayout>

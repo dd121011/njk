@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_margin_outside"
+        android:background="@color/text_color0"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/content_margin_outside"
+        android:paddingRight="@dimen/content_margin_outside" >
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/face_img_tmp"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_marginLeft="@dimen/content_margin_vertical"
+            android:layout_marginTop="@dimen/content_margin_inside"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_icon"
+            android:visibility="invisible"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="@dimen/content_margin_inside"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <LinearLayout
+            android:id="@+id/title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/face_img_tmp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/content_margin_outside"
+            android:paddingLeft="@dimen/content_margin_outside"
+            android:paddingRight="@dimen/content_margin_inside"
+            android:paddingTop="@dimen/content_margin_outside" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/near_item_text_bg"
+                android:text="店长"
+                android:textColor="@color/text_color1"
+                android:textSize="@dimen/text_size1"
+                android:visibility="gone" />
+
+            <com.njk.view.CustomListView
+                android:id="@+id/list_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+            </com.njk.view.CustomListView>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/content_margin_inside"
+                android:scaleType="fitXY"
+                android:src="@mipmap/adress_icon" >
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7.8km"
+                android:textColor="@color/text_color5"
+                android:textSize="@dimen/text_size2" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/item_img"
+            android:layout_width="fill_parent"
+            android:layout_height="160dip"
+            android:layout_below="@id/title_layout"
+            android:scaleType="fitXY"
+            android:src="@mipmap/test1" >
+        </ImageView>
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/face_img"
+            android:layout_width="60dip"
+            android:layout_height="60dip"
+            android:layout_marginLeft="@dimen/content_margin_vertical"
+            android:layout_marginTop="@dimen/content_margin_inside"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_icon"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="@dimen/content_margin_inside"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/content_margin_outside"
+            android:paddingLeft="@dimen/content_margin_inside"
+            android:paddingRight="@dimen/content_margin_inside"
+            android:paddingTop="@dimen/content_margin_outside"
+            android:layout_below="@id/item_img" >
+
+            <TextView
+                android:id="@+id/title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="王小二农家院"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/content_margin_inside"
+                android:scaleType="fitXY"
+                android:src="@mipmap/discount_icon" >
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥234"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size5" />
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/content_margin_inside"
+                android:layout_marginRight="@dimen/content_margin_inside"
+                android:background="@color/text_color0" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/content_margin_inside"
+                android:scaleType="fitXY"
+                android:src="@mipmap/enjoy_icon" >
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="550345"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size5" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

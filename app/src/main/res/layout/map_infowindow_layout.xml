@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dip"
+    android:layout_height="100dip"
+    android:background="@drawable/map_infowindow_bg"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:padding="@dimen/content_margin_outside" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <com.njk.view.SelectableRoundedImageView
+                android:id="@+id/face_img"
+                android:layout_width="45dip"
+                android:layout_height="45dip"
+                android:src="@mipmap/img_default_icon"
+                app:sriv_border_color="@color/text_color0"
+                app:sriv_border_width="0dip"
+                app:sriv_left_bottom_corner_radius="48dip"
+                app:sriv_left_top_corner_radius="16dip"
+                app:sriv_oval="true"
+                app:sriv_right_bottom_corner_radius="16dip"
+                app:sriv_right_top_corner_radius="0dip" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/map_infowindow_like_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="214545"
+                    android:textColor="@color/text_color5"
+                    android:textSize="@dimen/text_size5" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/content_margin_outside"
+                android:singleLine="true"
+                android:text="审美造型上地店"
+                android:textColor="@color/text_color2"
+                android:textSize="@dimen/text_size1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="东三环中路39号建外大街"
+                android:textColor="@color/text_color3"
+                android:textSize="@dimen/text_size4" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="60dip"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingTop="50dip"
+        android:text="517.8km"
+        android:textColor="@color/text_color0"
+        android:textSize="@dimen/text_size5" />
+
+</LinearLayout>

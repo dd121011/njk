@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/text_color0"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_inside"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/content_margin_outside" >
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/face_img"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_icon"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="0dip"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="王猛瞄"
+                    android:textColor="@color/text_color2"
+                    android:textSize="@dimen/text_size2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/content_margin_inside"
+                    android:layout_weight="1"
+                    android:text="/美发师"
+                    android:textColor="@color/text_color2"
+                    android:textSize="@dimen/text_size5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015-4-5"
+                    android:textColor="@color/text_color3"
+                    android:textSize="@dimen/text_size5" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/content_margin_inside"
+                android:text="丽人由我开始"
+                android:textColor="@color/text_color3"
+                android:textSize="@dimen/text_size3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="@dimen/content_margin_outside"
+        android:background="@color/text_color6" />
+
+</LinearLayout>

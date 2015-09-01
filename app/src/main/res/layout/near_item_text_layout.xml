@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/near_item_text_bg"
+        android:text="农家"
+        android:textColor="@color/text_color3"
+        android:textSize="@dimen/text_size3" 
+        android:paddingLeft="@dimen/content_margin_outside"
+        android:paddingRight="@dimen/content_margin_outside"
+        android:layout_marginRight="@dimen/content_margin_inside"/>
+
+</LinearLayout>

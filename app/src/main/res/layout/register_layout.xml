@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/text_color9"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/content_margin_vertical"
+        android:background="@color/text_color0"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/content_margin_vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/phone_icon" />
+
+            <EditText
+                android:id="@+id/phone_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_margin_outside"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="请填写手机号"
+                android:textColorHint="@color/text_color4"
+                android:textSize="@dimen/text_size1" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="@dimen/content_margin_vertical"
+            android:background="@color/text_color6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/content_margin_vertical" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/verification_code_icon" />
+
+            <EditText
+                android:id="@+id/verify_code_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_margin_outside"
+                android:layout_marginRight="@dimen/content_margin_outside"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="请填写验证码"
+                android:textColorHint="@color/text_color4"
+                android:textSize="@dimen/text_size1" />
+
+            <TextView
+                android:id="@+id/get_verify_code"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="@color/text_color5"
+                android:textSize="@dimen/text_size2" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dip"
+        android:background="@mipmap/login_btn_bg"
+        android:padding="@dimen/content_margin_inside"
+        android:text="下一步"
+        android:textColor="@color/text_color0"
+        android:textSize="@dimen/text_size1" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/content_margin_vertical" 
+        android:layout_marginTop="@dimen/content_margin_outside">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/selected_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:background="@android:color/transparent"
+            android:text="我已经同意《云美客使用协议和隐私政策》"
+            android:textColor="@color/text_color4"
+            android:textSize="@dimen/text_size5" />
+    </LinearLayout>
+
+</LinearLayout>

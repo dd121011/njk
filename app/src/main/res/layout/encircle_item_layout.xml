@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:background="@color/text_color0"
+        android:orientation="horizontal"
+        android:padding="@dimen/content_margin_inside" >
+
+        <ImageView
+            android:id="@+id/item_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/encircle_shadow"
+            android:gravity="center_vertical"
+            android:paddingTop="@dimen/content_margin_vertical" 
+            android:paddingLeft="@dimen/content_margin_outside"
+            android:paddingRight="@dimen/content_margin_outside"
+            android:paddingBottom="@dimen/content_margin_inside">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="小黑猫"
+                android:textColor="@color/text_color0"
+                android:textSize="@dimen/text_size5" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/encircle_like_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_margin_inside"
+                android:text="550345"
+                android:textColor="@color/text_color0"
+                android:textSize="@dimen/text_size5" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/content_margin_inside"
+        android:paddingRight="@dimen/content_margin_inside"
+        android:paddingBottom="@dimen/content_margin_inside"
+        android:background="@color/text_color0" >
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/face_img"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_icon"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="5dip"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_margin_inside"
+            android:text="张静己"
+            android:textColor="@color/text_color2"
+            android:textSize="@dimen/text_size3" 
+            android:layout_weight="1"/>
+		<ImageView 
+		    android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/zan_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/content_margin_inside"
+            android:text="推荐"
+            android:textColor="@color/text_color3"
+            android:textSize="@dimen/text_size5" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/tmp_view"
+        android:layout_width="match_parent"
+        android:layout_height="12dip" 
+        android:visibility="gone"/>
+
+</LinearLayout>

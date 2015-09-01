@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:id="@+id/client_foot_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/tab_background"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/cilent_guestbook_btn"
+                android:gravity="center"
+                android:text="马上留言"
+                android:textColor="@color/text_color0"
+                android:textSize="@dimen/text_size3" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/content_margin_outside"
+                android:background="@mipmap/client_remark_btn"
+                android:gravity="center"
+                android:text="添加备注"
+                android:textColor="@color/text_color5"
+                android:textSize="@dimen/text_size3" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/client_foot_layout"
+            android:background="@color/text_color9"
+            android:fadingEdge="none"
+            android:fillViewport="true" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true" >
+
+                    <ImageView
+                        android:id="@+id/personal_info_bg"
+                        android:layout_width="fill_parent"
+                        android:layout_height="220dip"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/personal_info_bg" />
+
+                    <TextView
+                        android:id="@+id/sign_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/personal_info_bg"
+                        android:layout_marginBottom="@dimen/content_margin_vertical"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="@dimen/content_margin_inside"
+                        android:maxLines="2"
+                        android:paddingLeft="@dimen/content_margin_outside"
+                        android:paddingRight="@dimen/content_margin_outside"
+                        android:text="擅长：韩式梨花烫，洗剪吹，离子烫！"
+                        android:textColor="@color/text_color0"
+                        android:textSize="@dimen/text_size2" />
+
+                    <View
+                        android:id="@+id/divider_line"
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:layout_above="@id/sign_text"
+                        android:layout_marginBottom="@dimen/content_margin_vertical"
+                        android:layout_marginTop="@dimen/content_margin_outside"
+                        android:background="#40e5e5e5" />
+
+                    <TextView
+                        android:id="@+id/sign_text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/divider_line"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/content_margin_inside"
+                        android:text="签名：喜欢都市丽人"
+                        android:textColor="@color/text_color0"
+                        android:textSize="@dimen/text_size2" />
+
+                    <LinearLayout
+                        android:id="@+id/tel_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/sign_text2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/content_margin_inside"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/client_tel_icon" />
+
+                        <TextView
+                            android:id="@+id/personal_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="13898765766"
+                            android:textColor="@color/text_color0"
+                            android:textSize="@dimen/text_size2" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/content_margin_outside"
+                            android:src="@mipmap/client_birthday_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1990.5.6"
+                            android:textColor="@color/text_color0"
+                            android:textSize="@dimen/text_size2" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/enjoy_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/tel_layout"
+                        android:layout_marginTop="@dimen/content_margin_outside"
+                        android:gravity="center"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/content_margin_inside"
+                            android:text="王艳红"
+                            android:textColor="@color/text_color0"
+                            android:textSize="@dimen/text_size3" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/content_margin_inside"
+                            android:src="@mipmap/women_icon" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/face_layout"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@id/enjoy_layout"
+                        android:layout_marginTop="@dimen/content_margin_outside" >
+
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/face_img_bg" />
+
+                        <com.njk.view.SelectableRoundedImageView
+                            android:id="@+id/face_img"
+                            android:layout_width="60dip"
+                            android:layout_height="60dip"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="@dimen/content_margin_inside"
+                            android:layout_marginTop="@dimen/content_margin_outside"
+                            android:src="@mipmap/img_default_icon"
+                            app:sriv_border_color="@color/text_color0"
+                            app:sriv_border_width="0dip"
+                            app:sriv_left_bottom_corner_radius="48dip"
+                            app:sriv_left_top_corner_radius="16dip"
+                            app:sriv_oval="true"
+                            app:sriv_right_bottom_corner_radius="16dip"
+                            app:sriv_right_top_corner_radius="0dip" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/text_color0"
+                    android:gravity="center"
+                    android:padding="@dimen/content_margin_inside"
+                    android:text="留言板"
+                    android:textColor="@color/text_color4"
+                    android:textSize="@dimen/text_size1" />
+
+                <com.njk.view.MyFullListView
+                    android:id="@+id/list_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/content_margin_vertical"
+                    android:background="@color/text_color0"
+                    android:divider="@null"
+                    android:orientation="vertical" >
+                </com.njk.view.MyFullListView>
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</LinearLayout>

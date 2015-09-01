@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/top_title_layout" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/text_color9"
+        android:fadingEdge="none"
+        android:fillViewport="true" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="名称"
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:background="@color/text_color0"
+                        android:hint="万里采摘园"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="分类"
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:background="@color/text_color0"
+                        android:hint="选择分类"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="地址"
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:layout_weight="1"
+                        android:background="@color/text_color0"
+                        android:hint="输入地址"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+
+                    <View
+                        android:layout_width="1dip"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:layout_marginRight="@dimen/content_margin_outside"
+                        android:background="@color/text_color6" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:layout_marginRight="@dimen/content_margin_vertical"
+                        android:src="@mipmap/route_end_icon" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="电话"
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:background="@color/text_color0"
+                        android:hint="输入手机号"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text=" QQ  "
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:background="@color/text_color0"
+                        android:hint="请输入你的QQ号"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="标签"
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:background="@color/text_color0"
+                        android:hint="建议填写店内项目与打折信息"
+                        android:lines="3"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/text_color0"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/content_margin_outside" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/add_njy_dotted" 
+                        android:visibility="invisible"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="简介"
+                        android:textColor="@color/text_color2"
+                        android:textSize="@dimen/text_size3" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/content_margin_outside"
+                        android:background="@color/text_color0"
+                        android:hint="建议填写店铺简介"
+                        android:lines="3"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size3" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/content_margin_outside"
+                    android:background="@color/text_color6" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+                android:padding="@dimen/content_margin_outside"
+                android:text="最多添加8张图片"/>
+
+            <GridView
+                android:id="@+id/noScrollgridview"
+                android:layout_width="290dp"
+                android:layout_height="350dp"
+                android:horizontalSpacing="@dimen/content_margin_outside"
+                android:numColumns="4"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/content_margin_outside"
+                android:layout_margin="@dimen/content_margin_outside" >
+            </GridView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
