@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
@@ -55,45 +54,45 @@ public class WelcomActivity extends BaseActivity {
 		}, 2000);
 		
 		inButton = (Button) findViewById(R.id.come_in);
-		
+		inButton.setVisibility(View.GONE);
 		
 	       mAdapter = new GuideFragmentAdapter(getSupportFragmentManager());
-	
+
 	        mPager = (ViewPager)findViewById(R.id.pager);
 	        mPager.setAdapter(mAdapter);
-	
+//
 	        mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
 	        mIndicator.setViewPager(mPager);
 	        mIndicator.setOnPageChangeListener(new OnPageChangeListener() {
-				
+
 				@Override
 				public void onPageSelected(int arg0) {
 					if(arg0 == mPager.getAdapter().getCount()-1){
-						inButton.setVisibility(View.VISIBLE);
-						inButton.setOnClickListener(new OnClickListener() {			
-							@Override
-							public void onClick(View arg0) {
-								startNextActivity();
-							}
-				    	});	
+//						inButton.setVisibility(View.VISIBLE);
+//						inButton.setOnClickListener(new OnClickListener() {
+//							@Override
+//							public void onClick(View arg0) {
+//								startNextActivity();
+//							}
+//				    	});
 					}else{
 						inButton.setVisibility(View.GONE);
 					}
 				}
-				
+
 				@Override
 				public void onPageScrolled(int arg0, float arg1, int arg2) {
 					// TODO Auto-generated method stub
-					
+
 				}
-				
+
 				@Override
 				public void onPageScrollStateChanged(int arg0) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
-	        
+
 	}
 
 	private void startNextActivity(){
@@ -108,7 +107,7 @@ public class WelcomActivity extends BaseActivity {
 			this.finish();
 		}
 	}
-	
+
 	private void startMainTabActivity() {
 //		Intent intent = new Intent(context,CategoryTestActivity.class);
 		Intent intent = new Intent(context,MainTabActivity.class);

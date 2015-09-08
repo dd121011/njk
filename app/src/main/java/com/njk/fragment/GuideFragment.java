@@ -1,5 +1,6 @@
 package com.njk.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -11,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.njk.R;
+import com.njk.activity.LoginActivity;
+import com.njk.activity.MainTabActivity;
+import com.njk.utils.Config;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
@@ -78,6 +82,15 @@ public final class GuideFragment extends Fragment {
         layout.setGravity(Gravity.CENTER);
         layout.addView(imageView,params);
 
+        if(this.imageId == R.mipmap.guide_03){
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startNextActivity();
+                }
+            });
+        }
+
         return layout;
     }
 
@@ -85,5 +98,27 @@ public final class GuideFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_CONTENT, mContent);
+    }
+
+    private void startNextActivity(){
+        boolean isLogin = false;
+        if(isLogin){
+            startMainTabActivity();
+        }else{
+            Intent intent = new Intent(getActivity(),LoginActivity.class);
+//			Intent intent = new Intent(context,CategoryTestActivity.class);
+            getActivity().startActivity(intent);
+            Config.setHideGuided(getActivity(), true);
+            getActivity().finish();
+        }
+    }
+
+
+    private void startMainTabActivity() {
+//		Intent intent = new Intent(context,CategoryTestActivity.class);
+        Intent intent = new Intent(getActivity(),MainTabActivity.class);
+        getActivity().startActivity(intent);
+        Config.setHideGuided(getActivity(), true);
+        getActivity().finish();
     }
 }

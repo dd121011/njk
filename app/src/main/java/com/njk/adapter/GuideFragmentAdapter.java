@@ -9,12 +9,11 @@ import com.njk.fragment.GuideFragment;
 import com.njk.viewpager.IconPagerAdapter;
 
 public class GuideFragmentAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
-    protected static final String[] CONTENT = new String[] { "This", "Is", "A", "Test", };
+    protected static final String[] CONTENT = new String[] { "This", "Is", "Test", };
     protected static final int[] ICONS = new int[] {
-            R.mipmap.test1,
-            R.mipmap.test1,
-            R.mipmap.test1,
-            R.mipmap.test1
+            R.mipmap.guide_01,
+            R.mipmap.guide_02,
+            R.mipmap.guide_03
     };
 
     private int mCount = CONTENT.length;
