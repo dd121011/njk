@@ -18,12 +18,11 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.njk.R;
 import com.njk.BaseActivity;
 import com.njk.MApplication;
+import com.njk.R;
 import com.njk.bean.ProvinceBean;
 import com.njk.db.ProvinceDBUtils;
-import com.njk.fragment.DiscoverFragmentPage;
 import com.njk.fragment.EncircleFragmentPage;
 import com.njk.fragment.NearFragmentPage;
 import com.njk.fragment.PersonalFragmentPage;
@@ -65,10 +64,12 @@ public class MainTabActivity extends BaseActivity{
 //									 R.drawable.tab_subscribe_btn,R.drawable.tab_user_btn};
 //	//Tab选项卡的文字
 //	private String[] mTextviewArray = {"附近", "发现", "炫美圈", "预约单", "我的"};
-	private Class[] fragmentArray = {NearFragmentPage.class,DiscoverFragmentPage.class,EncircleFragmentPage.class,PersonalFragmentPage.class};
-	private int[] mImageViewArray = {R.drawable.tab_near_btn,R.drawable.tab_discover_btn,R.drawable.tab_encircle_btn,R.drawable.tab_user_btn};
-	private String[] mTextviewArray = {"附近", "发现", "晒农家", "我的"};
-	
+//	private Class[] fragmentArray = {NearFragmentPage.class,DiscoverFragmentPage.class,EncircleFragmentPage.class,PersonalFragmentPage.class};
+	private Class[] fragmentArray = {NearFragmentPage.class,EncircleFragmentPage.class,PersonalFragmentPage.class};
+//	private int[] mImageViewArray = {R.drawable.tab_near_btn,R.drawable.tab_discover_btn,R.drawable.tab_encircle_btn,R.drawable.tab_user_btn};
+	private int[] mImageViewArray = {R.drawable.tab_near_btn,R.drawable.tab_encircle_btn,R.drawable.tab_user_btn};
+//	private String[] mTextviewArray = {"附近", "发现", "晒农家", "我的"};
+	private String[] mTextviewArray = {"附近", "优惠券", "我的"};
 	private Activity activity;
 	private RequestQueue mQueue;
 	
