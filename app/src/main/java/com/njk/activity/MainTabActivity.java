@@ -26,7 +26,7 @@ import com.njk.MApplication;
 import com.njk.R;
 import com.njk.bean.ProvinceBean;
 import com.njk.db.ProvinceDBUtils;
-import com.njk.fragment.EncircleFragmentPage;
+import com.njk.fragment.CouponFragmentPage;
 import com.njk.fragment.NearFragmentPage;
 import com.njk.fragment.PersonalFragmentPage;
 import com.njk.net.RequestCommandEnum;
@@ -67,7 +67,7 @@ public class MainTabActivity extends BaseActivity{
 //	//Tab选项卡的文字
 //	private String[] mTextviewArray = {"附近", "发现", "炫美圈", "预约单", "我的"};
 //	private Class[] fragmentArray = {NearFragmentPage.class,DiscoverFragmentPage.class,EncircleFragmentPage.class,PersonalFragmentPage.class};
-	private Class[] fragmentArray = {NearFragmentPage.class,EncircleFragmentPage.class,PersonalFragmentPage.class};
+	private Class[] fragmentArray = {NearFragmentPage.class,CouponFragmentPage.class,PersonalFragmentPage.class};
 //	private int[] mImageViewArray = {R.drawable.tab_near_btn,R.drawable.tab_discover_btn,R.drawable.tab_encircle_btn,R.drawable.tab_user_btn};
 	private int[] mImageViewArray = {R.drawable.tab_near_btn,R.drawable.tab_encircle_btn,R.drawable.tab_user_btn};
 //	private String[] mTextviewArray = {"附近", "发现", "晒农家", "我的"};
