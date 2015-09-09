@@ -3,6 +3,8 @@ package com.njk.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentTabHost;
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -31,7 +34,6 @@ import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.photo.util.Res;
 import com.njk.utils.Config;
-import com.njk.utils.DialogUtil;
 import com.njk.utils.LocalDisplay;
 
 import org.json.JSONObject;
@@ -137,16 +139,32 @@ public class MainTabActivity extends BaseActivity{
 		
 		return view;
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-				DialogUtil.appExitDialog(this);			
+			ExitProgram();
 			return true;
 		}
-
 		return super.onKeyDown(keyCode, event);
 	}
+	private boolean isExit = false;
+	public void ExitProgram() {
+		if (!isExit) {
+			isExit = true;
+			Toast.makeText(this,"再按一次\"退出\"程序",Toast.LENGTH_SHORT).show();
+			exitHandler.sendEmptyMessageDelayed(0, 2000);
+		} else {
+			this.finish();
+		}
+	}
+
+	public Handler exitHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			isExit = false;
+		};
+	};
 	
 	
 	public void updateProvinceData() {

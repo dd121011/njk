@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.baidu.location.BDLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.R;
@@ -54,6 +55,7 @@ import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.utils.Config;
 import com.njk.utils.DialogUtil;
+import com.njk.utils.LocationClientUtils;
 import com.njk.utils.Utils;
 
 import org.json.JSONObject;
@@ -195,7 +197,10 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 	        if(!TextUtils.isEmpty(city)){
 	        	currCity.setText(city);
 	        	setCurProvinceCategoryGroup(city);
-	        };
+	        }else{
+				LocationClientUtils.getInstance().addListenter(locationListener);
+				LocationClientUtils.getInstance().start();
+			};
 			
 			cityManger = CurrCityManager.getInstance();
 			cityManger.registerChangerCurrCityListener(currCityListener);
@@ -268,7 +273,13 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 	private void setCurProvinceCategoryGroup(String currCity){
 		ProvinceBean provinceBean = ProvinceDBUtils.getProvince(activity, currCity);
 	}
-	
+
+	@Override
+	public void onDestroy() {
+		LocationClientUtils.getInstance().removeListener(locationListener);
+		super.onDestroy();
+	}
+
 	PopupWindow categoryGroupPop;
 	boolean isShowPopup;
 	ListView categoryListView,categorySubListView;
@@ -552,6 +563,25 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 			});			
 		}	
 	};
-	
-	
+
+	private LocationClientUtils.LocatonListener locationListener = new LocationClientUtils.LocatonListener() {
+
+		@Override
+		public void onReceiveLocation(final BDLocation location) {
+
+			activity.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					if (location != null) {
+//						cityManger.setCurrCity(context, arg0.getCity());
+						Config.setLocationCity(activity, location.getCity());
+						if(!TextUtils.isEmpty(location.getCity())){
+							currCity.setText(location.getCity());
+							setCurProvinceCategoryGroup(location.getCity());
+						};
+					}
+				}
+			});
+		}
+	};
 }
