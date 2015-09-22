@@ -22,7 +22,7 @@
             android:layout_marginTop="@dimen/content_margin_inside"
             android:scaleType="centerCrop"
             android:src="@mipmap/img_default_icon"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:sriv_border_color="@color/text_color0"
             app:sriv_border_width="@dimen/content_margin_inside"
             app:sriv_left_bottom_corner_radius="48dip"
@@ -39,7 +39,6 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="@dimen/content_margin_outside"
-            android:paddingLeft="@dimen/content_margin_outside"
             android:paddingRight="@dimen/content_margin_inside"
             android:paddingTop="@dimen/content_margin_outside" >
 
@@ -58,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
             </com.njk.view.CustomListView>
 
             <ImageView
@@ -70,6 +69,7 @@
             </ImageView>
 
             <TextView
+                android:id="@+id/range_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="7.8km"
@@ -100,7 +100,8 @@
             app:sriv_left_top_corner_radius="16dip"
             app:sriv_oval="true"
             app:sriv_right_bottom_corner_radius="16dip"
-            app:sriv_right_top_corner_radius="0dip" />
+            app:sriv_right_top_corner_radius="0dip"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,6 +132,7 @@
             </ImageView>
 
             <TextView
+                android:id="@+id/discount_num_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥234"
@@ -153,6 +155,7 @@
             </ImageView>
 
             <TextView
+                android:id="@+id/enjoy_num_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="550345"

@@ -11,16 +11,33 @@ import android.view.WindowManager.LayoutParams;
 
 import com.njk.R;
 import com.njk.WelcomActivity;
+import com.njk.view.LoadingDialog;
 
 
 public class DialogUtil {
+
+	private static LoadingDialog loadingDialog;
+
+	public static void progressDialogShow(Activity context, String message){
+		progressDialogDismiss();
+		loadingDialog = new LoadingDialog(context,R.style.LoadingDialog);
+		loadingDialog.setLoadingText(message);
+		loadingDialog.show();
+	}
+
+	public static void progressDialogDismiss(){
+		if(loadingDialog!=null){
+			loadingDialog.dismiss();
+			loadingDialog= null;
+		}
+	}
 
 	/**
      * 全局性进度对话框
      */
 	private static ProgressDialog progressDialog;
-	public static void progressDialogShow(Activity context, String message){
-		progressDialogDismiss();
+	public static void progressDialogShow2(Activity context, String message){
+		progressDialogDismiss2();
 		
 		LayoutParams layoutParams = new LayoutParams();
 		layoutParams.width = LayoutParams.WRAP_CONTENT;
@@ -41,7 +58,7 @@ public class DialogUtil {
 		progressDialog.show();
 	}
 	
-	public static void progressDialogDismiss(){
+	public static void progressDialogDismiss2(){
 		try {progressDialog.dismiss();} catch (Exception e) {};
 	}
 	

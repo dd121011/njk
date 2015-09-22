@@ -68,6 +68,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.njk.activity.DetailsWebActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.njk.activity.BarberDetailsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >

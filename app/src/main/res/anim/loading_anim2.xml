@@ -2,10 +2,10 @@
 <animation-list android:oneshot="false"
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item android:duration="150" android:drawable="@mipmap/ic_loading01" />
-	<item android:duration="150" android:drawable="@mipmap/ic_loading02" />
-	<item android:duration="150" android:drawable="@mipmap/ic_loading03" />
-	<item android:duration="150" android:drawable="@mipmap/ic_loading04" />
-	<item android:duration="150" android:drawable="@mipmap/ic_loading05" />
+	<item android:duration="300" android:drawable="@mipmap/ic_loading01" />
+	<item android:duration="300" android:drawable="@mipmap/ic_loading02" />
+	<item android:duration="300" android:drawable="@mipmap/ic_loading03" />
+	<item android:duration="300" android:drawable="@mipmap/ic_loading04" />
+	<item android:duration="300" android:drawable="@mipmap/ic_loading05" />
 
 </animation-list> 

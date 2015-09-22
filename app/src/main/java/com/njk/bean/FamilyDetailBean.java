@@ -17,6 +17,7 @@ public class FamilyDetailBean implements Serializable{
 	private String view;
 	private String per_capita;
 	private String intro;
+	private String feature;
 	private String stay;
 	private String recreation;
 	private String route;
@@ -121,6 +122,15 @@ public class FamilyDetailBean implements Serializable{
 	public void setIntro(String intro) {
 		this.intro = intro;
 	}
+
+	public String getFeature() {
+		return feature;
+	}
+
+	public void setFeature(String feature) {
+		this.feature = feature;
+	}
+
 	public String getStay() {
 		return stay;
 	}
@@ -241,9 +251,45 @@ public class FamilyDetailBean implements Serializable{
 	public void setCoupon_id(String coupon_id) {
 		this.coupon_id = coupon_id;
 	}
+
 	@Override
 	public String toString() {
-		return "FamilyDetailBean [id=" + id + ", title=" + title + ", img=" + img + ", name=" + name + ", mobile=" + mobile + ", phone=" + phone + ", other=" + other + ", address=" + address + ", province=" + province + ", city=" + city + ", scenic=" + scenic + ", view=" + view + ", per_capita=" + per_capita + ", intro=" + intro + ", stay=" + stay + ", recreation=" + recreation + ", route=" + route + ", special=" + special + ", explain=" + explain + ", status=" + status + ", create_time=" + create_time + ", edit_time=" + edit_time + ", lat=" + lat + ", lng=" + lng + ", tag=" + tag + ", category_id=" + category_id + ", attest=" + attest + ", recommend=" + recommend + ", due_time=" + due_time + ", due_year=" + due_year + ", comment=" + comment + ", is_fav=" + is_fav + ", money=" + money
-				+ ", coupon_id=" + coupon_id + "]";
+		return "FamilyDetailBean{" +
+				"id='" + id + '\'' +
+				", title='" + title + '\'' +
+				", img='" + img + '\'' +
+				", name='" + name + '\'' +
+				", mobile='" + mobile + '\'' +
+				", phone='" + phone + '\'' +
+				", other='" + other + '\'' +
+				", address='" + address + '\'' +
+				", province='" + province + '\'' +
+				", city='" + city + '\'' +
+				", scenic='" + scenic + '\'' +
+				", view='" + view + '\'' +
+				", per_capita='" + per_capita + '\'' +
+				", intro='" + intro + '\'' +
+				", feature='" + feature + '\'' +
+				", stay='" + stay + '\'' +
+				", recreation='" + recreation + '\'' +
+				", route='" + route + '\'' +
+				", special='" + special + '\'' +
+				", explain='" + explain + '\'' +
+				", status='" + status + '\'' +
+				", create_time='" + create_time + '\'' +
+				", edit_time='" + edit_time + '\'' +
+				", lat='" + lat + '\'' +
+				", lng='" + lng + '\'' +
+				", tag='" + tag + '\'' +
+				", category_id='" + category_id + '\'' +
+				", attest='" + attest + '\'' +
+				", recommend='" + recommend + '\'' +
+				", due_time='" + due_time + '\'' +
+				", due_year='" + due_year + '\'' +
+				", comment='" + comment + '\'' +
+				", is_fav='" + is_fav + '\'' +
+				", money='" + money + '\'' +
+				", coupon_id='" + coupon_id + '\'' +
+				'}';
 	}
 }

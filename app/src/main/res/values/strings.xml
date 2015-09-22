@@ -7,8 +7,9 @@
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="app_exit">确定退出吗？</string>
-    <string name="is_loading">正在为您加载数据…</string>
-    
+    <!--<string name="is_loading">正在为您加载数据…</string>-->
+    <string name="is_loading">loading</string>
+
     
     <!-- 图片浏览 -->
     <string name="only_choose_num">超出可选图片张数</string>
@@ -20,4 +21,7 @@
     <string name="unfinished">完成</string> 
     <string name="camera_cancel">取消</string>
     <string name="no_photo">相册没有图片</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

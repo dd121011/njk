@@ -56,7 +56,7 @@ public class NearListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int arg0) {
+	public NearBean getItem(int arg0) {
 		// TODO Auto-generated method stub
 		return nearBeanList.get(arg0);
 	}
@@ -81,26 +81,33 @@ public class NearListAdapter extends BaseAdapter {
 		
 		itemImg.getLayoutParams().width = layoutParams.width;
 		itemImg.getLayoutParams().height = layoutParams.height;
-		
-//		ImageView faceImg = ViewHolder.get(arg1, R.id.face_img);
-//		ImageLoader.getInstance().displayImage("drawable://" + R.drawable.face_test1, faceImg, options);	
-		ImageLoader.getInstance().displayImage("http://img0.bdstatic.com/img/image/4a75a05f8041bf84df4a4933667824811426747915.jpg", faceImg, options);
-		ImageLoader.getInstance().displayImage(Global.base_url+item.img, itemImg, options);
-		
+
+//		ImageLoader.getInstance().displayImage("http://img0.bdstatic.com/img/image/4a75a05f8041bf84df4a4933667824811426747915.jpg", faceImg, options);
+		ImageLoader.getInstance().displayImage(Global.base_url + item.img, itemImg, options);
+
+		List<String> tag = item.tag;
 		CustomListView list = ViewHolder.get(arg1, R.id.list_layout);
-		list.setAdapter(new TextAdapter(context, textArra));
-		
+		list.setAdapter(new TextAdapter(context, tag));
+
+		TextView range_text = ViewHolder.get(arg1,R.id.range_text);
+		range_text.setText(item.range+"km");
+
 		TextView titleText = ViewHolder.get(arg1, R.id.title_text);
 		titleText.setText(item.title);
+
+		TextView discount_num_text = ViewHolder.get(arg1,R.id.discount_num_text);
+		discount_num_text.setText("￥"+item.per_capita);
+
+		TextView enjoy_num_text = ViewHolder.get(arg1,R.id.enjoy_num_text);
+		enjoy_num_text.setText(item.view);
 		
 		return arg1;
 	}
-	
-	String[] textArra = {"采摘","垂钓","祈福","农家"};
+
 	class TextAdapter extends BaseAdapter{
-		String[] texts = null;
+		List<String> texts = null;
 		Activity context = null;
-		public TextAdapter(Activity context, String[] textArra) {
+		public TextAdapter(Activity context, List<String> textArra) {
 			texts = textArra;
 			this.context = context;
 		}
@@ -108,13 +115,13 @@ public class NearListAdapter extends BaseAdapter {
 		@Override
 		public int getCount() {
 			// TODO Auto-generated method stub
-			return texts.length;
+			return texts.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
 
-			return texts[position];
+			return texts.get(position);
 		}
 
 		@Override
@@ -129,7 +136,7 @@ public class NearListAdapter extends BaseAdapter {
 				convertView = LayoutInflater.from(context).inflate(R.layout.near_item_text_layout, null);
 			}
 			TextView t = ViewHolder.get(convertView, R.id.item_text);
-			t.setText(texts[position]);
+			t.setText(texts.get(position));
 			
 			
 			return convertView;

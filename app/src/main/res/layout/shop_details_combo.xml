@@ -5,15 +5,25 @@
     android:orientation="vertical"
     android:background="@color/text_color8" >
 
-    <com.njk.view.CustomListView
+    <com.njk.view.MyFullListView
         android:id="@+id/list_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/content_margin_vertical"
-        android:layout_marginBottom="@dimen/content_margin_vertical">
-        
-    </com.njk.view.CustomListView>
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:fadingEdge="none"
+        android:listSelector="@android:color/transparent"
+        android:scrollbarStyle="outsideOverlay"
+        android:layout_marginTop="@dimen/content_margin_outside"
+        android:layout_marginBottom="@dimen/content_margin_outside"/>
+    <!--<com.njk.view.CustomListView-->
+        <!--android:id="@+id/list_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_marginTop="@dimen/content_margin_vertical"-->
+        <!--android:layout_marginBottom="@dimen/content_margin_vertical">-->
+        <!-- -->
+    <!--</com.njk.view.CustomListView>-->
     
     <!-- 
     <ListView

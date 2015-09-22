@@ -9,20 +9,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.njk.R;
+import com.njk.bean.DetailInfoBean;
 import com.njk.view.ViewHolder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
-import java.util.LinkedList;
+import java.util.List;
 
-public class ComboListAdapter extends BaseAdapter {
+public class DetailInfoListAdapter extends BaseAdapter {
 	private Activity context;
-	private LinkedList mListItems;
-	
-	private DisplayImageOptions options;	
-	
+	private List<DetailInfoBean> mListItems;
+
+	private DisplayImageOptions options;
+
 	private ViewGroup.LayoutParams layoutParams;
-	
-	public ComboListAdapter(Activity context, LinkedList mListItems) {
+
+	public DetailInfoListAdapter(Activity context, List<DetailInfoBean> mListItems) {
 		this.context = context;
 		this.mListItems = mListItems;	
 	}
@@ -51,35 +52,41 @@ public class ComboListAdapter extends BaseAdapter {
 		if(arg1 == null){
 			arg1 = LayoutInflater.from(context).inflate(R.layout.shop_combo_item, null);
 		}
+		DetailInfoBean item = mListItems.get(arg0);
+
 		ImageView item_img = ViewHolder.get(arg1, R.id.combo_item_img);
 		
 		TextView info_text = ViewHolder.get(arg1, R.id.combo_info_text);
 		
 		TextView name_text = ViewHolder.get(arg1, R.id.combo_name_text);
-		switch (arg0) {
-		case 0:
-			item_img.setImageResource(R.mipmap.combo_icon1);
-			name_text.setText("洗剪吹");
-			break;
-		case 1:
-			item_img.setImageResource(R.mipmap.combo_icon2);
-			name_text.setText("染发");
-			break;
-		case 2:
-			item_img.setImageResource(R.mipmap.combo_icon3);
-			name_text.setText("烫发");
-			break;
-		case 3:
-			item_img.setImageResource(R.mipmap.combo_icon4);
-			name_text.setText("护发");
-			break;
-		case 4:
-			item_img.setImageResource(R.mipmap.combo_icon5);
-			name_text.setText("其他");
-			break;
-		default:
-			break;
-		}
+
+		item_img.setImageResource(item.getIconId());
+		name_text.setText(item.getTitle());
+		info_text.setText(item.getContent());
+//		switch (arg0) {
+//		case 0:
+//			item_img.setImageResource(R.mipmap.combo_icon1);
+//			name_text.setText("洗剪吹");
+//			break;
+//		case 1:
+//			item_img.setImageResource(R.mipmap.combo_icon2);
+//			name_text.setText("染发");
+//			break;
+//		case 2:
+//			item_img.setImageResource(R.mipmap.combo_icon3);
+//			name_text.setText("烫发");
+//			break;
+//		case 3:
+//			item_img.setImageResource(R.mipmap.combo_icon4);
+//			name_text.setText("护发");
+//			break;
+//		case 4:
+//			item_img.setImageResource(R.mipmap.combo_icon5);
+//			name_text.setText("其他");
+//			break;
+//		default:
+//			break;
+//		}
 
 		return arg1;
 	}

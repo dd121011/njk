@@ -29,7 +29,9 @@ import com.njk.BaseActivity;
 import com.njk.Global;
 import com.njk.R;
 import com.njk.bean.FamilyDetailBean;
+import com.njk.bean.NearBean;
 import com.njk.bean.ReviewBean;
+import com.njk.fragment.BaseFragment;
 import com.njk.fragment.ShopDetailsComboFragment;
 import com.njk.fragment.ShopDetailsInfoFragment;
 import com.njk.fragment.ShopDetailsRemarkFragment;
@@ -49,7 +51,6 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,17 +62,19 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	
 
 	private View rootView,subscribe_btn,navigate_btn,call_btn,review_btn;
-	private ImageView topImg;
+	private ImageView topImg,face_img;
 	private RadioGroup swithRadio;
 	private CustomListView list;
 	private View shop_adress_layout;
+	private TextView discount_num_text,remark_num_text,enjoy_num_text,shop_name_text,shop_adress_text;
 	
 	private Activity context;
 	private RequestQueue mQueue;
 	private FragmentManager fm;
 	private List<Fragment> fragmentlist;
 	private LinkedList<String> mListItems;
-	
+
+	private NearBean nearBean;
 	private FamilyDetailBean detailBean;
 	private DisplayImageOptions options;	
 	
@@ -101,14 +104,19 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		
 		rootView = LayoutInflater.from(context).inflate(R.layout.shop_details_layout, null);
 		setContentView(rootView);
-		
+
+		Object obj = getIntent().getSerializableExtra("obj");
+		if(obj!=null){
+			nearBean = (NearBean)obj;
+		}
+
 		initView();
 		initListener();
 		initData();
 	}
 
 	private void initView() {
-		Utils.showTopBtn(rootView, "店铺详情", TOP_BTN_MODE.SHOWBOTH,"","");
+		Utils.showTopBtn(rootView, "店铺详情", TOP_BTN_MODE.SHOWBOTH, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
 		swithRadio = (RadioGroup) rootView.findViewById(R.id.swith_shop_details);	
 
@@ -116,18 +124,26 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		shop_adress_layout = findViewById(R.id.shop_adress_layout);
 		
 		topImg = (ImageView) findViewById(R.id.shop_top_img);
+		face_img = (ImageView) findViewById(R.id.face_img);
+
 		subscribe_btn = findViewById(R.id.subscribe_btn);
 		navigate_btn = findViewById(R.id.navigate_btn);
 		call_btn = findViewById(R.id.call_btn);
 		review_btn = findViewById(R.id.review_btn);
+
+		discount_num_text = (TextView)findViewById(R.id.discount_num_text);
+		remark_num_text = (TextView)findViewById(R.id.remark_num_text);
+		enjoy_num_text = (TextView)findViewById(R.id.enjoy_num_text);
+		shop_name_text = (TextView)findViewById(R.id.shop_name_text);
+		shop_adress_text = (TextView)findViewById(R.id.shop_adress_text);
 	}
 	
 	private void initListener() {
 		swithRadio.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
-		swithRadio.check(R.id.radio_btn1);
+//		swithRadio.check(R.id.radio_btn1);
 
 		shop_adress_layout.setOnClickListener(this);
-		
+
 		subscribe_btn.setOnClickListener(this);
 		navigate_btn.setOnClickListener(this);
 		call_btn.setOnClickListener(this);
@@ -145,14 +161,9 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		.displayer(new SimpleBitmapDisplayer())
 		.build();
 		
-		mListItems = new LinkedList<String>();
-		mListItems.addAll(Arrays.asList(mStrings));
-		
 		int[] wh = Utils.getDisplayMetrics(context);
 		topImg.getLayoutParams().width = wh[0];
-		topImg.getLayoutParams().height = wh[0]*4/9;
-			
-		list.setAdapter(new TextAdapter(context, textArra));
+		topImg.getLayoutParams().height = wh[0]*2/3;
 		
 		startGetData();
 	}
@@ -177,8 +188,15 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
         		ft.show(f); 
         	}
         }
-        
-        ft.commit();
+
+		if(mFragment instanceof BaseFragment){
+			BaseFragment m =(BaseFragment)mFragment;
+			Bundle bundle = new Bundle();
+			bundle.putSerializable("obj",detailBean);
+			m.setArgumentsUpdateUI(bundle);
+		}
+
+		ft.commit();
     }  
 
 	class MyOnCheckedChangeListener implements OnCheckedChangeListener{
@@ -189,13 +207,13 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 //			Toast.makeText(context, "checkedId = "+checkedId, 1000).show();
 			switch (checkedId) {
 			case R.id.radio_btn1:
-				changeFragment(checkedId+"",ShopDetailsInfoFragment.class);
+				changeFragment(checkedId+"",ShopDetailsComboFragment.class);
 				break;
 			case R.id.radio_btn2:
 				changeFragment(checkedId+"",ShopDetailsRemarkFragment.class);
 				break;
 			case R.id.radio_btn3:
-				changeFragment(checkedId+"",ShopDetailsComboFragment.class);
+				changeFragment(checkedId+"",ShopDetailsInfoFragment.class);
 				break;
 			default:
 				break;
@@ -206,7 +224,19 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	
 	private void updateUI(){
 		if(detailBean!=null){
+			swithRadio.check(R.id.radio_btn1);
 			ImageLoader.getInstance().displayImage(Global.base_url+detailBean.getImg(), topImg, options);
+			face_img.setImageResource(R.mipmap.face_test1);
+			discount_num_text.setText(detailBean.getPer_capita());
+			remark_num_text.setText(detailBean.getComment());
+			enjoy_num_text.setText(detailBean.getView());
+			shop_name_text.setText(detailBean.getTitle());
+			shop_adress_text.setText(detailBean.getAddress());
+			String[] textArra = {};
+			if(!TextUtils.isEmpty(detailBean.getTag())){
+				textArra = detailBean.getTag().split("、");
+			}
+			list.setAdapter(new TextAdapter(context, textArra));
 		}
 	}
 	
@@ -219,7 +249,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		isStart = true;
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(context)+"");
-		params.put("family_id", "222");
+		params.put("family_id", nearBean.id);
 		params.put("user_id", "");
 
 		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.FAMILY_DETAIL,new ResponseHandlerInterface(){
@@ -457,7 +487,6 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		
 	}
 
-	String[] textArra = {"采摘","垂钓","祈福","农家"};
 	class TextAdapter extends BaseAdapter{
 		String[] texts = null;
 		Activity context = null;

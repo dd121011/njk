@@ -458,7 +458,9 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 					 }
 				} catch (Exception e) {
 					e.printStackTrace();
-				}
+				}finally {
+
+				 }
 
 			}
 
@@ -480,7 +482,10 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
+			NearListAdapter adapter = (NearListAdapter)arg0.getAdapter();
+			NearBean item = adapter.getItem(arg2);
 			Intent intent = new Intent(activity,ShopDetailsActivity.class);
+			intent.putExtra("obj",item);
 //			Intent intent = new Intent(activity,DetailWebViewActivity.class);
 			activity.startActivity(intent);
 		}
