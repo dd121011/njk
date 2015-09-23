@@ -1,9 +1,5 @@
 package com.njk.utils;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
@@ -13,6 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.njk.R;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class Utils {
 
@@ -87,4 +88,91 @@ public class Utils {
 		return new int[] { dm.widthPixels, dm.heightPixels };
 	}
 
+
+	public static int getMonth(String s){
+		int month = 1;
+//		2015-05-29 10:53:47
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+		try {
+			Date date = format.parse(s);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			month = calendar.get(Calendar.MONTH)+1;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return month;
+	}
+
+	public static String getDay(String s){
+		String day = "";
+//		2015-05-29 10:53:47
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+		SimpleDateFormat format2 = new SimpleDateFormat("dd");
+		try {
+			Date date = format.parse(s);
+			day = format2.format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return day;
+	}
+
+	public static String getTime(String s){
+		String time = "";
+//		2015-05-29 10:53:47
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+		SimpleDateFormat format2 = new SimpleDateFormat("H:m");
+		try {
+			Date date = format.parse(s);
+			time = format2.format(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return time;
+	}
+
+	public static String monthString(String s){
+		int month = getMonth(s);
+		String m = "一月";
+		switch (month){
+			case 1:
+				m = "一月";
+				break;
+			case 2:
+				m = "二月";
+				break;
+			case 3:
+				m = "三月";
+				break;
+			case 4:
+				m = "四月";
+				break;
+			case 5:
+				m = "五月";
+				break;
+			case 6:
+				m = "六月";
+				break;
+			case 7:
+				m = "七月";
+				break;
+			case 8:
+				m = "八月";
+				break;
+			case 9:
+				m = "九月";
+				break;
+			case 10:
+				m = "十月";
+				break;
+			case 11:
+				m = "十一月";
+				break;
+			case 12:
+				m = "十二月";
+				break;
+		}
+		return m;
+	}
 }

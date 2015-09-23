@@ -63,6 +63,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.njk.activity.ReviewDoActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.njk.activity.DetailWebViewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >

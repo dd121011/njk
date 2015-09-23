@@ -458,9 +458,10 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 					 }
 				} catch (Exception e) {
 					e.printStackTrace();
-				}finally {
-
-				 }
+					 isStart = false;
+					 DialogUtil.progressDialogDismiss();
+					 handler.sendEmptyMessage(GET_DATE_FAIL);
+				}
 
 			}
 

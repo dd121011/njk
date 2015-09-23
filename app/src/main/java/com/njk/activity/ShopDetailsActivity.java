@@ -2,6 +2,7 @@ package com.njk.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -61,7 +63,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	private  final static int UPATE_LAYOUT = 1;
 	
 
-	private View rootView,subscribe_btn,navigate_btn,call_btn,review_btn;
+	private View rootView,fav_do_btn,cancel_fav_btn,navigate_btn,call_btn,review_btn;
 	private ImageView topImg,face_img;
 	private RadioGroup swithRadio;
 	private CustomListView list;
@@ -126,7 +128,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		topImg = (ImageView) findViewById(R.id.shop_top_img);
 		face_img = (ImageView) findViewById(R.id.face_img);
 
-		subscribe_btn = findViewById(R.id.subscribe_btn);
+		fav_do_btn = findViewById(R.id.fav_do_btn);
+		cancel_fav_btn = findViewById(R.id.cancel_fav_btn);
 		navigate_btn = findViewById(R.id.navigate_btn);
 		call_btn = findViewById(R.id.call_btn);
 		review_btn = findViewById(R.id.review_btn);
@@ -144,7 +147,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 
 		shop_adress_layout.setOnClickListener(this);
 
-		subscribe_btn.setOnClickListener(this);
+		fav_do_btn.setOnClickListener(this);
+		cancel_fav_btn.setOnClickListener(this);
 		navigate_btn.setOnClickListener(this);
 		call_btn.setOnClickListener(this);
 		review_btn.setOnClickListener(this);
@@ -293,8 +297,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		DialogUtil.progressDialogShow(context, context.getResources().getString(R.string.is_loading));
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(context)+"");
-		params.put("family_id", "222");
-		params.put("user_id", "");
+		params.put("family_id", detailBean.getId());
+		params.put("user_id", Config.getUserId(context));
 
 		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.FAMILY_FAV_DO,new ResponseHandlerInterface(){
 
@@ -309,9 +313,14 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 						 if(obj.has("code") && obj.getString("code").equals("0")){
 							 String jsonArray = obj.getString("data");
 							 Gson gson = new Gson();
-//							 detailBean = gson.fromJson(jsonArray, new TypeToken<FamilyDetailBean>(){}.getType());
-//							 Log.d(TAG, detailBean+""); 
-//							 handler.sendEmptyMessage(UPATE_LAYOUT);
+							 runOnUiThread(new Runnable() {
+								 @Override
+								 public void run() {
+									 Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
+									 cancel_fav_btn.setVisibility(View.VISIBLE);
+									 fav_do_btn.setVisibility(View.GONE);
+								 }
+							 });
 						 }
 					 }
 				} catch (Exception e) {
@@ -335,8 +344,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		DialogUtil.progressDialogShow(context, context.getResources().getString(R.string.is_loading));
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(context)+"");
-		params.put("family_id", "222");
-		params.put("user_id", "");
+		params.put("family_id", detailBean.getId());
+		params.put("user_id", Config.getUserId(context));
 
 		RequestUtils.startStringRequest(Method.GET,mQueue, RequestCommandEnum.FAMILY_CANCEL_FAV,new ResponseHandlerInterface(){
 
@@ -351,9 +360,14 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 						 if(obj.has("code") && obj.getString("code").equals("0")){
 							 String jsonArray = obj.getString("data");
 							 Gson gson = new Gson();
-//							 detailBean = gson.fromJson(jsonArray, new TypeToken<FamilyDetailBean>(){}.getType());
-//							 Log.d(TAG, detailBean+""); 
-//							 handler.sendEmptyMessage(UPATE_LAYOUT);
+							 runOnUiThread(new Runnable() {
+								 @Override
+								 public void run() {
+									 Toast.makeText(context, "取消收藏", Toast.LENGTH_SHORT).show();
+									 fav_do_btn.setVisibility(View.VISIBLE);
+									 cancel_fav_btn.setVisibility(View.GONE);
+								 }
+							 });
 						 }
 					 }
 				} catch (Exception e) {
@@ -469,17 +483,33 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			intent = new Intent(context,ShopRouteSearchActivity.class);
 			context.startActivity(intent);
 			break;
-		case R.id.subscribe_btn:
+		case R.id.fav_do_btn:
 			familyFavDo();
 			break;
-		case R.id.navigate_btn:
+		case R.id.cancel_fav_btn:
 			familyCancelFav();
 			break;
+		case R.id.navigate_btn:
+			intent = new Intent(context,ShopRouteSearchActivity.class);
+			context.startActivity(intent);
+			break;
 		case R.id.call_btn:
-			familyReviewDo();
+			if(detailBean == null){
+				return;
+			}
+			intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + detailBean.getPhone()));
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+//			familyReviewDo();
 			break;
 		case R.id.review_btn:
-			familyReviewList();
+			if(detailBean == null){
+				return;
+			}
+			intent = new Intent(context,ReviewDoActivity.class);
+			intent.putExtra("obj",detailBean);
+			context.startActivity(intent);
+//			familyReviewList();
 			break;
 		default:
 			break;
