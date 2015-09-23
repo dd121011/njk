@@ -15,7 +15,8 @@ public enum RequestCommandEnum {
 	FAMILY_DETAIL("/api/family/detail"),
 	FAMILY_REVIEW_LIST("/api/family/review_list"),
 	USERINFO_INDEX("/api/userinfo/index"),
-	USERINFO_MY_FAV("/api/userinfo/my_fav");
+	USERINFO_MY_FAV("/api/userinfo/my_fav"),
+	COUPON_INDEX("/api/coupon/index");
 
 	public String command;
 	RequestCommandEnum(String name) {

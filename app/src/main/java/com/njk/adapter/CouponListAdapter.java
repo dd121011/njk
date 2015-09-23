@@ -8,20 +8,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.njk.R;
+import com.njk.bean.CouponBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class CouponListAdapter extends BaseAdapter {
 	private Context context;
-	private LinkedList mListItems;
+	private List<CouponBean> couponBeanList;
 
 	private DisplayImageOptions options;
 
-	public CouponListAdapter(Context context, LinkedList mListItems) {
+	public CouponListAdapter(Context context, List<CouponBean> couponBeanList) {
 		this.context = context;
-		this.mListItems = mListItems;
+		this.couponBeanList = couponBeanList;
 		
 		options = new DisplayImageOptions.Builder()
 		.showImageOnLoading(R.mipmap.img_default_icon)
@@ -37,13 +38,13 @@ public class CouponListAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return mListItems.size();
+		return couponBeanList.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
 		// TODO Auto-generated method stub
-		return mListItems.get(arg0);
+		return couponBeanList.get(arg0);
 	}
 
 	@Override

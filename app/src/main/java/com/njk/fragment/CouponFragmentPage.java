@@ -1,9 +1,11 @@
 package com.njk.fragment;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +15,25 @@ import android.widget.ListView;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.njk.R;
-import com.njk.adapter.SubscribeListAdapter;
+import com.njk.adapter.CouponListAdapter;
+import com.njk.bean.CouponBean;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
+import com.njk.utils.Config;
+import com.njk.utils.DialogUtil;
 import com.njk.utils.Utils;
 import com.njk.utils.Utils.TOP_BTN_MODE;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -31,18 +42,60 @@ import in.srain.cube.views.ptr.PtrHandler;
 
 public class CouponFragmentPage extends Fragment{
 	private static String TAG="NearFragmentPage";
-	
+
+	public final static int UPDATE_DATA_LIST = 1;
+	public final static int MORE_DATE_LIST = 2;
+	public final static int UPATE_LIST_LAYOUT = 3;
+	public final static int GET_DATE_FAIL = 100;
+
+
 	private View rootView;
-	private LinkedList<String> mListItems;
 	private PtrClassicFrameLayout mPtrFrame;
-	private SubscribeListAdapter mAdapter;
+	private CouponListAdapter mAdapter;
 	
 	private ViewGroup switch_near_btn,switch_hot_btn;
 
 	private Activity activity;
 	private RequestQueue mQueue;
-	
-	
+	private List<CouponBean> couponBeanList;
+
+	private int offset = 0;
+	private int per_page = 10;
+
+	private Handler handler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+				case UPDATE_DATA_LIST:
+					List<CouponBean> dataList = (List<CouponBean>) msg.getData().getSerializable("data");
+					if(offset == 0){
+						couponBeanList.clear();
+					}
+					offset = per_page;
+					couponBeanList.addAll(dataList);
+					handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
+					break;
+				case MORE_DATE_LIST:
+					offset += per_page;
+					List<CouponBean> moreList = (List<CouponBean>) msg.getData().getSerializable("data");
+					couponBeanList.addAll(moreList);
+					handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
+					break;
+				case UPATE_LIST_LAYOUT:
+					mPtrFrame.refreshComplete();
+					mAdapter.notifyDataSetChanged();
+					break;
+				case GET_DATE_FAIL:
+					mPtrFrame.refreshComplete();
+					break;
+				default:
+					break;
+			}
+		}
+
+	};
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -62,9 +115,8 @@ public class CouponFragmentPage extends Fragment{
 			
 	        ListView listView = (ListView) rootView.findViewById(R.id.rotate_header_list_view);
 
-			mListItems = new LinkedList<String>();
-			mListItems.addAll(Arrays.asList(mStrings));
-			mAdapter = new SubscribeListAdapter(getActivity(), mListItems);
+			couponBeanList = new ArrayList<CouponBean>();
+			mAdapter = new CouponListAdapter(getActivity(), couponBeanList);
 			
 			listView.setAdapter(mAdapter);
 			
@@ -72,34 +124,35 @@ public class CouponFragmentPage extends Fragment{
 		       mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.rotate_header_list_view_frame);
 		        mPtrFrame.setLastUpdateTimeRelateObject(this);
 		        mPtrFrame.setPtrHandler(new PtrHandler() {
-		            @Override
-		            public void onRefreshBegin(PtrFrameLayout frame) {
-		            	new GetDataTask().execute();
-		            }
+					@Override
+					public void onRefreshBegin(PtrFrameLayout frame) {
+						offset = 0;
+						startGetData();
+					}
 
-		            @Override
-		            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-		                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-		            }
-		        });
+					@Override
+					public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+						return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+					}
+				});
 		        // the following are default settings
 		        mPtrFrame.setResistance(1.7f);
 		        mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
 		        mPtrFrame.setDurationToClose(200);
 		        mPtrFrame.setDurationToCloseHeader(1000);
-		        // default is false
-		        mPtrFrame.setPullToRefresh(false);
-		        // default is true
-		        mPtrFrame.setKeepHeaderWhenRefresh(true);
+			// default is false
+			mPtrFrame.setPullToRefresh(false);
+			// default is true
+			mPtrFrame.setKeepHeaderWhenRefresh(true);
 		        mPtrFrame.postDelayed(new Runnable() {
-		            @Override
-		            public void run() {
+					@Override
+					public void run() {
 //		                mPtrFrame.autoRefresh();
-		            }
-		        }, 100);
-			
-			
-	//		startGetData();
+					}
+				}, 100);
+
+
+			startGetData();
 		}
 		
 		// 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
@@ -110,20 +163,53 @@ public class CouponFragmentPage extends Fragment{
 	    }
 		
 		return rootView;		
-	}	
-	
+	}
+	private boolean isStart = false;
 	public void startGetData(){
-		
-		
-		
-		RequestUtils.startStringRequest(Method.GET,mQueue, RequestCommandEnum.FAMILY_LIST,new ResponseHandlerInterface(){
+		if(isStart){
+			return;
+		}
+		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
+		isStart = true;
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("Token", Config.getUserToken(activity)+"");
+		params.put("keywords", "");
+		params.put("offset", offset+"");
+		params.put("per_page", per_page+"");
+
+		RequestUtils.startStringRequest(Method.GET,mQueue, RequestCommandEnum.COUPON_INDEX,new ResponseHandlerInterface(){
 
 			@Override
 			public void handlerSuccess(String response) {
 				// TODO Auto-generated method stub
-				 Log.d(TAG, response); 
-				 mPtrFrame.refreshComplete();
-                 mAdapter.notifyDataSetChanged();
+				 Log.d(TAG, response);
+				isStart = false;
+				DialogUtil.progressDialogDismiss();
+				try {
+					if(!TextUtils.isEmpty(response)){
+						JSONObject obj = new JSONObject(response);
+						if(obj.has("stacode") && obj.getString("stacode").equals("1000")){
+							String jsonArray = obj.getString("data");
+							Gson gson = new Gson();
+							ArrayList<CouponBean> dataList = gson.fromJson(jsonArray, new TypeToken<List<CouponBean>>(){}.getType());
+							Bundle data = new Bundle();
+							data.putSerializable("data", dataList);
+							Message msg = null;
+							if(offset == 0){
+								msg = handler.obtainMessage(UPDATE_DATA_LIST);
+							}else{
+								msg = handler.obtainMessage(MORE_DATE_LIST);
+							}
+							msg.setData(data);
+							msg.sendToTarget();
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					isStart = false;
+					DialogUtil.progressDialogDismiss();
+					handler.sendEmptyMessage(GET_DATE_FAIL);
+				}
 			}
 
 			@Override
@@ -132,40 +218,8 @@ public class CouponFragmentPage extends Fragment{
 				Log.e(TAG, error);  
 			}
 			
-		},null);
+		},params);
 
 	}
-	
-	
-	private class GetDataTask extends AsyncTask<Void, Void, String[]> {
 
-		@Override
-		protected String[] doInBackground(Void... params) {
-			// Simulates a background job.
-			try {
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-			}
-			return mStrings;
-		}
-
-		@Override
-		protected void onPostExecute(String[] result) {
-			mListItems.addFirst("Added after refresh...");
-			mAdapter.notifyDataSetChanged();
-
-			// Call onRefreshComplete when the list has been refreshed.
-			 mPtrFrame.refreshComplete();
-             mAdapter.notifyDataSetChanged();
-
-			super.onPostExecute(result);
-		}
-	}
-	
-	
-	private String[] mStrings = { "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
-			"Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale", "Aisy Cendre",
-			"Allgauer Emmentaler", "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi",
-			"Acorn", "Adelost", "Affidelice au Chablis", "Afuega'l Pitu", "Airag", "Airedale", "Aisy Cendre",
-			"Allgauer Emmentaler" };
 }
