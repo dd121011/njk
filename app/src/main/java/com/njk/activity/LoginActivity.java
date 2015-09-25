@@ -21,6 +21,7 @@ import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.utils.Config;
+import com.njk.utils.DialogUtil;
 import com.njk.utils.Password;
 import com.njk.utils.Utils;
 import com.njk.utils.Utils.TOP_BTN_MODE;
@@ -75,12 +76,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 	
 			break;
 		case R.id.login_btn:
-//			if(!TextUtils.isEmpty(phone_text.getText()) && !TextUtils.isEmpty(password_text.getText())){
+			if(!TextUtils.isEmpty(phone_text.getText()) && !TextUtils.isEmpty(password_text.getText())){
 				intent = new Intent(this, MainTabActivity.class);
 				startActivity(intent);
 				MApplication app2 = (MApplication) getApplication();
 				app2.addLoginAcitivity(this);
-//			}			
+			}
 			break;
 		default:
 			break;
@@ -94,6 +95,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			return;
 		}
 		isStart = true;
+		DialogUtil.progressDialogShow(this, this.getResources().getString(R.string.is_loading));
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("mobile", phone_text.getText().toString());
 		params.put("password", Password.createPassword(password_text.getText().toString()));
@@ -105,6 +107,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 				// TODO Auto-generated method stub
 				 Log.d(TAG, response);
 				 isStart = false;
+				DialogUtil.progressDialogDismiss();
 				 try {
 					if(!TextUtils.isEmpty(response)){
 						 JSONObject obj = new JSONObject(response);
@@ -140,6 +143,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			public void handlerError(String error) {
 				// TODO Auto-generated method stub
 				Log.e(TAG, error);
+				DialogUtil.progressDialogDismiss();
 				isStart = false;
 			}
 

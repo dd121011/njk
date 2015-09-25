@@ -17,11 +17,12 @@
             android:gravity="center_vertical">
 
             <com.njk.view.SelectableRoundedImageView
-                android:id="@+id/face_img"
+                android:id="@+id/item_img"
                 android:layout_width="48dip"
                 android:layout_height="48dip"
                 android:src="@mipmap/img_default_icon"
-                android:layout_margin="@dimen/content_margin_outside"
+                android:scaleType="centerCrop"
+                android:layout_margin="10dp"
                 app:sriv_border_color="@color/text_color0"
                 app:sriv_border_width="0dip"
                 app:sriv_left_bottom_corner_radius="48dip"
@@ -39,6 +40,7 @@
                 android:layout_marginLeft="@dimen/content_margin_inside">
 
                 <TextView
+                    android:id="@+id/family_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="顺义北京顺义区"
@@ -48,6 +50,7 @@
                     android:layout_marginBottom="@dimen/content_margin_inside"/>
 
                 <TextView
+                    android:id="@+id/areaname_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="顺义北京顺义区"
@@ -56,6 +59,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/money_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -84,6 +88,7 @@
                     android:layout_marginTop="@dimen/content_margin_inside"
                     android:layout_marginBottom="@dimen/content_margin_inside"/>
                 <TextView
+                    android:id="@+id/valid_date_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/content_margin_inside"
@@ -101,6 +106,7 @@
                     android:layout_marginTop="@dimen/content_margin_inside"
                     android:layout_marginBottom="@dimen/content_margin_inside"/>
                 <TextView
+                    android:id="@+id/content_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/content_margin_inside"

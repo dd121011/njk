@@ -1,6 +1,7 @@
 package com.njk.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Request.Method;
@@ -18,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.R;
+import com.njk.activity.CouponDetailActivity;
 import com.njk.adapter.CouponListAdapter;
 import com.njk.bean.CouponBean;
 import com.njk.net.RequestCommandEnum;
@@ -119,27 +123,41 @@ public class CouponFragmentPage extends Fragment{
 			mAdapter = new CouponListAdapter(getActivity(), couponBeanList);
 			
 			listView.setAdapter(mAdapter);
-			
-			
-		       mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.rotate_header_list_view_frame);
-		        mPtrFrame.setLastUpdateTimeRelateObject(this);
-		        mPtrFrame.setPtrHandler(new PtrHandler() {
-					@Override
-					public void onRefreshBegin(PtrFrameLayout frame) {
-						offset = 0;
+			listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+				@Override
+				public void onScrollStateChanged(AbsListView view, int scrollState) {
+				}
+
+				@Override
+				public void onScroll(AbsListView view, int firstVisibleItem,
+									 int visibleItemCount, int totalItemCount) {
+					if (firstVisibleItem == (totalItemCount - 2)) {
 						startGetData();
 					}
 
-					@Override
-					public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-						return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-					}
-				});
-		        // the following are default settings
-		        mPtrFrame.setResistance(1.7f);
-		        mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
-		        mPtrFrame.setDurationToClose(200);
-		        mPtrFrame.setDurationToCloseHeader(1000);
+				}
+			});
+			listView.setOnItemClickListener(itemClickListener);
+		   mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.rotate_header_list_view_frame);
+			mPtrFrame.setLastUpdateTimeRelateObject(this);
+			mPtrFrame.setPtrHandler(new PtrHandler() {
+				@Override
+				public void onRefreshBegin(PtrFrameLayout frame) {
+					offset = 0;
+					startGetData();
+				}
+
+				@Override
+				public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+					return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+				}
+			});
+			// the following are default settings
+			mPtrFrame.setResistance(1.7f);
+			mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+			mPtrFrame.setDurationToClose(200);
+			mPtrFrame.setDurationToCloseHeader(1000);
 			// default is false
 			mPtrFrame.setPullToRefresh(false);
 			// default is true
@@ -222,4 +240,13 @@ public class CouponFragmentPage extends Fragment{
 
 	}
 
+	AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			CouponBean bean = (CouponBean)parent.getAdapter().getItem(position);
+			Intent intent = new Intent(activity, CouponDetailActivity.class);
+			intent.putExtra("obj",bean);
+			activity.startActivity(intent);
+		}
+	};
 }

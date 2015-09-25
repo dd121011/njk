@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/text_color9">
+
+    <include layout="@layout/top_title_layout" />
+
+    <LinearLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/coupon_line"
+        android:gravity="center_horizontal"
+        android:paddingTop="40dp"
+        android:paddingBottom="40dp">
+        <TextView
+            android:id="@+id/money_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="24sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="50元抵金券"/>
+        <TextView
+            android:id="@+id/content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:textColor="@color/gray"
+            android:text="人均消费100减20，可自助海鲜"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/valid_date_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/content_margin_outside"
+        android:layout_marginTop="@dimen/content_margin_inside"
+        android:layout_marginBottom="@dimen/content_margin_inside"
+        android:gravity="center"
+        android:textSize="@dimen/text_size0"
+        android:textColor="@color/gray"
+        android:text="农家有效期：2015-8-30至2015-10-21"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+
+        <com.njk.view.SelectableRoundedImageView
+            android:id="@+id/item_img"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:src="@mipmap/img_default_icon"
+            android:scaleType="centerCrop"
+            android:layout_margin="10dp"
+            app:sriv_border_color="@color/text_color0"
+            app:sriv_border_width="0dip"
+            app:sriv_left_bottom_corner_radius="48dip"
+            app:sriv_left_top_corner_radius="16dip"
+            app:sriv_oval="true"
+            app:sriv_right_bottom_corner_radius="16dip"
+            app:sriv_right_top_corner_radius="0dip" />
+
+        <TextView
+            android:id="@+id/family_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size0"
+            android:text="海生农家乐-推荐"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/get_coupon_btn"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="@dimen/content_margin_outside"
+        android:textColor="@color/white"
+        android:text="立刻领取"/>
+</LinearLayout>
