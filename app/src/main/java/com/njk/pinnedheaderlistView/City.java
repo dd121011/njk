@@ -42,5 +42,4 @@ public class City {
 
 		return pys.substring(0, 1);
 	}
-
 }

@@ -24,8 +24,8 @@ import com.google.gson.reflect.TypeToken;
 import com.njk.BaseActivity;
 import com.njk.MApplication;
 import com.njk.R;
-import com.njk.bean.ProvinceBean;
-import com.njk.db.ProvinceDBUtils;
+import com.njk.bean.AreasBean;
+import com.njk.bean.ObserverManager;
 import com.njk.fragment.CouponFragmentPage;
 import com.njk.fragment.NearFragmentPage;
 import com.njk.fragment.PersonalFragmentPage;
@@ -35,15 +35,14 @@ import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.photo.util.Res;
 import com.njk.utils.Config;
 import com.njk.utils.LocalDisplay;
+import com.njk.utils.Logger;
 
 import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -169,8 +168,6 @@ public class MainTabActivity extends BaseActivity{
 	
 	public void updateProvinceData() {
 		Map<String, String> params = new HashMap<String, String>();
-//		params.put("Token", "");
-//		params.put("version", "");
 		RequestUtils.startStringRequest(Method.POST, mQueue, RequestCommandEnum.APPINFOS_AREAS, new ResponseHandlerInterface() {
 
 			@Override
@@ -183,22 +180,42 @@ public class MainTabActivity extends BaseActivity{
 						if (obj.has("code") && obj.getString("code").equals("0")) {
 							JSONObject dataObj = obj.getJSONObject("data");
 							String updateTime = dataObj.getString("datetime");
-							if(TextUtils.isEmpty(updateTime)){
+							if(!TextUtils.isEmpty(updateTime)){
 								//"2015-04-22"
 								DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 								Date newTime = df.parse(updateTime);
-								
+								//"2015-04-25";
 								String oldStr = Config.getUpdateProvinceTime(activity);
-								Date oldTime = df.parse(oldStr);
+								Date oldTime = df.parse(TextUtils.isEmpty(oldStr)?"2015-03-20":oldStr);
 								
 								if(newTime.getTime()>oldTime.getTime()){
 									Config.setUpdateProvinceTime(activity, updateTime);
-									
-									String jsonArray = dataObj.getString("province");
+									Config.setAreasData(activity, dataObj.toString());
+									ObserverManager.getInstance().notifyAreasOchange();
 									Gson gson = new Gson();
-									ArrayList<ProvinceBean> dataList = gson.fromJson(jsonArray, new TypeToken<List<ProvinceBean>>() {
-									}.getType());									
-									ProvinceDBUtils.saveProvinceToDb(activity,dataList);
+									AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
+									}.getType());
+
+									Logger.d(TAG, areasBean.toString());
+
+//									JSONObject province = dataObj.getJSONObject("province");
+//									JSONObject A = province.getJSONObject("A");
+//
+//									AreasBean.Items itemss = gson.fromJson(A.toString(), new TypeToken<AreasBean.Items>() {
+//									}.getType());
+//									Logger.e(itemss.toString());
+//
+//									JSONArray items = A.getJSONArray("items");
+//									JSONObject o1 = items.getJSONObject(0);
+//									Logger.e(o1.toString());
+//
+//									AreasBean.Item item = gson.fromJson(o1.toString(), new TypeToken<AreasBean.Item>() {
+//									}.getType());
+//									Logger.e(item.toString());
+
+//									ArrayList<ProvinceBean> dataList = gson.fromJson(jsonArray, new TypeToken<List<ProvinceBean>>() {
+//									}.getType());
+//									ProvinceDBUtils.saveProvinceToDb(activity,dataList);
 									
 //									ProvinceDBUtils.getProvince(activity,1);
 //									CityDao dao = new CityDao(activity);
@@ -214,6 +231,12 @@ public class MainTabActivity extends BaseActivity{
 //									msg = handler.obtainMessage(GET_CITY_DATA_SUCCES);
 //									msg.setData(data);
 //									msg.sendToTarget();
+								}else{
+									String data = Config.getAreasData(activity);
+									Gson gson = new Gson();
+									AreasBean areasBean = gson.fromJson(data, new TypeToken<AreasBean>() {
+									}.getType());
+									Logger.d(TAG, areasBean.toString());
 								}
 								
 							}

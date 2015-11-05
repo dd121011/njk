@@ -1,8 +1,5 @@
 package com.njk.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.os.Vibrator;
 import android.util.Log;
@@ -14,7 +11,11 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LocationClientUtils {
+	public Context context;
 	public LocationClient mLocationClient;
 	public GeofenceClient mGeofenceClient;
 	public MyLocationListener mMyLocationListener;
@@ -35,6 +36,7 @@ public class LocationClientUtils {
 	} 
 
 	public void init(Context context){
+		this.context = context;
 		mLocationClient = new LocationClient(context);
 		mMyLocationListener = new MyLocationListener();
 		mLocationClient.registerLocationListener(mMyLocationListener);
@@ -68,10 +70,7 @@ public class LocationClientUtils {
 		@Override
 		public void onReceiveLocation(BDLocation location) {
 			//Receive Location 
-			for(LocatonListener listener : locatonListeners){
-				listener.onReceiveLocation(location);
-			}
-			
+
 			StringBuffer sb = new StringBuffer(256);
 			sb.append("time : ");
 			sb.append(location.getTime());
@@ -102,6 +101,14 @@ public class LocationClientUtils {
 
 			Log.i("MApplication", sb.toString());
 			stop();
+
+			Config.setLocationCity(context, location.getCity());
+			Config.setCurLat(context, location.getLatitude() + "");
+			Config.setCurLng(context,location.getLongitude()+"");
+			for(LocatonListener listener : locatonListeners){
+				listener.onReceiveLocation(location);
+			}
+
 		}
 
 	}

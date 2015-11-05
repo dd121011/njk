@@ -107,6 +107,7 @@ public final class GuideFragment extends Fragment {
         }else{
             Intent intent = new Intent(getActivity(),LoginActivity.class);
 //			Intent intent = new Intent(context,CategoryTestActivity.class);
+            intent.putExtra("ismain",true);
             getActivity().startActivity(intent);
             Config.setHideGuided(getActivity(), true);
             getActivity().finish();

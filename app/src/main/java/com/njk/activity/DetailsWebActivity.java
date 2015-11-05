@@ -86,10 +86,6 @@ public class DetailsWebActivity extends BaseActivity implements View.OnClickList
 		Utils.showTopBtn(rootView, infoBean.getTitle(), TOP_BTN_MODE.SHOWRIGHTTEXT, "", "");
 	}
 
-	// 切換Fragment
-	public static void changeFragment(Fragment f){
-		changeFragment(f, false);
-	}
 	// 初始化Fragment(FragmentActivity中呼叫)
 	public static void initFragment(Fragment f){
 		changeFragment(f, true);

@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array  name="near_nemus">
-        <item>全城</item>
-        <item>距离</item>
+        <item>全部</item>
+        <item>类型</item>
         <item>排序</item>
     </string-array>
-    
-    <string-array  name="near_nemu1">
-        <item>500</item>
-        <item>1000</item>
-        <item>3000</item>
-        <item>5000</item>
+
+    <string-array  name="near_nemu0">
+        <item>农家</item>
+        <item>采摘</item>
+        <item>垂钓</item>
+        <item>祈福</item>
     </string-array>
-    
-    <string-array  name="near_nemu2">
-        <item>智能排序</item>
-        <item>按距离排序</item>
-        <item>按人气排序</item>
-        <item>按时间排序</item>
+
+
+    <string-array  name="hot_city">
+        <item>北京</item>
+        <item>天津</item>
+        <item>上海</item>
+        <item>重庆</item>
+        <item>广州</item>
+        <item>深圳</item>
+        <item>武汉</item>
+        <item>苏州</item>
+        <item>沈阳</item>
+        <item>成都</item>
+        <item>西安</item>
+        <item>杭州</item>
     </string-array>
 </resources>

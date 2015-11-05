@@ -39,7 +39,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SwitchCityActivity extends BaseActivity implements OnClickListener {
+public class SwitchCityActivity2 extends BaseActivity implements OnClickListener {
 	private String TAG = "SwitchCityActivity";
 
 	private Activity context;
@@ -98,7 +98,7 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 				break;
 
 			case COPY_DB_SUCCESS:
-				requestData2();
+				requestData();
 				break;
 			case UPDATE_CITY_LIST:
 				String city = Config.getLocationCity(context);
@@ -129,17 +129,15 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 		Utils.showTopBtn(rootView, "城市切换", TOP_BTN_MODE.SHOWBACK, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
 
-//		helper = new DBHelper();
-//
-//		copyDBFile();
-		requestData2();
+		helper = new DBHelper();
+
+		copyDBFile();
 		findView();
 		
 		cityManger = CurrCityManager.getInstance();
 		
 		LocationClientUtils.getInstance().addListenter(locationListener);
         LocationClientUtils.getInstance().start();
-
 	}
 
 	private void copyDBFile() {
@@ -197,61 +195,6 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 			e.printStackTrace();
 			handler.sendEmptyMessage(COPY_DB_FAILED);
 		}
-	}
-
-	private void requestData2() {
-
-		Runnable task = new Runnable() {
-
-			@Override
-			public void run() {
-
-				cityManger.initCityData(context);
-
-//				CityDao dao = new CityDao(helper);
-
-				City localCity = new City();
-				localCity.setId("");
-				localCity.setName("定位城市");
-				localCity.setPys("定位城市");
-
-				List<City> hot = cityManger.getHotCityList(context);//dao.getHotCities(); // 热门城市
-
-				if(hot!=null){
-					for(City item: hot){
-						item.setPys("热门城市");
-					}
-				}
-
-
-				List<City> all = cityManger.getCityList(context);//dao.getAllCities(); // 全部城市
-
-				if (all != null) {
-
-					Collections.sort(all, new MyComparator()); // 排序
-					cityList.add(localCity);
-					cityList.addAll(hot);
-					cityList.addAll(all);
-
-					// 初始化每个字母有多少个item
-					counts = new int[sections.length];
-
-					counts[0] = 1;
-					counts[1] = hot.size();// 热门城市 个数
-
-					for (City city : all) { // 计算全部城市
-
-						String firstCharacter = city.getSortKey();
-						int index = ALL_CHARACTER.indexOf(firstCharacter);
-						counts[index]++;
-					}
-
-					handler.sendEmptyMessage(QUERY_CITY_FINISH);
-				}
-			}
-		};
-
-		new Thread(task).start();
 	}
 
 	private void requestData() {

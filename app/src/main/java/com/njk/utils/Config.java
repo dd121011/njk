@@ -45,7 +45,25 @@ public class Config {
 	public static String getCurLat(Context context){
 		return getStringPreferences(context,Global.cur_lat);
 	}
-	
+
+	/**
+	 * 保存用户mobile
+	 * @param context
+	 * @param value
+	 */
+	public static void setUserMobile(Context context, String value){
+		setPreferences(context, Global.mobile, value);
+	}
+
+	/**
+	 * 获取用户mobile
+	 * @param context
+	 * @param context
+	 */
+	public static String getUserMobile(Context context){
+		return getStringPreferences(context,Global.mobile);
+	}
+
 	/**
 	 * 保存用户token
 	 * @param context
@@ -87,10 +105,28 @@ public class Config {
 	 * @param context
 	 * @param context
 	 */
+	public static void setAreasData(Context context, String value){
+		setPreferences(context, Global.areas_data, value);
+	}
+	
+	/**
+	 * 获取更新城区列表的时间
+	 * @param context
+	 * @param context
+	 */
+	public static String getAreasData(Context context){
+		return getStringPreferences(context,Global.areas_data);
+	}
+
+	/**
+	 * 设置更新城区列表的时间
+	 * @param context
+	 * @param context
+	 */
 	public static void setUpdateProvinceTime(Context context, String value){
 		setPreferences(context, Global.update_province_time, value);
 	}
-	
+
 	/**
 	 * 获取更新城区列表的时间
 	 * @param context

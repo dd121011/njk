@@ -1,6 +1,7 @@
 package com.njk.adapter;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,6 +91,9 @@ public class NearListAdapter extends BaseAdapter {
 		list.setAdapter(new TextAdapter(context, tag));
 
 		TextView range_text = ViewHolder.get(arg1,R.id.range_text);
+		if(TextUtils.isEmpty(item.range)){
+			item.range = "0";
+		}
 		range_text.setText(item.range+"km");
 
 		TextView titleText = ViewHolder.get(arg1, R.id.title_text);

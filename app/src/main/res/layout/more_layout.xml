@@ -44,14 +44,16 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_marginLeft="@dimen/content_margin_outside"
-            android:background="@color/text_color6" />
+            android:background="@color/text_color6"
+            />
 
         <LinearLayout
             android:id="@+id/more_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -77,13 +79,15 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_marginLeft="@dimen/content_margin_outside"
-            android:background="@color/text_color6" />
+            android:background="@color/text_color6"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -109,13 +113,15 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_marginLeft="@dimen/content_margin_outside"
-            android:background="@color/text_color6" />
+            android:background="@color/text_color6"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -149,7 +155,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -175,13 +182,15 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_marginLeft="@dimen/content_margin_outside"
-            android:background="@color/text_color6" />
+            android:background="@color/text_color6"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -207,13 +216,15 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_marginLeft="@dimen/content_margin_outside"
-            android:background="@color/text_color6" />
+            android:background="@color/text_color6"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -239,13 +250,15 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:layout_marginLeft="@dimen/content_margin_outside"
-            android:background="@color/text_color6" />
+            android:background="@color/text_color6"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/content_margin_outside" >
+            android:padding="@dimen/content_margin_outside"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -269,6 +282,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/user_state_btn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/text_color0"

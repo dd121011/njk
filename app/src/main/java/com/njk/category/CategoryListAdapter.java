@@ -30,19 +30,19 @@ public class CategoryListAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return list.size();
+		return list.size()-1;
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return list.get(position);
+		return list.get(position+1);
 	}
 
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return position;
+		return position+1;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class CategoryListAdapter extends BaseAdapter {
 			convertView = inflater.inflate(R.layout.category_list_item, null);  
 		}
 
-		CategoryBean item = list.get(position);
+		CategoryBean item = list.get(position+1);
 		
 		ImageView icon = ViewHolder.get(convertView, R.id.icon);
 		TextView title_text = ViewHolder.get(convertView, R.id.title_text);

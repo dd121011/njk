@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/content_margin_outside"
+    android:paddingRight="@dimen/content_margin_outside" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="17"
+            android:textColor="@color/text_color1"
+            android:textSize="@dimen/text_size4" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一月"
+            android:textColor="@color/text_color3"
+            android:textSize="@dimen/text_size7" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/content_margin_outside"
+        android:layout_marginRight="@dimen/content_margin_inside"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <View
+            android:id="@+id/top_line"
+            android:layout_width="1dip"
+            android:layout_height="@dimen/content_margin_vertical"
+            android:background="@color/text_color6" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/yellow_circle_icon" />
+
+        <View
+            android:id="@+id/bottom_line"
+            android:layout_width="1dip"
+            android:layout_height="match_parent"
+            android:background="@color/text_color6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/content_margin_outside"
+        android:background="@drawable/shop_details_remark_item_bg"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/content_margin_inside"
+        android:paddingLeft="@dimen/content_margin_outside"
+        android:paddingRight="@dimen/content_margin_outside"
+        android:paddingTop="@dimen/content_margin_outside" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:scaleType="fitXY"
+                android:src="@mipmap/test1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:scaleType="fitXY"
+                android:src="@mipmap/test1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:scaleType="fitXY"
+                android:src="@mipmap/test1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:scaleType="fitXY"
+                android:src="@mipmap/test1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

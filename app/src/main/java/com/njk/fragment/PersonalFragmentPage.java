@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -17,11 +19,12 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.R;
-import com.njk.activity.AddNjyActivity;
 import com.njk.activity.FavoritesNjyActivity;
+import com.njk.activity.LoginActivity;
 import com.njk.activity.MoreActivity;
-import com.njk.activity.TravelNotesActivity;
+import com.njk.activity.MyCheapActivity;
 import com.njk.bean.UserInfo;
+import com.njk.manager.UserManager;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
@@ -36,7 +39,9 @@ import java.util.Map;
 public class PersonalFragmentPage extends Fragment implements OnClickListener{
 	private static String TAG="PersonalFragmentPage";
 	
-	private View rootView;
+	private View rootView,info_layout;
+	private ImageView face_img;
+	private TextView personal_name;
 	
 	private Activity activity;
 	private RequestQueue mQueue;
@@ -48,7 +53,7 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		activity = getActivity();
-		mQueue = Volley.newRequestQueue(activity);  
+		mQueue = Volley.newRequestQueue(activity);
 	}
 	
 	@Override
@@ -58,12 +63,22 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 			rootView = LayoutInflater.from(activity).inflate(R.layout.personal_fragment_layout, container, false);
 			
 			rootView.findViewById(R.id.face_layout).setOnClickListener(this);
-			rootView.findViewById(R.id.nongjia_you).setOnClickListener(this);
+			rootView.findViewById(R.id.my_cheap_layout).setOnClickListener(this);
 			rootView.findViewById(R.id.favorites_nongjia).setOnClickListener(this);
 			rootView.findViewById(R.id.add_nongjiayuan).setOnClickListener(this);
 			rootView.findViewById(R.id.more_btn).setOnClickListener(this);
-			
+
+			info_layout = rootView.findViewById(R.id.info_layout);
+			info_layout.setOnClickListener(this);
+
+			face_img = (ImageView)rootView.findViewById(R.id.face_img);
+			personal_name = (TextView)rootView.findViewById(R.id.personal_name);
+
+			initListener();
+
 			getUserInfoIndex();
+
+			updateUI();
 		}
 		
 		// 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
@@ -75,13 +90,29 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 		
 		return rootView;		
 	}
+
+	private void updateUI(){
+		if(userInfo!=null){
+
+			if(TextUtils.isEmpty(userInfo.getNickname())){
+				personal_name.setText(userInfo.getMobile());
+			}else{
+				personal_name.setText(userInfo.getNickname());
+			}
+		}else{
+			personal_name.setText("登录/注册");
+		}
+	}
+
+	private void initListener(){
+		UserManager.getInstance().registerUserStateChangerListener(listener);
+	}
 	
 	public void getUserInfoIndex(){
 		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(activity)+"");
-		params.put("family_id", "222");
-		params.put("user_id", "2");
+		params.put("user_id", Config.getUserId(activity)+"");
 
 		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.USERINFO_INDEX,new ResponseHandlerInterface(){
 
@@ -97,8 +128,13 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 							 String jsonArray = obj.getString("data");
 							 Gson gson = new Gson();
 							 userInfo = gson.fromJson(jsonArray, new TypeToken<UserInfo>(){}.getType());
-							 Log.d(TAG, userInfo+""); 
-//							 handler.sendEmptyMessage(UPATE_LAYOUT);
+							 Log.d(TAG, userInfo+"");
+							 activity.runOnUiThread(new Runnable() {
+								 @Override
+								 public void run() {
+									 updateUI();
+								 }
+							 });
 						 }
 					 }
 				} catch (Exception e) {
@@ -110,10 +146,10 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 			@Override
 			public void handlerError(String error) {
 				// TODO Auto-generated method stub
-				Log.e(TAG, error);  
+				Log.e(TAG, error);
 				DialogUtil.progressDialogDismiss();
 			}
-			
+
 		},params);
 	}
 	
@@ -121,11 +157,18 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		Intent intent = null;
 		switch (v.getId()) {
+		case R.id.info_layout:
+			if(!UserManager.getInstance().getUserLoginState(activity)){
+				intent = new Intent(activity,LoginActivity.class);
+				startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+			}
+			break;
 		case R.id.face_layout:
 			
 			break;
-		case R.id.nongjia_you:
-			intent = new Intent(activity,TravelNotesActivity.class);
+		case R.id.my_cheap_layout:
+//			intent = new Intent(activity,TravelNotesActivity.class);
+			intent = new Intent(activity,MyCheapActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.favorites_nongjia:
@@ -133,8 +176,8 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 			startActivity(intent);
 			break;
 		case R.id.add_nongjiayuan:
-			intent = new Intent(activity,AddNjyActivity.class);
-			startActivity(intent);
+//			intent = new Intent(activity,AddNjyActivity.class);
+//			startActivity(intent);
 			break;
 		case R.id.more_btn:
 			intent = new Intent(activity,MoreActivity.class);
@@ -144,5 +187,40 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 			break;
 		}
 		
-	}	
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		UserManager.getInstance().unRegisterUserStateChangerListener(listener);
+	}
+
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode){
+			case LoginActivity.LOGIN_SUCCESS:
+				getUserInfoIndex();
+				break;
+		}
+	}
+
+	UserManager.OnChangerUserStateListener listener = new UserManager.OnChangerUserStateListener(){
+		@Override
+		public void onLoginSuccees() {
+			getUserInfoIndex();
+		}
+
+		@Override
+		public void onExitUser() {
+			userInfo = null;
+			activity.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					updateUI();
+				}
+			});
+		}
+	};
 }

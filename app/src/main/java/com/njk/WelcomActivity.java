@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.njk.activity.LoginActivity;
 import com.njk.activity.MainTabActivity;
 import com.njk.adapter.GuideFragmentAdapter;
+import com.njk.manager.UserManager;
 import com.njk.utils.Config;
 import com.njk.viewpager.CirclePageIndicator;
 import com.njk.viewpager.PageIndicator;
@@ -96,12 +97,13 @@ public class WelcomActivity extends BaseActivity {
 	}
 
 	private void startNextActivity(){
-		boolean isLogin = false;
+		boolean isLogin = UserManager.getInstance().getUserLoginState(context);
 		if(isLogin){
 			startMainTabActivity();
 		}else{
 			Intent intent = new Intent(context,LoginActivity.class);
 //			Intent intent = new Intent(context,CategoryTestActivity.class);
+			intent.putExtra("ismain",true);
 			context.startActivity(intent);
 			Config.setHideGuided(context, true);
 			this.finish();

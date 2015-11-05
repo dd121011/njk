@@ -63,6 +63,7 @@
                 android:background="@android:color/transparent"
                 android:hint="请填写密码"
                 android:textColorHint="@color/text_color4"
+                android:inputType="textPassword"
                 android:textSize="@dimen/text_size1" />
         </LinearLayout>
     </LinearLayout>

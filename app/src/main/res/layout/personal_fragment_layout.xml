@@ -2,23 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/text_color9"
         android:fadingEdge="none"
-        android:fillViewport="true" >
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/info_layout"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/personal_info_bg"
@@ -31,7 +32,7 @@
                     android:id="@+id/face_layout"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/content_margin_vertical" >
+                    android:layout_marginTop="@dimen/content_margin_vertical">
 
                     <ImageView
                         android:layout_width="fill_parent"
@@ -85,30 +86,8 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/text_color0" >
+                android:background="@color/text_color0">
 
-                <LinearLayout
-                    android:id="@+id/nongjia_you"
-                    android:layout_width="0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="@dimen/content_margin_outside" >
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/personal_vip_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/content_margin_inside"
-                        android:text="农家游记"
-                        android:textColor="@color/text_color3"
-                        android:textSize="@dimen/text_size5" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/favorites_nongjia"
@@ -117,7 +96,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -134,12 +113,36 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/my_cheap_layout"
                     android:layout_width="0dip"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/personal_vip_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/content_margin_inside"
+                        android:text="我的优惠"
+                        android:textColor="@color/text_color3"
+                        android:textSize="@dimen/text_size5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="@dimen/content_margin_outside"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -162,13 +165,13 @@
                 android:layout_marginTop="@dimen/content_margin_outside"
                 android:background="@color/text_color0"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -200,7 +203,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -229,13 +232,13 @@
                 android:layout_marginTop="@dimen/content_margin_outside"
                 android:background="@color/text_color0"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -267,7 +270,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -295,14 +298,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/content_margin_outside"
                 android:background="@color/text_color0"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/add_nongjiayuan"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -314,7 +317,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/content_margin_vertical"
                         android:layout_weight="1"
-                        android:text="添加农家院"
+                        android:text="意见反馈"
                         android:textColor="@color/text_color2"
                         android:textSize="@dimen/text_size1" />
 
@@ -335,7 +338,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:padding="@dimen/content_margin_outside" >
+                    android:padding="@dimen/content_margin_outside">
 
                     <ImageView
                         android:layout_width="wrap_content"

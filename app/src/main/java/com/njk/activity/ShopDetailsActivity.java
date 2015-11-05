@@ -31,11 +31,10 @@ import com.njk.BaseActivity;
 import com.njk.Global;
 import com.njk.R;
 import com.njk.bean.FamilyDetailBean;
-import com.njk.bean.NearBean;
 import com.njk.bean.ReviewBean;
 import com.njk.fragment.BaseFragment;
 import com.njk.fragment.ShopDetailsComboFragment;
-import com.njk.fragment.ShopDetailsInfoFragment;
+import com.njk.fragment.ShopDetailsNearFragment;
 import com.njk.fragment.ShopDetailsRemarkFragment;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
@@ -76,7 +75,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	private List<Fragment> fragmentlist;
 	private LinkedList<String> mListItems;
 
-	private NearBean nearBean;
+	private String id;
 	private FamilyDetailBean detailBean;
 	private DisplayImageOptions options;	
 	
@@ -107,10 +106,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		rootView = LayoutInflater.from(context).inflate(R.layout.shop_details_layout, null);
 		setContentView(rootView);
 
-		Object obj = getIntent().getSerializableExtra("obj");
-		if(obj!=null){
-			nearBean = (NearBean)obj;
-		}
+		id = getIntent().getStringExtra("id");
+
 
 		initView();
 		initListener();
@@ -178,6 +175,11 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
         FragmentTransaction ft = fm.beginTransaction();  
         if (mFragment == null) {
             mFragment = Fragment.instantiate(context, mClass.getName(), null);
+			if(mFragment instanceof ShopDetailsNearFragment){
+				Bundle bundle = new Bundle();
+				bundle.putString(ShopDetailsNearFragment.ARGUMENTS, detailBean.getRecreation());
+				mFragment.setArguments(bundle);
+			}
             ft.add(R.id.fragment_content, mFragment, mTag);
             if(fragmentlist == null){
             	fragmentlist = new ArrayList<Fragment>();
@@ -217,7 +219,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 				changeFragment(checkedId+"",ShopDetailsRemarkFragment.class);
 				break;
 			case R.id.radio_btn3:
-				changeFragment(checkedId+"",ShopDetailsInfoFragment.class);
+//				changeFragment(checkedId+"",ShopDetailsInfoFragment.class);
+				changeFragment(checkedId+"",ShopDetailsNearFragment.class);
 				break;
 			default:
 				break;
@@ -253,7 +256,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		isStart = true;
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(context)+"");
-		params.put("family_id", nearBean.id);
+		params.put("family_id", this.id);
 		params.put("user_id", "");
 
 		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.FAMILY_DETAIL,new ResponseHandlerInterface(){
@@ -469,8 +472,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		},params);
 
 	}
-	
-	String[] mStrings = { "Abbaye de Belloc", "Abbaye du Mont des Cats", "Abertam", "Abondance", "Ackawi" };
+
 
 	@Override
 	public void onClick(View v) {

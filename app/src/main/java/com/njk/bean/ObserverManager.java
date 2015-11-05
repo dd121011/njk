@@ -17,7 +17,8 @@ public class ObserverManager {
         }
         return instance;
     }
-    private static List<ReviewListener> reviewList = new ArrayList<ReviewListener>();
+    private static List<ReviewListener> reviewList = new ArrayList<>();
+    private static List<AreasUpdateListener> areasUpdateListenerList = new ArrayList<>();
 
     public void addReviewListener(ReviewListener listener){
         if(listener!=null){
@@ -39,5 +40,28 @@ public class ObserverManager {
 
     public interface ReviewListener{
         void notifyUpdateReview();
+    }
+
+
+    public void addAreasUpdateListener(AreasUpdateListener listener){
+        if(listener!=null){
+            areasUpdateListenerList.add(listener);
+        }
+    }
+
+    public void removeAreasUpdateListener(AreasUpdateListener listener){
+        if(listener!=null && areasUpdateListenerList.contains(listener)){
+            areasUpdateListenerList.remove(listener);
+        }
+    }
+
+    public void notifyAreasOchange(){
+        for (AreasUpdateListener item: areasUpdateListenerList){
+            item.notifyUpdate();
+        }
+    }
+
+    public interface AreasUpdateListener{
+        void notifyUpdate();
     }
 }

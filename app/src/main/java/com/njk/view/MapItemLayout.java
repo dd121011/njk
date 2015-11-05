@@ -1,12 +1,13 @@
 package com.njk.view;
 
-import com.njk.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import com.njk.R;
+import com.njk.bean.NearMapBean;
 
 public class MapItemLayout extends LinearLayout {
 
@@ -23,5 +24,9 @@ public class MapItemLayout extends LinearLayout {
 	private void initView(){
 		View view =LayoutInflater.from(getContext()).inflate(R.layout.map_infowindow_layout2, null);
 		this.addView(view);
+	}
+
+	public void initData(NearMapBean bean){
+
 	}
 }

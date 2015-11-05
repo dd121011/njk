@@ -30,7 +30,7 @@ public class MApplication extends Application {
 		LocationClientUtils.getInstance().init(this);
 		
 		initImageLoader(getApplicationContext());
-		
+
 	}
 
 
@@ -44,6 +44,9 @@ public class MApplication extends Application {
 	}
 	
 	public void finishLoginActivity(){
+		if(userLoginList == null){
+			return;
+		}
 		for(Activity activity : userLoginList){
 			if(activity!=null){
 				activity.finish();				

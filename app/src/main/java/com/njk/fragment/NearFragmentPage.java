@@ -30,13 +30,16 @@ import com.baidu.location.BDLocation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.R;
+import com.njk.activity.SearchActivity;
 import com.njk.activity.ShopDetailsActivity;
 import com.njk.activity.ShopMapListActivity;
 import com.njk.activity.SwitchCityActivity;
 import com.njk.adapter.NearListAdapter;
+import com.njk.bean.Emums.NjiaType;
+import com.njk.bean.Emums.OrderType;
 import com.njk.bean.GetscenicBean;
 import com.njk.bean.NearBean;
-import com.njk.bean.ProvinceBean;
+import com.njk.bean.ObserverManager;
 import com.njk.category.CategoryBean;
 import com.njk.category.CategoryBeanUtils;
 import com.njk.category.CategoryGroup;
@@ -47,7 +50,6 @@ import com.njk.category.CategoryMenuLayout;
 import com.njk.category.CategoryMenuLayout.OnSelectedCategoryMenuListener;
 import com.njk.category.CategoryMenuUtils;
 import com.njk.category.CategorySubListAdapter;
-import com.njk.db.ProvinceDBUtils;
 import com.njk.manager.CurrCityManager;
 import com.njk.manager.CurrCityManager.OnChangerCurrCityListener;
 import com.njk.net.RequestCommandEnum;
@@ -155,7 +157,8 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 	        
 	        rootView.findViewById(R.id.switch_adress_btn).setOnClickListener(this);
 	        rootView.findViewById(R.id.map_btn).setOnClickListener(this);
-	        
+	        rootView.findViewById(R.id.search_btn).setOnClickListener(this);
+
 			categoryMenuLayout = (CategoryMenuLayout)rootView.findViewById(R.id.category_menu_layout);
 			String[] strArr = activity.getResources().getStringArray(R.array.near_nemus);
 //			menuList = CategoryMenuUtils.getTestMenuData();
@@ -163,22 +166,29 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 			menuBean0 = menuList.get(0);
 			menuBean1 = menuList.get(1);
 			menuBean2 = menuList.get(2);
-			
-			String[] strArr1 = activity.getResources().getStringArray(R.array.near_nemu1);
+
+			String[] strArr0 = activity.getResources().getStringArray(R.array.near_nemu0);
+			List<CategoryBean> list0 = menuBean0.getCategoryGroup().getCategoryListData();
+//			for(int i=0;i<strArr0.length;i++){
+//				CategoryBean bean = new CategoryBean();
+//				bean.id = i+"";
+//				bean.name = strArr0[i];
+//				list0.add(bean);
+//			}
+
 			List<CategoryBean> list1 = menuBean1.getCategoryGroup().getCategoryListData();
-			for(int i=0;i<strArr1.length;i++){
+			for(NjiaType njiaType: NjiaType.values()){
 				CategoryBean bean = new CategoryBean();
-				bean.id = i+"";
-				bean.name = strArr1[i];
+				bean.id = njiaType.id;
+				bean.name = njiaType.name;
 				list1.add(bean);
 			}
-			
-			String[] strArr2 = activity.getResources().getStringArray(R.array.near_nemu2);
+
 			List<CategoryBean> list2 = menuBean2.getCategoryGroup().getCategoryListData();
-			for(int i=0;i<strArr2.length;i++){
+			for(OrderType orderType: OrderType.values()){
 				CategoryBean bean = new CategoryBean();
-				bean.id = i+"";
-				bean.name = strArr2[i];
+				bean.id = orderType.id;
+				bean.name = orderType.name;
 				list2.add(bean);
 			}
 						
@@ -213,31 +223,40 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 			listView.setOnScrollListener(new OnScrollListener() {
 				
 				@Override
-				public void onScrollStateChanged(AbsListView view, int scrollState) {}
+				public void onScrollStateChanged(AbsListView view, int scrollState) {
+					// 当不滚动时
+					if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+						// 判断是否滚动到底部
+						if (view.getLastVisiblePosition() == view.getCount() - 1) {
+							//加载更多功能的代码
+						}
+					}
+				}
 				
 				@Override
 				public void onScroll(AbsListView view, int firstVisibleItem,
 						int visibleItemCount, int totalItemCount) {
-					if(firstVisibleItem == (totalItemCount - 2)){
+					// 判断是否滚动到底部
+					if (view.getLastVisiblePosition() == view.getCount() - 2) {
+						//加载更多功能的代码
 						startGetData();
 					}
-					
 				}
 			});
 			
 			mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.rotate_header_list_view_frame);
 			mPtrFrame.setLastUpdateTimeRelateObject(this);
 			mPtrFrame.setPtrHandler(new PtrHandler() {
-			   @Override
-			   public void onRefreshBegin(PtrFrameLayout frame) {
-				   offset = 0;
-				   startGetData();
-			   }
-			
-			   @Override
-			   public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-			         return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-			   }
+				@Override
+				public void onRefreshBegin(PtrFrameLayout frame) {
+					offset = 0;
+					startGetData();
+				}
+
+				@Override
+				public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+					return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+				}
 			});
 			    // the following are default settings
 			mPtrFrame.setResistance(1.7f);
@@ -249,15 +268,17 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 			// default is true
 			mPtrFrame.setKeepHeaderWhenRefresh(true);
 			mPtrFrame.postDelayed(new Runnable() {
-			    @Override
-			    public void run() {
+				@Override
+				public void run() {
 //			        mPtrFrame.autoRefresh();
-			    }
+				}
 			}, 100);
 			
 			startGetData();
 			
-			getGetscenic();
+//			getGetscenic
+
+			initObserver();
 		}
 		
 		// 缓存的rootView需要判断是否已经被加过parent，如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误。
@@ -268,15 +289,33 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 	    }
 		
 		return rootView;		
-	}	
+	}
+
+	private  void initObserver(){
+		ObserverManager.getInstance().addAreasUpdateListener(areasUpdateListener);
+	}
+
+	private void removeObserver(){
+		ObserverManager.getInstance().removeAreasUpdateListener(areasUpdateListener);
+	}
 	
 	private void setCurProvinceCategoryGroup(String currCity){
-		ProvinceBean provinceBean = ProvinceDBUtils.getProvince(activity, currCity);
+//		ProvinceBean provinceBean = ProvinceDBUtils.getProvince(activity, currCity);
+
+		List<CategoryBean> list0 = menuBean0.getCategoryGroup().getCategoryListData();
+		List<CategoryBean> list = CategoryBeanUtils.getCategorysFromAreas(activity,currCity);
+		list0.add(menuBean0.getCategoryGroup().getTmpCategory());
+		list0.addAll(list);
+
+		List<CategoryBean> subList = new ArrayList<>();
+		subList.add(menuBean0.getCategoryGroup().getTmpCategory());
+		menuBean0.getCategoryGroup().getTmpCategory().subList = subList;
 	}
 
 	@Override
 	public void onDestroy() {
 		LocationClientUtils.getInstance().removeListener(locationListener);
+		removeObserver();
 		super.onDestroy();
 	}
 
@@ -406,8 +445,8 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 		if(isStart){
 			return;
 		}
-		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
 		isStart = true;
+		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("offset", offset+"");
 		params.put("per_page", per_page+"");
@@ -486,7 +525,7 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 			NearListAdapter adapter = (NearListAdapter)arg0.getAdapter();
 			NearBean item = adapter.getItem(arg2);
 			Intent intent = new Intent(activity,ShopDetailsActivity.class);
-			intent.putExtra("obj",item);
+			intent.putExtra("id",item.id);
 //			Intent intent = new Intent(activity,DetailWebViewActivity.class);
 			activity.startActivity(intent);
 		}
@@ -550,6 +589,10 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 			intent = new Intent(activity,ShopMapListActivity.class);
 			activity.startActivity(intent);
 			break;
+		case R.id.search_btn:
+			intent = new Intent(activity,SearchActivity.class);
+			activity.startActivity(intent);
+			break;
 		default:
 			break;
 		}
@@ -588,6 +631,13 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 					}
 				}
 			});
+		}
+	};
+
+	private ObserverManager.AreasUpdateListener areasUpdateListener = new ObserverManager.AreasUpdateListener() {
+		@Override
+		public void notifyUpdate() {
+			//刷新areas相关的筛选数据
 		}
 	};
 }

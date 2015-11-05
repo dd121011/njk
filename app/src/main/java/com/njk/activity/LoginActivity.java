@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.njk.BaseActivity;
 import com.njk.MApplication;
 import com.njk.R;
+import com.njk.manager.UserManager;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
@@ -33,11 +34,13 @@ import java.util.Map;
 
 public class LoginActivity extends BaseActivity implements OnClickListener{
 	private final String  TAG = "LoginActivity";
-	
+	public static final int LOGIN_SUCCESS = 1;
 	private RequestQueue mQueue; 
 	private Context context;
 	
 	private EditText phone_text,password_text;
+
+	boolean ismain = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		mQueue = Volley.newRequestQueue(this);
 		View rootView = LayoutInflater.from(this).inflate(R.layout.login_layout, null);
 		setContentView(rootView);
-		Utils.showTopBtn(rootView, "登录", TOP_BTN_MODE.SHOWRIGHTTEXT,"","注册");
+		Utils.showTopBtn(rootView, "登录", TOP_BTN_MODE.SHOWRIGHTTEXT, "", "注册");
 		findViewById(R.id.back_btn).setOnClickListener(this);
 		findViewById(R.id.share_btn).setOnClickListener(this);
 		findViewById(R.id.login_btn).setOnClickListener(this);
@@ -56,6 +59,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		
 		password_text = (EditText)findViewById(R.id.password_text);
 		phone_text = (EditText)findViewById(R.id.phone_text);
+
+		ismain = getIntent().getBooleanExtra("ismain",false);
 	        
 	}
 	
@@ -77,16 +82,20 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			break;
 		case R.id.login_btn:
 			if(!TextUtils.isEmpty(phone_text.getText()) && !TextUtils.isEmpty(password_text.getText())){
-				intent = new Intent(this, MainTabActivity.class);
-				startActivity(intent);
-				MApplication app2 = (MApplication) getApplication();
-				app2.addLoginAcitivity(this);
+				startGetData();
 			}
 			break;
 		default:
 			break;
 		}
 		
+	}
+
+	private void toMainAcitivity(){
+		Intent intent = new Intent(this, MainTabActivity.class);
+		startActivity(intent);
+		MApplication app2 = (MApplication) getApplication();
+		app2.addLoginAcitivity(this);
 	}
 
 	private boolean isStart = false;
@@ -100,7 +109,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 		params.put("mobile", phone_text.getText().toString());
 		params.put("password", Password.createPassword(password_text.getText().toString()));
 		
-		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.CHECK_MOBILE_DO,new ResponseHandlerInterface(){
+		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.LOGIN,new ResponseHandlerInterface(){
 
 			@Override
 			public void handlerSuccess(String response) {
@@ -113,21 +122,29 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 						 JSONObject obj = new JSONObject(response);
 						 if(obj.has("code")){
 							final String code = obj.getString("code");
-							 if("10006".equals(code)){
-								 final String msg = obj.getString("message");
-								 runOnUiThread(new Runnable() {
-										public void run() {
-											Toast.makeText(context, msg+"", Toast.LENGTH_SHORT).show();
-										}
-									 });
-							 }else if("0".equals(code)){
+							 if("0".equals(code)){
 								 JSONObject json2 = obj.getJSONObject("data");
 								 Config.setUserId(context, json2.getString("user_id"));
 								 Config.setUserToken(context, json2.getString("token"));
+								 Config.setUserMobile(context,phone_text.getText().toString());
+								 UserManager.getInstance().userLoginSuccees(context);
 								 runOnUiThread(new Runnable() {
 									public void run() {
-										Toast.makeText(context, code+" = 0", Toast.LENGTH_SHORT).show();
+										if(ismain){
+											toMainAcitivity();
+											Toast.makeText(context, code+" = 0", Toast.LENGTH_SHORT).show();
+										}else{
+											setResult(LOGIN_SUCCESS);
+										}
+										LoginActivity.this.finish();
 									}
+								 });
+							 }else{
+								 final String msg = obj.getString("message");
+								 runOnUiThread(new Runnable() {
+									 public void run() {
+										 Toast.makeText(context, msg+"", Toast.LENGTH_SHORT).show();
+									 }
 								 });
 							 }
 

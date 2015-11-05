@@ -40,7 +40,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="260dp"
                             android:scaleType="fitXY"
-                            android:src="@mipmap/test1" />
+                            android:src="@mipmap/img_default_icon" />
 
                         <LinearLayout
                             android:id="@+id/shop_user_info_layout"
