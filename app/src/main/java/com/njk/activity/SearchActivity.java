@@ -1,16 +1,22 @@
 package com.njk.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -34,23 +40,25 @@ import java.util.List;
 import java.util.Map;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 public class SearchActivity extends BaseActivity implements OnClickListener{
 	private final String  TAG = "SearchActivity";
-	public static final int LOGIN_SUCCESS = 1;
-	private RequestQueue mQueue; 
-	private Activity activity;
-	
-	private EditText search_text;
-	private View clear_btn;
-
 	public final static int UPDATE_DATA_LIST = 1;
 	public final static int MORE_DATE_LIST = 2;
 	public final static int UPATE_LIST_LAYOUT = 3;
 	public final static int GET_DATE_FAIL = 100;
 
 	private final static int GET_CITY_DATA_SUCCES = 4;
+	
+	private EditText search_text;
+	private View clear_btn;
+	private ListView listView ;
 
+	private RequestQueue mQueue;
+	private Activity activity;
 	private List<NearBean> nearBeanList;
 	private PtrClassicFrameLayout mPtrFrame;
 	private NearListAdapter mAdapter;
@@ -104,8 +112,52 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		View rootView = LayoutInflater.from(this).inflate(R.layout.search_layout, null);
 		setContentView(rootView);
 
+		findViewById(R.id.back_btn).setOnClickListener(this);
 		search_text = (EditText)findViewById(R.id.search_text);
+		search_text.addTextChangedListener(textWatcher);
+		search_text.setOnKeyListener(new View.OnKeyListener() {
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				//监听搜索输入框回车按键
+				if (keyCode == KeyEvent.KEYCODE_ENTER && v.getId() == R.id.search_text) {//判断是否为回车
+					InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+					if (imm.isActive())
+						imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
+								InputMethodManager.HIDE_NOT_ALWAYS);
+//					search();
+					return true;
+				}
+				return false;
+			}
+		});
+
 		clear_btn = findViewById(R.id.clear_btn);
+		clear_btn.setOnClickListener(this);
+
+		listView = (ListView) rootView.findViewById(R.id.rotate_header_list_view);
+		mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.rotate_header_list_view_frame);
+		mPtrFrame.setLastUpdateTimeRelateObject(this);
+		mPtrFrame.setPtrHandler(new PtrHandler() {
+			@Override
+			public void onRefreshBegin(PtrFrameLayout frame) {
+				offset = 0;
+				startGetData();
+			}
+
+			@Override
+			public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+				return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+			}
+		});
+		// the following are default settings
+		mPtrFrame.setResistance(1.7f);
+		mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
+		mPtrFrame.setDurationToClose(200);
+		mPtrFrame.setDurationToCloseHeader(1000);
+		// default is false
+		mPtrFrame.setPullToRefresh(true);
+		// default is true
+		mPtrFrame.setKeepHeaderWhenRefresh(false);
 	}
 	
 	@Override
@@ -200,4 +252,34 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		},params);
 
 	}
+
+	/**
+	 * 监听关键字eidttextview中文本的变化，当发生变化时，请求数据。
+	 */
+	TextWatcher textWatcher = new TextWatcher() {
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+								  int count) {
+			if (!TextUtils.isEmpty(s)) {
+//				wordsListView.pullData(s.toString(), LejuApplication.NEW_HOUSE);
+
+			} else {
+
+			}
+
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+									  int after) {
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+
+		}
+	};
+
 }
