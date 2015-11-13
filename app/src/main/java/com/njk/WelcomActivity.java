@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.njk.activity.LoginActivity;
 import com.njk.activity.MainTabActivity;
 import com.njk.adapter.GuideFragmentAdapter;
 import com.njk.manager.UserManager;
@@ -98,16 +97,15 @@ public class WelcomActivity extends BaseActivity {
 
 	private void startNextActivity(){
 		boolean isLogin = UserManager.getInstance().getUserLoginState(context);
-		if(isLogin){
+//		if(isLogin){
 			startMainTabActivity();
-		}else{
-			Intent intent = new Intent(context,LoginActivity.class);
-//			Intent intent = new Intent(context,CategoryTestActivity.class);
-			intent.putExtra("ismain",true);
-			context.startActivity(intent);
-			Config.setHideGuided(context, true);
-			this.finish();
-		}
+//		}else{
+//			Intent intent = new Intent(context,LoginActivity.class);
+//			intent.putExtra("ismain",true);
+//			context.startActivity(intent);
+//			Config.setHideGuided(context, true);
+//			this.finish();
+//		}
 	}
 
 	private void startMainTabActivity() {

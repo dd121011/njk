@@ -14,9 +14,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -30,7 +35,9 @@ import com.njk.bean.NearBean;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
+import com.njk.utils.Config;
 import com.njk.utils.DialogUtil;
+import com.njk.view.ViewHolder;
 
 import org.json.JSONObject;
 
@@ -50,18 +57,18 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 	public final static int MORE_DATE_LIST = 2;
 	public final static int UPATE_LIST_LAYOUT = 3;
 	public final static int GET_DATE_FAIL = 100;
-
-	private final static int GET_CITY_DATA_SUCCES = 4;
 	
 	private EditText search_text;
 	private View clear_btn;
-	private ListView listView ;
+	private ListView listView,listView2 ;
 
 	private RequestQueue mQueue;
 	private Activity activity;
 	private List<NearBean> nearBeanList;
+	private List<String> keys;
 	private PtrClassicFrameLayout mPtrFrame;
 	private NearListAdapter mAdapter;
+	private KeyTextAdapter keysAdapter;
 
 	private int offset = 0;
 	private int per_page = 10;
@@ -71,9 +78,6 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-				case GET_CITY_DATA_SUCCES:
-
-					break;
 				case UPDATE_DATA_LIST:
 					List<NearBean> dataList = (List<NearBean>) msg.getData().getSerializable("data");
 					if(offset == 0){
@@ -90,6 +94,9 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 					handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
 					break;
 				case UPATE_LIST_LAYOUT:
+					if(mPtrFrame.getVisibility()==View.GONE){
+						mPtrFrame.setVisibility(View.VISIBLE);
+					}
 					mPtrFrame.refreshComplete();
 					mAdapter.notifyDataSetChanged();
 					break;
@@ -124,8 +131,12 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 					if (imm.isActive())
 						imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
 								InputMethodManager.HIDE_NOT_ALWAYS);
-//					search();
-					return true;
+					if(!TextUtils.isEmpty(search_text.getText().toString())){
+						search();
+						setKey(activity, search_text.getText().toString());
+						return true;
+					}
+					return false;
 				}
 				return false;
 			}
@@ -135,13 +146,41 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		clear_btn.setOnClickListener(this);
 
 		listView = (ListView) rootView.findViewById(R.id.rotate_header_list_view);
+		listView.setOnItemClickListener(new NearListOnItemClickListener());
+		nearBeanList = new ArrayList<NearBean>();
+		mAdapter = new NearListAdapter(activity, nearBeanList);
+		listView.setAdapter(mAdapter);
+		listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// 当不滚动时
+				if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+					// 判断是否滚动到底部
+					if (view.getLastVisiblePosition() == view.getCount() - 1) {
+						//加载更多功能的代码
+					}
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+								 int visibleItemCount, int totalItemCount) {
+				// 判断是否滚动到底部
+				if (view.getLastVisiblePosition() == view.getCount() - 2) {
+					//加载更多功能的代码
+					startGetData();
+				}
+			}
+		});
+
+
 		mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.rotate_header_list_view_frame);
 		mPtrFrame.setLastUpdateTimeRelateObject(this);
 		mPtrFrame.setPtrHandler(new PtrHandler() {
 			@Override
 			public void onRefreshBegin(PtrFrameLayout frame) {
-				offset = 0;
-				startGetData();
+				search();
 			}
 
 			@Override
@@ -155,9 +194,21 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		mPtrFrame.setDurationToClose(200);
 		mPtrFrame.setDurationToCloseHeader(1000);
 		// default is false
-		mPtrFrame.setPullToRefresh(true);
+		mPtrFrame.setPullToRefresh(false);
 		// default is true
-		mPtrFrame.setKeepHeaderWhenRefresh(false);
+		mPtrFrame.setKeepHeaderWhenRefresh(true);
+
+
+		listView2 = (ListView) rootView.findViewById(R.id.rotate_header_list_view2);
+		keys = getKeys(activity);
+		if(keys == null){
+			keys = new ArrayList<>();
+		}
+		keys.add("清除记录");
+		keysAdapter = new KeyTextAdapter(activity, keys);
+		listView2.setAdapter(keysAdapter);
+		listView2.setOnItemClickListener(searchKeyOitemClick);
+
 	}
 	
 	@Override
@@ -168,12 +219,19 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 			this.finish();
 			break;
 		case R.id.clear_btn:
-
+			if(!TextUtils.isEmpty(search_text.getText().toString())){
+				search_text.setText("");
+			}
 			break;
 		default:
 			break;
 		}
 		
+	}
+
+	private void search(){
+		offset = 0;
+		startGetData();
 	}
 
 	private boolean isStart = false;
@@ -186,23 +244,11 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("offset", offset+"");
 		params.put("per_page", per_page+"");
-//		params.put("Token", Config.getUserToken(activity)+"");
-//		params.put("keyword", "");
-//		params.put("lat", Config.getCurLat(activity));
-//		params.put("lng", Config.getCurLng(activity));
+		params.put("Token", Config.getUserToken(activity)+"");
+		params.put("keyword", search_text.getText().toString());
+		params.put("lat", Config.getCurLat(activity));
+		params.put("lng", Config.getCurLng(activity));
 //		params.put("city_id", Config.getCurrCityId(activity));
-//		params.put("scenic_id", "scenic_id");
-//		params.put("orderby", "orderby");
-//		Token	Token值
-//		offset	偏移量(0,10,20)默认0
-//		per_page	每页显示数(10)
-//		source	1web 2 android 3 ios
-//		keyword	搜索农家客关键字
-//		lat	经度
-//		lng	维度
-//		city_id	城市id
-//		scenic_id	景区id
-//		orderby	排序(1:距离最近2:人气最高3:点评最多4:人均最低5:人均最高)
 
 		RequestUtils.startStringRequest(Method.GET,mQueue, RequestCommandEnum.FAMILY_LIST,new ResponseHandlerInterface(){
 
@@ -262,10 +308,11 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		public void onTextChanged(CharSequence s, int start, int before,
 								  int count) {
 			if (!TextUtils.isEmpty(s)) {
+				clear_btn.setVisibility(View.VISIBLE);
 //				wordsListView.pullData(s.toString(), LejuApplication.NEW_HOUSE);
 
 			} else {
-
+				clear_btn.setVisibility(View.GONE);
 			}
 
 		}
@@ -282,4 +329,95 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		}
 	};
 
+	private List<String> getKeys(Context context){
+		String dataStr = Config.getSearchKeys(context);
+		Gson gson = new Gson();
+		List<String> listData = gson.fromJson(dataStr, new TypeToken<List<String>>() {
+		}.getType());
+		return listData;
+	}
+
+	private void setKey(Context context,String key){
+		if(TextUtils.isEmpty(key)){
+			return;
+		}
+		List<String> listData = getKeys(context);
+		if(listData == null){
+			listData = new ArrayList<>();
+		}
+		if(!listData.contains(key)){
+			Gson gson = new Gson();
+			listData.add(key);
+			Config.setSearchKeys(context,gson.toJson(listData));
+		}
+	}
+
+	private void clearKeys(Context context){
+		Config.setSearchKeys(context, "");
+		keys.clear();
+		keysAdapter.notifyDataSetChanged();
+	}
+
+
+	class KeyTextAdapter extends BaseAdapter{
+		List<String> listData;
+		Context context;
+		LayoutInflater inflater;
+		public KeyTextAdapter(Context context,List<String> listData) {
+			this.listData = listData;
+			this.context = context;
+			this.inflater = LayoutInflater.from(context);
+		}
+
+		@Override
+		public int getCount() {
+			return listData==null?0:listData.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return listData.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			if(convertView==null){
+				convertView = inflater.inflate(R.layout.search_keys_item,null);
+			}
+			TextView search_key_text = ViewHolder.get(convertView, R.id.search_key_text);
+			search_key_text.setText(listData.get(position));
+			return convertView;
+		}
+	}
+
+	AdapterView.OnItemClickListener searchKeyOitemClick = new AdapterView.OnItemClickListener() {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			if(parent.getAdapter().getCount()-1 == position){
+				clearKeys(activity);
+			}else{
+				search();
+			}
+		}
+	};
+
+	class NearListOnItemClickListener implements AdapterView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+								long arg3) {
+			NearListAdapter adapter = (NearListAdapter)arg0.getAdapter();
+			NearBean item = adapter.getItem(arg2);
+			Intent intent = new Intent(activity,ShopDetailsActivity.class);
+			intent.putExtra("id",item.id);
+//			Intent intent = new Intent(activity,DetailWebViewActivity.class);
+			activity.startActivity(intent);
+		}
+
+	}
 }

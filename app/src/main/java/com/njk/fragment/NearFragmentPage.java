@@ -304,6 +304,8 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 
 		List<CategoryBean> list0 = menuBean0.getCategoryGroup().getCategoryListData();
 		List<CategoryBean> list = CategoryBeanUtils.getCategorysFromAreas(activity,currCity);
+
+		menuBean0.getCategoryGroup().clear();
 		list0.add(menuBean0.getCategoryGroup().getTmpCategory());
 		list0.addAll(list);
 
@@ -450,11 +452,11 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("offset", offset+"");
 		params.put("per_page", per_page+"");
-//		params.put("Token", Config.getUserToken(activity)+"");
+		params.put("Token", Config.getUserToken(activity)+"");
 //		params.put("keyword", "");
 //		params.put("lat", Config.getCurLat(activity));
 //		params.put("lng", Config.getCurLng(activity));
-//		params.put("city_id", Config.getCurrCityId(activity));
+		params.put("city_id", Config.getCurrCityId(activity));
 //		params.put("scenic_id", "scenic_id");
 //		params.put("orderby", "orderby");
 //		Token	Token值

@@ -78,7 +78,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener{
 			app.addLoginAcitivity(this);
 			break;
 		case R.id.forget_password:
-	
+			intent = new Intent(this, RecoveredActivity.class);
+			startActivity(intent);
+			app = (MApplication) getApplication();
+			app.addLoginAcitivity(this);
 			break;
 		case R.id.login_btn:
 			if(!TextUtils.isEmpty(phone_text.getText()) && !TextUtils.isEmpty(password_text.getText())){

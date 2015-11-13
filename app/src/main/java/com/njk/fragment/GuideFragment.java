@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.njk.R;
-import com.njk.activity.LoginActivity;
 import com.njk.activity.MainTabActivity;
 import com.njk.utils.Config;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -102,16 +101,16 @@ public final class GuideFragment extends Fragment {
 
     private void startNextActivity(){
         boolean isLogin = false;
-        if(isLogin){
+//        if(isLogin){
             startMainTabActivity();
-        }else{
-            Intent intent = new Intent(getActivity(),LoginActivity.class);
-//			Intent intent = new Intent(context,CategoryTestActivity.class);
-            intent.putExtra("ismain",true);
-            getActivity().startActivity(intent);
-            Config.setHideGuided(getActivity(), true);
-            getActivity().finish();
-        }
+//        }else{
+//            Intent intent = new Intent(getActivity(),LoginActivity.class);
+////			Intent intent = new Intent(context,CategoryTestActivity.class);
+//            intent.putExtra("ismain",true);
+//            getActivity().startActivity(intent);
+//            Config.setHideGuided(getActivity(), true);
+//            getActivity().finish();
+//        }
     }
 
 

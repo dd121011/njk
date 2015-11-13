@@ -29,8 +29,8 @@
                 android:id="@+id/phone_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/content_margin_outside"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="请填写手机号"
                 android:textColorHint="@color/text_color4"
@@ -52,47 +52,63 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/password_icon" />
+                android:src="@mipmap/verification_code_icon" />
 
             <EditText
-                android:id="@+id/password_text"
+                android:id="@+id/verify_code_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginLeft="@dimen/content_margin_outside"
+                android:layout_marginRight="@dimen/content_margin_outside"
+                android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="请填写密码"
+                android:hint="请填写验证码"
                 android:textColorHint="@color/text_color4"
-                android:inputType="textPassword"
                 android:textSize="@dimen/text_size1" />
+
+            <TextView
+                android:id="@+id/get_verify_code"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="获取验证码"
+                android:textColor="@color/text_color5"
+                android:textSize="@dimen/text_size2" />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/forget_password"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/content_margin_vertical"
-        android:gravity="center_vertical|right" >
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dip"
+        android:background="@mipmap/login_btn_bg"
+        android:padding="@dimen/content_margin_inside"
+        android:text="下一步"
+        android:textColor="@color/text_color0"
+        android:textSize="@dimen/text_size1" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/content_margin_vertical" 
+        android:layout_marginTop="@dimen/content_margin_outside">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/selected_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/content_margin_outside"
-            android:text="忘记密码?"
-            android:textColor="@color/text_color5"
-            android:textSize="@dimen/text_size3" />
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:background="@android:color/transparent"
+            android:text="我已经同意《云美客使用协议和隐私政策》"
+            android:textColor="@color/text_color4"
+            android:textSize="@dimen/text_size5" />
     </LinearLayout>
-
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@mipmap/login_btn_bg"
-        android:padding="@dimen/content_margin_outside"
-        android:text="登录"
-        android:textColor="@color/text_color0"
-        android:textSize="@dimen/text_size1" />
 
 </LinearLayout>

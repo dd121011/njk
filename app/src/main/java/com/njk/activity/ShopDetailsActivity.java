@@ -36,6 +36,7 @@ import com.njk.fragment.BaseFragment;
 import com.njk.fragment.ShopDetailsComboFragment;
 import com.njk.fragment.ShopDetailsNearFragment;
 import com.njk.fragment.ShopDetailsRemarkFragment;
+import com.njk.manager.UserManager;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
@@ -60,7 +61,9 @@ import java.util.Map;
 public class ShopDetailsActivity extends BaseActivity implements OnClickListener {
 	private final String TAG = "ShopDetailsActivity";
 	private  final static int UPATE_LAYOUT = 1;
-	
+	private final static int fav_do_btn_index = 2;
+	private final static int review_btn_index = 3;
+
 
 	private View rootView,fav_do_btn,cancel_fav_btn,navigate_btn,call_btn,review_btn;
 	private ImageView topImg,face_img;
@@ -473,6 +476,21 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 
 	}
 
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode){
+			case LoginActivity.LOGIN_SUCCESS:
+				if(requestCode == fav_do_btn_index){
+					familyFavDo();
+				}else if(requestCode == review_btn_index){
+					Intent intent = new Intent(context,ReviewDoActivity.class);
+					intent.putExtra("obj",detailBean);
+					context.startActivity(intent);
+				}
+				break;
+		}
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -486,7 +504,12 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			context.startActivity(intent);
 			break;
 		case R.id.fav_do_btn:
-			familyFavDo();
+			if(!UserManager.getInstance().getUserLoginState(context)){
+				intent = new Intent(context,LoginActivity.class);
+				startActivityForResult(intent, fav_do_btn_index);
+			}else{
+				familyFavDo();
+			}
 			break;
 		case R.id.cancel_fav_btn:
 			familyCancelFav();
@@ -508,9 +531,16 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			if(detailBean == null){
 				return;
 			}
-			intent = new Intent(context,ReviewDoActivity.class);
-			intent.putExtra("obj",detailBean);
-			context.startActivity(intent);
+
+			if(!UserManager.getInstance().getUserLoginState(context)){
+				intent = new Intent(context,LoginActivity.class);
+				startActivityForResult(intent, review_btn_index);
+			}else{
+				intent = new Intent(context,ReviewDoActivity.class);
+				intent.putExtra("obj",detailBean);
+				context.startActivity(intent);
+			}
+
 //			familyReviewList();
 			break;
 		default:

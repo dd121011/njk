@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -20,7 +19,6 @@ import com.njk.R;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
-import com.njk.utils.Config;
 import com.njk.utils.Password;
 import com.njk.utils.Utils;
 import com.njk.utils.Utils.TOP_BTN_MODE;
@@ -30,12 +28,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SetPasswordActivity extends BaseActivity implements OnClickListener{
+public class ReSetPasswordActivity extends BaseActivity implements OnClickListener{
 	private final String TAG = "SetPasswordActivity";
 	private EditText phone_text,affirm_new_psd;
 	private Context context;
 	private RequestQueue mQueue; 
-	private String verify_code;
+	private String verify_code,user_id;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,8 @@ public class SetPasswordActivity extends BaseActivity implements OnClickListener
 		Intent intent = getIntent();
 		verify_code = intent.getStringExtra("verify_code");
 		phone_text.setText(intent.getStringExtra("mobile"));
-   
+
+		user_id = intent.getStringExtra("user_id");
 	}
 
 	@Override
@@ -93,9 +92,10 @@ public class SetPasswordActivity extends BaseActivity implements OnClickListener
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("mobile", phone_text.getText().toString());
 		params.put("code", verify_code+"");
-		params.put("pwd", Password.createPassword(affirm_new_psd.getText().toString()));
-		
-		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.CHECK_MOBILE_DO,new ResponseHandlerInterface(){
+		params.put("password", Password.createPassword(affirm_new_psd.getText().toString()));
+		params.put("user_id", user_id+"");
+
+		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.ACCOUNT_UPDATE_PASSWORD,new ResponseHandlerInterface(){
 
 			@Override
 			public void handlerSuccess(String response) {
@@ -105,23 +105,13 @@ public class SetPasswordActivity extends BaseActivity implements OnClickListener
 				 try {
 					if(!TextUtils.isEmpty(response)){
 						 JSONObject obj = new JSONObject(response);
-						 if(obj.has("code")){
-							String code = obj.getString("code");
-							 if("10006".equals(code)){
-								 final String msg = obj.getString("message");
+						 if(obj.has("stacode")){
+							String code = obj.getString("stacode");
+							 if("1000".equals(code)){
 								 runOnUiThread(new Runnable() {
-										public void run() {
-											Toast.makeText(context, msg+"", Toast.LENGTH_SHORT).show();
-										}
-									 });
-							 }else if("0".equals(code)){
-								 JSONObject json2 = obj.getJSONObject("data");
-								 Config.setUserId(context, json2.getString("user_id"));
-								 Config.setUserToken(context, json2.getString("token"));
-								 runOnUiThread(new Runnable() {
-									public void run() {
-										toLoginActivity();
-									}
+									 public void run() {
+										 toLoginActivity();
+									 }
 								 });
 							 }
 							 

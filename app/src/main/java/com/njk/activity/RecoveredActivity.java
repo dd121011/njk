@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
@@ -31,12 +30,14 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends BaseActivity implements OnClickListener {
+public class RecoveredActivity extends BaseActivity implements OnClickListener {
 	private static final String TAG = "RegisterActivity";
 	private static final int GET_VERIFY_CODE = 1;
 
 	private TextView getVerifyCodeBtn;
 	private EditText phone_text,verify_code_text;
+
+	private String user_id;
 
 	private int timeMax = 60;
 	private int offsetTime = timeMax;
@@ -72,9 +73,9 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		context = this;
 
-		View rootView = LayoutInflater.from(this).inflate(R.layout.register_layout, null);
+		View rootView = LayoutInflater.from(this).inflate(R.layout.recovered_layout, null);
 		setContentView(rootView);
-		Utils.showTopBtn(rootView, "注册", TOP_BTN_MODE.SHOWBACK, "", "");
+		Utils.showTopBtn(rootView, "找回密码", TOP_BTN_MODE.SHOWBACK, "", "");
 		findViewById(R.id.back_btn).setOnClickListener(this);
 		findViewById(R.id.next_btn).setOnClickListener(this);
 
@@ -83,7 +84,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 
 		getVerifyCodeBtn = (TextView) findViewById(R.id.get_verify_code);
 		getVerifyCodeBtn.setOnClickListener(this);
-		;
+
 		mQueue = Volley.newRequestQueue(context);
 	}
 
@@ -97,9 +98,10 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		case R.id.next_btn:
 			String verify_code = verify_code_text.getText().toString();
 			String phone = phone_text.getText().toString();
-			if(!TextUtils.isEmpty(verify_code) && !TextUtils.isEmpty(phone)){
-				intent = new Intent(context, SetPasswordActivity.class);
+			if(!TextUtils.isEmpty(verify_code) && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(user_id)){
+				intent = new Intent(context, ReSetPasswordActivity.class);
 				intent.putExtra("mobile", phone);
+				intent.putExtra("user_id",user_id);
 				intent.putExtra("verify_code", verify_code);
 				startActivity(intent);
 				MApplication app = (MApplication) getApplication();
@@ -128,7 +130,7 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("mobile", num);
 
-		RequestUtils.startStringRequest(Method.POST, mQueue, RequestCommandEnum.SEND_CODE_DO, new ResponseHandlerInterface() {
+		RequestUtils.startStringRequest(Method.POST, mQueue, RequestCommandEnum.ACCOUNT_MOBILE_AUTHEN, new ResponseHandlerInterface() {
 
 			@Override
 			public void handlerSuccess(String response) {
@@ -136,18 +138,11 @@ public class RegisterActivity extends BaseActivity implements OnClickListener {
 				Log.d(TAG, response);
 				try {
 					JSONObject obj = new JSONObject(response);
-					if(obj.has("code")){
-						String codeText = obj.getString("code");
-						if("0".equals(codeText)){
-							
-						}else if("10003".equals(codeText)){
-							final String msgText = obj.getString("message");
-							runOnUiThread(new Runnable() {								
-								@Override
-								public void run() {
-									Toast.makeText(context, msgText+"", Toast.LENGTH_SHORT).show();
-								}
-							});
+					if(obj.has("stacode")){
+						String codeText = obj.getString("stacode");
+						if("1000".equals(codeText)){
+							JSONObject o = obj.getJSONObject("data");
+							user_id = o.getString("user_id");
 						}
 					}
 				} catch (Exception e) {

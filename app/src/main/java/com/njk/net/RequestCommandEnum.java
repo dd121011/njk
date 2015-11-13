@@ -19,7 +19,9 @@ public enum RequestCommandEnum {
 	ACCOUNT_LOGOUT("/api/account/logout"),
 	COUPON_INDEX("/api/coupon/index"),
 	COUPON_DETAILS("/api/coupon/details"),
-	COUPON_MY_COUPON("/api/coupon/my_coupon");
+	COUPON_MY_COUPON("/api/coupon/my_coupon"),
+	ACCOUNT_MOBILE_AUTHEN("/api/account/mobile_authen"),
+	ACCOUNT_UPDATE_PASSWORD("/api/account/update_password");
 
 	public String command;
 	RequestCommandEnum(String name) {

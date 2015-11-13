@@ -26,7 +26,7 @@ public class CityDao {
 	public void add(CityBean bean) {
 		try {
 			int i = beanDao.create(bean);
-			L.d("add index ====="+i);
+			Log.e("TAG", "add index =====" + i);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

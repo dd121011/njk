@@ -37,5 +37,21 @@ public class CategoryGroup implements Serializable {
 		this.tmpSubCategory = tmpSubCategory;
 	}
 	
-	
+	public void clear(){
+
+		if(categoryListData.size()>0){
+			CategoryBean b = new CategoryBean();
+			CategoryBean b2 = categoryListData.get(0);
+			b.subList = b2.subList;
+			b.name = b2.name;
+			b.id = b2.id;
+			b.leve = b2.leve;
+			categoryListData.clear();
+
+			categoryListData.add(b);
+			tmpCategory = b;
+			tmpSubCategory = b;
+
+		}
+	}
 }

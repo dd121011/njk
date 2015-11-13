@@ -6,6 +6,7 @@ import android.util.Log;
 import com.j256.ormlite.dao.Dao;
 import com.njk.bean.CityBean;
 import com.njk.bean.ProvinceBean;
+import com.nostra13.universalimageloader.utils.L;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -55,7 +56,7 @@ public class ProvinceDao {
 			if (provinceBean.getCitys() != null)
 				for (CityBean bean : provinceBean.getCitys())
 				{
-					L.e(bean.toString());
+					Log.e("TAG",bean.toString());
 				}
 			
 			return provinceDao.queryForId(id);

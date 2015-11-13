@@ -86,8 +86,9 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 					mListView.setOnItemClickListener(new OnItemClickListener() {
 						@Override
 						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-							cityManger.setCurrCity(context, cityList.get(arg2).getName());
-							context.finish();							
+//							cityManger.setCurrCity(context, cityList.get(arg2).getName());
+							cityManger.setCurrCity(context, cityList.get(arg2));
+							context.finish();
 						}
 					});
 					
@@ -123,6 +124,7 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 		super.onCreate(savedInstanceState);
 		context = this;
 		mQueue = Volley.newRequestQueue(context);
+		cityManger = CurrCityManager.getInstance();
 
 		View rootView = LayoutInflater.from(context).inflate(R.layout.switch_city_layout, null);
 		setContentView(rootView);

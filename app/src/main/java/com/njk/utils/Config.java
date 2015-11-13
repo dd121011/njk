@@ -9,7 +9,24 @@ import com.njk.Global;
 
 
 public class Config {
-	
+	/**
+	 * 保存搜索关键字记录
+	 * @param context
+	 * @param value
+	 */
+	public static void setSearchKeys(Context context, String value){
+		setPreferences(context, Global.search_key, value);
+	}
+
+	/**
+	 * 获取搜索关键字记录
+	 * @param context
+	 * @param context
+	 */
+	public static String getSearchKeys(Context context){
+		return getStringPreferences(context,Global.search_key);
+	}
+
 	/**
 	 * 保存用户当前纬度
 	 * @param context

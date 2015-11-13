@@ -87,6 +87,14 @@ public class CurrCityManager {
         return c;
     }
 
+    public void setCurrCity(Context context, City city){
+        Config.setCurrCity(context,city.getName());
+        Config.setCurrCityId(context, city.getId());
+        for(OnChangerCurrCityListener listenre : changeCurrCityListeners){
+            listenre.onChangeCurrCity(city.getName());
+        }
+    }
+
     public void setCurrCity(Context context, String currCity){
     	Config.setCurrCity(context,currCity);
     	for(OnChangerCurrCityListener listenre : changeCurrCityListeners){
