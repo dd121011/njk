@@ -191,7 +191,7 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 				bean.name = orderType.name;
 				list2.add(bean);
 			}
-						
+			menuList.remove(0);
 			menuAdapter = new CategoryMenuAdapter(activity, menuList);
 			categoryMenuLayout.setAdapter(menuAdapter);
 			categoryMenuLayout.setOnSelectedCategoryMenuListener(new OnSelectedCategoryMenuListener() {			
@@ -328,7 +328,7 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 	 * 显示类目筛选项窗口
 	 * showCategoryPop() 
 	 * @param anchorView
-	 * @param categoryGroup  
+	 * @param categoryGroup
 	 * @return void
 	 * @author liujunbin
 	 */

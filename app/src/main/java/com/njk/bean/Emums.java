@@ -18,7 +18,7 @@ public class Emums implements Serializable{
     }
 
     public enum NjiaType{
-        njia_type1("1","农家"), njia_type2("2","采摘"),njia_type3("3","垂钓"),njia_type4("4","祈福");
+        njia_type1("1","农家园"), njia_type2("2","采摘园"),njia_type3("3","垂钓园"),njia_type4("4","祈福寺院");
 
         public String  id;
         public String name;

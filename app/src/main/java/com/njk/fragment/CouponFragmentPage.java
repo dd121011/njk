@@ -45,7 +45,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 public class CouponFragmentPage extends Fragment{
-	private static String TAG="NearFragmentPage";
+	private static String TAG="CouponFragmentPage";
 
 	public final static int UPDATE_DATA_LIST = 1;
 	public final static int MORE_DATE_LIST = 2;

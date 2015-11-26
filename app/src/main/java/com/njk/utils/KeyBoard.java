@@ -9,7 +9,7 @@ public class KeyBoard {
 	private static InputMethodManager imm;
 
     /**
-     * ¼üÅÌÒþ²Ø
+     *
      *
      * @param c
      * @param e
@@ -36,7 +36,7 @@ public class KeyBoard {
 
 
 	/**
-	 * ¼üÅÌÏÔÊ¾
+	 *
 	 *
 	 * @param c
 	 * @param e
@@ -45,7 +45,7 @@ public class KeyBoard {
 		if (imm == null)
 			imm = (InputMethodManager) c
 					.getSystemService(Context.INPUT_METHOD_SERVICE);
-        // Èç¹û¿ªÆô
+        // ï¿½ï¿½ï¿½ï¿½ï¿½
 		imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
 				InputMethodManager.HIDE_NOT_ALWAYS);
 	}

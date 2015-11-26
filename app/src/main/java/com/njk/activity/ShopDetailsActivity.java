@@ -66,7 +66,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 
 
 	private View rootView,fav_do_btn,cancel_fav_btn,navigate_btn,call_btn,review_btn;
-	private ImageView topImg,face_img;
+	private ImageView topImg,face_img,fav_img;
 	private RadioGroup swithRadio;
 	private CustomListView list;
 	private View shop_adress_layout;
@@ -129,6 +129,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		face_img = (ImageView) findViewById(R.id.face_img);
 
 		fav_do_btn = findViewById(R.id.fav_do_btn);
+		fav_img = (ImageView)findViewById(R.id.fav_img);
 		cancel_fav_btn = findViewById(R.id.cancel_fav_btn);
 		navigate_btn = findViewById(R.id.navigate_btn);
 		call_btn = findViewById(R.id.call_btn);
@@ -247,6 +248,12 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 				textArra = detailBean.getTag().split("、");
 			}
 			list.setAdapter(new TextAdapter(context, textArra));
+
+			if("1".equals(detailBean.getIs_fav())){
+				fav_img.setImageResource(R.mipmap.favorites_btn_f);
+			}else{
+				fav_img.setImageResource(R.mipmap.favorites_btn_d);
+			}
 		}
 	}
 	
@@ -260,27 +267,28 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(context)+"");
 		params.put("family_id", this.id);
-		params.put("user_id", "");
+		params.put("user_id", Config.getUserId(context));
 
-		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.FAMILY_DETAIL,new ResponseHandlerInterface(){
+		RequestUtils.startStringRequest(Method.POST, mQueue, RequestCommandEnum.FAMILY_DETAIL, new ResponseHandlerInterface() {
 
 			@Override
 			public void handlerSuccess(String response) {
 				// TODO Auto-generated method stub
 //				 Log.d(TAG, response); 
-				 isStart = false;
-				 DialogUtil.progressDialogDismiss();
-				 try {
-					if(!TextUtils.isEmpty(response)){
-						 JSONObject obj = new JSONObject(response);
-						 if(obj.has("code") && obj.getString("code").equals("0")){
-							 String jsonArray = obj.getString("data");
-							 Gson gson = new Gson();
-							 detailBean = gson.fromJson(jsonArray, new TypeToken<FamilyDetailBean>(){}.getType());
-							 Log.d(TAG, detailBean+""); 
-							 handler.sendEmptyMessage(UPATE_LAYOUT);
-						 }
-					 }
+				isStart = false;
+				DialogUtil.progressDialogDismiss();
+				try {
+					if (!TextUtils.isEmpty(response)) {
+						JSONObject obj = new JSONObject(response);
+						if (obj.has("code") && obj.getString("code").equals("0")) {
+							String jsonArray = obj.getString("data");
+							Gson gson = new Gson();
+							detailBean = gson.fromJson(jsonArray, new TypeToken<FamilyDetailBean>() {
+							}.getType());
+							Log.d(TAG, detailBean + "");
+							handler.sendEmptyMessage(UPATE_LAYOUT);
+						}
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -290,12 +298,12 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			@Override
 			public void handlerError(String error) {
 				// TODO Auto-generated method stub
-				Log.e(TAG, error);  
+				Log.e(TAG, error);
 				isStart = false;
 				DialogUtil.progressDialogDismiss();
 			}
-			
-		},params);
+
+		}, params);
 
 	}
 	

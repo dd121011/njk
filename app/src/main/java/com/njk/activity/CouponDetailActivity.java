@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,12 +42,15 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 	public final static int UPDATE_DATA_LIST = 1;
 	public final static int UPATE_LIST_LAYOUT = 3;
 	public final static int GET_DATE_FAIL = 100;
+	public final static int GET_COUPON_SUCCEES = 101;
+	public final static int GET_COUPON_FAIL = 102;
 	private DisplayImageOptions options;
 	private RequestQueue mQueue; 
 	private Activity activity;
 
 	private TextView family_title_text,valid_date_text,content_text,money_text;
 	private ImageView item_img;
+	private View get_coupon_layout_btn;
 
 	private CouponDetailBean couponDetailBean;
 	private CouponBean couponBean;
@@ -65,6 +69,14 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 					break;
 				case GET_DATE_FAIL:
 
+					break;
+				case GET_COUPON_SUCCEES:
+//					CouponDetailActivity.this.finish();
+					Toast.makeText(activity,"领取成功",Toast.LENGTH_SHORT).show();
+					break;
+				case GET_COUPON_FAIL:
+					String msgStr = msg.getData().getString("data");
+					Toast.makeText(activity,msgStr,Toast.LENGTH_SHORT).show();
 					break;
 				default:
 					break;
@@ -96,6 +108,8 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		valid_date_text = (TextView)findViewById(R.id.valid_date_text);
 		family_title_text = (TextView)findViewById(R.id.family_title_text);
 		item_img = (ImageView)findViewById(R.id.item_img);
+		get_coupon_layout_btn = findViewById(R.id.get_coupon_layout_btn);
+		get_coupon_layout_btn.setOnClickListener(this);
 
 		Object obj = getIntent().getSerializableExtra("obj");
 		if(obj != null){
@@ -125,7 +139,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		isStart = true;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Token", Config.getUserToken(activity)+"");
-		params.put("user_id", Config.getUserId(activity)+"2");
+		params.put("user_id", Config.getUserId(activity)+"");
 		params.put("coupon_id", couponBean.id+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.COUPON_DETAILS, new RequestUtils.ResponseHandlerInterface() {
@@ -169,13 +183,80 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 
 	}
 
+	public void getCoupon(){
+		if(isStart){
+			return;
+		}
+		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
+		isStart = true;
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("Token", Config.getUserToken(activity)+"");
+		params.put("user_id", Config.getUserId(activity)+"");
+		params.put("coupon_id", couponBean.id+"");
+
+		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.COUPONN_ADD, new RequestUtils.ResponseHandlerInterface() {
+
+			@Override
+			public void handlerSuccess(String response) {
+				// TODO Auto-generated method stub
+				Log.d(TAG, response);
+				isStart = false;
+				DialogUtil.progressDialogDismiss();
+				try {
+					if (!TextUtils.isEmpty(response)) {
+						JSONObject obj = new JSONObject(response);
+//						if (obj.has("stacode") && obj.getString("stacode").equals("1000")) {
+//							JSONObject jsonArray = obj.getJSONObject("data");
+//							Gson gson = new Gson();
+//							CouponDetailBean couponDetailBean = gson.fromJson(jsonArray.toString(), new TypeToken<CouponDetailBean>() {
+//							}.getType());
+//							Bundle data = new Bundle();
+//							data.putSerializable("data", couponDetailBean);
+//							Message msg = handler.obtainMessage(UPDATE_DATA_LIST);
+//							msg.setData(data);
+//							msg.sendToTarget();
+//						}
+
+						String msgStr = obj.getString("message");
+						Bundle data = new Bundle();
+						Message msg = new Message();
+
+						if(obj.has("code") && obj.getString("code").equals("0")){
+							msg.what = GET_COUPON_SUCCEES;
+						}else{
+							msg.what = GET_COUPON_FAIL;
+							data.putString("data",msgStr);
+						}
+						msg.setData(data);
+						handler.sendMessage(msg);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					isStart = false;
+					DialogUtil.progressDialogDismiss();
+					handler.sendEmptyMessage(GET_COUPON_FAIL);
+				}
+			}
+
+			@Override
+			public void handlerError(String error) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, error);
+			}
+
+		}, params);
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.back_btn:
 				this.finish();
 				break;
-
+			case R.id.get_coupon_layout_btn:
+				getCoupon();
+				break;
 			default:
 				break;
 		}
