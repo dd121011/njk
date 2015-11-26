@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.njk.activity.MainTabActivity;
+import com.njk.activity.SwitchCityActivity;
 import com.njk.adapter.GuideFragmentAdapter;
 import com.njk.manager.UserManager;
 import com.njk.utils.Config;
@@ -96,6 +98,25 @@ public class WelcomActivity extends BaseActivity {
 	}
 
 	private void startNextActivity(){
+		String currCity = Config.getCurrCity(context);
+		if(!TextUtils.isEmpty(currCity)){
+			startMainTabActivity();
+		}else{
+			Intent intent = new Intent(context,SwitchCityActivity.class);
+			this.startActivityForResult(intent, 1000);
+		}
+
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode == 1000){
+			startNextActivity();
+		}
+	}
+
+	private void startNextActivity2(){
 		boolean isLogin = UserManager.getInstance().getUserLoginState(context);
 //		if(isLogin){
 			startMainTabActivity();

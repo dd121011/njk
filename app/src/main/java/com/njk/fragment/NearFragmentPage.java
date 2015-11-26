@@ -625,10 +625,11 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 				public void run() {
 					if (location != null) {
 //						cityManger.setCurrCity(context, arg0.getCity());
-						Config.setLocationCity(activity, location.getCity());
-						if(!TextUtils.isEmpty(location.getCity())){
-							currCity.setText(location.getCity());
-							setCurProvinceCategoryGroup(location.getCity());
+//						Config.setLocationCity(activity, location.getCity());
+						String city = Config.getLocationCity(activity);
+						if(!TextUtils.isEmpty(city)){
+							currCity.setText(city);
+							setCurProvinceCategoryGroup(city);
 						};
 					}
 				}

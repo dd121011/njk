@@ -104,8 +104,11 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 			case UPDATE_CITY_LIST:
 				String city = Config.getLocationCity(context);
 				if(city!=null && cityList!=null && cityList.size()>0){
-					City item = cityList.get(0);
-					item.setName(city);
+//					City item = cityList.get(0);
+					City c = cityManger.findCity(context, city);
+					City item = cityManger.clone(c);
+//					item.setName(city);
+					cityList.set(0,item);
 				}
 				if (mAdapter != null) {
 					mAdapter.notifyDataSetChanged();
@@ -136,8 +139,6 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 //		copyDBFile();
 		requestData2();
 		findView();
-		
-		cityManger = CurrCityManager.getInstance();
 		
 		LocationClientUtils.getInstance().addListenter(locationListener);
         LocationClientUtils.getInstance().start();
@@ -363,7 +364,7 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 				public void run() {
 					if (location != null) {
 //						cityManger.setCurrCity(context, arg0.getCity());
-						Config.setLocationCity(context, location.getCity());
+//						Config.setLocationCity(context, location.getCity());
 						handler.sendEmptyMessage(UPDATE_CITY_LIST);
 					}
 				}

@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'laike'
             keyPassword 'laikelaike'
-            storeFile file('C:/Users/a/.android/laike.keystore')
+            storeFile file('../doc/laike.keystore')
             storePassword 'laikelaike'
         }
     }

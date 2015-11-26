@@ -2,6 +2,7 @@ package com.njk.utils;
 
 import android.content.Context;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -102,7 +103,13 @@ public class LocationClientUtils {
 			Log.i("MApplication", sb.toString());
 			stop();
 
-			Config.setLocationCity(context, location.getCity());
+			String cityName = location.getCity();
+			if(!TextUtils.isEmpty(cityName)){
+				if (cityName.contains("市")){
+					cityName = cityName.substring(0,cityName.length()-1);
+				}
+			}
+			Config.setLocationCity(context, cityName);
 			Config.setCurLat(context, location.getLatitude() + "");
 			Config.setCurLng(context,location.getLongitude()+"");
 			for(LocatonListener listener : locatonListeners){

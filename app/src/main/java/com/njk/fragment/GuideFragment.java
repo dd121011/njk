@@ -3,6 +3,7 @@ package com.njk.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.njk.R;
 import com.njk.activity.MainTabActivity;
+import com.njk.activity.SwitchCityActivity;
 import com.njk.utils.Config;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -100,6 +102,27 @@ public final class GuideFragment extends Fragment {
     }
 
     private void startNextActivity(){
+        String currCity = Config.getCurrCity(getActivity());
+        if(!TextUtils.isEmpty(currCity)){
+            startMainTabActivity();
+        }else{
+            Intent intent = new Intent(getActivity(),SwitchCityActivity.class);
+            this.startActivityForResult(intent, 1000);
+        }
+
+    }
+
+
+    @Override
+    public  void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            startNextActivity();
+        }
+    }
+
+
+    private void startNextActivity2(){
         boolean isLogin = false;
 //        if(isLogin){
             startMainTabActivity();

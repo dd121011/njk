@@ -1,6 +1,7 @@
 package com.njk.manager;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -88,7 +89,7 @@ public class CurrCityManager {
     }
 
     public void setCurrCity(Context context, City city){
-        Config.setCurrCity(context,city.getName());
+        Config.setCurrCity(context, city.getName());
         Config.setCurrCityId(context, city.getId());
         for(OnChangerCurrCityListener listenre : changeCurrCityListeners){
             listenre.onChangeCurrCity(city.getName());
@@ -96,10 +97,37 @@ public class CurrCityManager {
     }
 
     public void setCurrCity(Context context, String currCity){
-    	Config.setCurrCity(context,currCity);
+    	Config.setCurrCity(context, currCity);
     	for(OnChangerCurrCityListener listenre : changeCurrCityListeners){
     		listenre.onChangeCurrCity(currCity);
     	}
+    }
+
+    public City findCity(Context context, String name){
+        City city = null;
+        if(!TextUtils.isEmpty(name)){
+            for (City c : cityList){
+                if(name.equals(c.getName())){
+                    city = c;
+                }
+            }
+            if(city == null && cityList.size()>0){
+                city = cityList.get(0);
+            }
+        }
+        return city;
+    }
+
+    public City getCurrCity(Context context){
+        City city = null;
+        String cityName = Config.getCurrCity(context);
+        String cityId = Config.getCurrCityId(context);
+        if(!TextUtils.isEmpty(cityName) && !TextUtils.isEmpty(cityId)){
+            city = new City();
+            city.setName(cityName);
+            city.setId(cityId);
+        }
+        return city;
     }
     
     public void registerChangerCurrCityListener(OnChangerCurrCityListener listener){
