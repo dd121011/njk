@@ -20,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 import com.njk.BaseActivity;
 import com.njk.Global;
 import com.njk.R;
-import com.njk.bean.CouponBean;
 import com.njk.bean.CouponDetailBean;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
@@ -44,6 +43,8 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 	public final static int GET_DATE_FAIL = 100;
 	public final static int GET_COUPON_SUCCEES = 101;
 	public final static int GET_COUPON_FAIL = 102;
+	public final static int GET_DATA_FINISH = 1001;
+	public final static int GET_DATA_START = 1000;
 	private DisplayImageOptions options;
 	private RequestQueue mQueue; 
 	private Activity activity;
@@ -53,7 +54,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 	private View get_coupon_layout_btn;
 
 	private CouponDetailBean couponDetailBean;
-	private CouponBean couponBean;
+	private String couponId="";
 
 	private Handler handler = new Handler() {
 
@@ -69,6 +70,17 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 					break;
 				case GET_DATE_FAIL:
 
+					break;
+				case GET_DATA_FINISH:
+					isStart = false;
+					DialogUtil.progressDialogDismiss();
+					break;
+				case GET_DATA_START:
+					if(isStart){
+						return;
+					}
+					DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
+					isStart = true;
 					break;
 				case GET_COUPON_SUCCEES:
 //					CouponDetailActivity.this.finish();
@@ -111,9 +123,8 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		get_coupon_layout_btn = findViewById(R.id.get_coupon_layout_btn);
 		get_coupon_layout_btn.setOnClickListener(this);
 
-		Object obj = getIntent().getSerializableExtra("obj");
-		if(obj != null){
-			couponBean = (CouponBean)obj;
+		couponId = getIntent().getStringExtra("obj");
+		if(!TextUtils.isEmpty(couponId)){
 			startGetData();
 		}
 
@@ -132,15 +143,16 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 
 	private boolean isStart = false;
 	public void startGetData(){
-		if(isStart){
-			return;
-		}
-		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
-		isStart = true;
+//		if(isStart){
+//			return;
+//		}
+//		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
+//		isStart = true;
+		handler.sendEmptyMessage(GET_DATA_START);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Token", Config.getUserToken(activity)+"");
 		params.put("user_id", Config.getUserId(activity)+"");
-		params.put("coupon_id", couponBean.id+"");
+		params.put("coupon_id", couponId+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.COUPON_DETAILS, new RequestUtils.ResponseHandlerInterface() {
 
@@ -148,8 +160,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 			public void handlerSuccess(String response) {
 				// TODO Auto-generated method stub
 				Log.d(TAG, response);
-				isStart = false;
-				DialogUtil.progressDialogDismiss();
+				handler.sendEmptyMessage(GET_DATA_FINISH);
 				try {
 					if (!TextUtils.isEmpty(response)) {
 						JSONObject obj = new JSONObject(response);
@@ -167,9 +178,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
-					isStart = false;
-					DialogUtil.progressDialogDismiss();
-					handler.sendEmptyMessage(GET_DATE_FAIL);
+					handler.sendEmptyMessage(GET_DATA_FINISH);
 				}
 			}
 
@@ -177,6 +186,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 			public void handlerError(String error) {
 				// TODO Auto-generated method stub
 				Log.e(TAG, error);
+				handler.sendEmptyMessage(GET_DATA_FINISH);
 			}
 
 		}, params);
@@ -192,7 +202,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Token", Config.getUserToken(activity)+"");
 		params.put("user_id", Config.getUserId(activity)+"");
-		params.put("coupon_id", couponBean.id+"");
+		params.put("coupon_id", couponId+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.COUPONN_ADD, new RequestUtils.ResponseHandlerInterface() {
 

@@ -1,6 +1,7 @@
 package com.njk.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -99,7 +100,7 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 		View rootView = LayoutInflater.from(context).inflate(
 				R.layout.favorites_list_layout, null);
 		setContentView(rootView);
-		Utils.showTopBtn(rootView, "收藏农家院", TOP_BTN_MODE.SHOWBACK,"","");
+		Utils.showTopBtn(rootView, "收藏农家院", TOP_BTN_MODE.SHOWBACK, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
 		
 		listView = (ListView) rootView
@@ -166,7 +167,11 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
-			
+			FavoritesListAdapter adapter = (FavoritesListAdapter)parent.getAdapter();
+			FavoritesBean item = adapter.getItem(position);
+			Intent intent = new Intent(context,ShopDetailsActivity.class);
+			intent.putExtra("id",item.getMessage_id());
+			context.startActivity(intent);
 		}
 		
 	};
@@ -180,7 +185,7 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 		isStart = true;
 		Map<String, String> params = new HashMap<String, String>(); 
 		params.put("Token", Config.getUserToken(context)+"");
-		params.put("user_id", "2");
+		params.put("user_id", Config.getUserId(context)+"");
 
 		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.USERINFO_MY_FAV,new ResponseHandlerInterface(){
 

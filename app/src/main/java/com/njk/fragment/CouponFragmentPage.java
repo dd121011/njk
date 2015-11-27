@@ -132,7 +132,7 @@ public class CouponFragmentPage extends Fragment{
 				@Override
 				public void onScroll(AbsListView view, int firstVisibleItem,
 									 int visibleItemCount, int totalItemCount) {
-					if (firstVisibleItem == (totalItemCount - 2)) {
+					if (totalItemCount>visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
 						startGetData();
 					}
 
@@ -245,7 +245,7 @@ public class CouponFragmentPage extends Fragment{
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			CouponBean bean = (CouponBean)parent.getAdapter().getItem(position);
 			Intent intent = new Intent(activity, CouponDetailActivity.class);
-			intent.putExtra("obj",bean);
+			intent.putExtra("obj",bean.id);
 			activity.startActivity(intent);
 		}
 	};

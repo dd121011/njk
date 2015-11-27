@@ -237,7 +237,7 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 				public void onScroll(AbsListView view, int firstVisibleItem,
 						int visibleItemCount, int totalItemCount) {
 					// 判断是否滚动到底部
-					if (view.getLastVisiblePosition() == view.getCount() - 2) {
+					if (totalItemCount>visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
 						//加载更多功能的代码
 						startGetData();
 					}
