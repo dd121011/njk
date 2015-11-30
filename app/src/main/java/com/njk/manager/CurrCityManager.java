@@ -51,13 +51,24 @@ public class CurrCityManager {
 
     private  List<City> cityList = new ArrayList<>();
     private  List<City> hotCityList = new ArrayList<>();
+
+    private boolean isInit = false;
+
     public void initCityData(Context context){
+
+        if(!isInit(context)){
+            return;
+        }
+        cityList.clear();
+        hotCityList.clear();
+
         String[] hotCityArr = context.getResources().getStringArray(R.array.hot_city);
         List<String> hotlist = Arrays.asList(hotCityArr);
         String dataObj = Config.getAreasData(context);
         Gson gson = new Gson();
         AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
         }.getType());
+
         TreeMap<String,Items> province = areasBean.province;
 
         for (Map.Entry<String,Items> entry : province.entrySet()) {
@@ -76,6 +87,18 @@ public class CurrCityManager {
                 }
             }
         }
+    }
+
+    public boolean isInit(Context context){
+        String dataObj = Config.getAreasData(context);
+//        Gson gson = new Gson();
+//        AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
+//        }.getType());
+        if(TextUtils.isEmpty(dataObj)){
+            return isInit = false;
+        }
+        isInit = true;
+        return isInit;
     }
 
     public City clone(City city){

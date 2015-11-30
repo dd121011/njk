@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,16 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.baidu.location.BDLocation;
 import com.njk.BaseActivity;
 import com.njk.R;
+import com.njk.bean.ObserverManager;
 import com.njk.manager.CurrCityManager;
+import com.njk.net.RequestCommandEnum;
+import com.njk.net.RequestUtils;
 import com.njk.pinnedheaderlistView.BladeView;
 import com.njk.pinnedheaderlistView.BladeView.OnItemClickBladeListener;
 import com.njk.pinnedheaderlistView.City;
@@ -26,18 +31,26 @@ import com.njk.pinnedheaderlistView.DBHelper;
 import com.njk.pinnedheaderlistView.MySectionIndexer;
 import com.njk.pinnedheaderlistView.PinnedHeaderListView;
 import com.njk.utils.Config;
+import com.njk.utils.DialogUtil;
 import com.njk.utils.LocationClientUtils;
 import com.njk.utils.LocationClientUtils.LocatonListener;
 import com.njk.utils.Utils;
 import com.njk.utils.Utils.TOP_BTN_MODE;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SwitchCityActivity extends BaseActivity implements OnClickListener {
 	private String TAG = "SwitchCityActivity";
@@ -100,6 +113,9 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 
 			case COPY_DB_SUCCESS:
 				requestData2();
+				findView();
+				LocationClientUtils.getInstance().addListenter(locationListener);
+				LocationClientUtils.getInstance().start();
 				break;
 			case UPDATE_CITY_LIST:
 				String city = Config.getLocationCity(context);
@@ -137,11 +153,14 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 //		helper = new DBHelper();
 //
 //		copyDBFile();
-		requestData2();
-		findView();
-		
-		LocationClientUtils.getInstance().addListenter(locationListener);
-        LocationClientUtils.getInstance().start();
+
+		mListView = (PinnedHeaderListView) findViewById(R.id.mListView);
+
+		if (cityManger.isInit(context)){
+			handler.sendEmptyMessage(COPY_DB_SUCCESS);
+		}else{
+			updateProvinceData();
+		}
 
 	}
 
@@ -321,8 +340,8 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 
 	private void findView() {
 
-		mListView = (PinnedHeaderListView) findViewById(R.id.mListView);
 		BladeView mLetterListView = (BladeView) findViewById(R.id.mLetterListView);
+		mLetterListView.setVisibility(View.VISIBLE);
 
 		mLetterListView.setOnItemClickListener(new OnItemClickBladeListener() {
 
@@ -384,6 +403,79 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 		default:
 			break;
 		}
+
+	}
+
+	private boolean isStart = false;
+	public void updateProvinceData() {
+		if(isStart){
+			return;
+		}
+		isStart = true;
+		DialogUtil.progressDialogShow(SwitchCityActivity.this, context.getResources().getString(R.string.is_loading));
+		Map<String, String> params = new HashMap<String, String>();
+		RequestUtils.startStringRequest(Request.Method.POST, mQueue, RequestCommandEnum.APPINFOS_AREAS, new RequestUtils.ResponseHandlerInterface() {
+
+			@Override
+			public void handlerSuccess(String response) {
+				// TODO Auto-generated method stub
+				Log.d(TAG, response);
+				isStart = false;
+				DialogUtil.progressDialogDismiss();
+				try {
+					if (!TextUtils.isEmpty(response)) {
+						JSONObject obj = new JSONObject(response);
+						if (obj.has("code") && obj.getString("code").equals("0")) {
+							JSONObject dataObj = obj.getJSONObject("data");
+							String updateTime = dataObj.getString("datetime");
+							if (!TextUtils.isEmpty(updateTime)) {
+								//"2015-04-22"
+								DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+								Date newTime = df.parse(updateTime);
+								//"2015-04-25";
+								String oldStr = Config.getUpdateProvinceTime(context);
+								Date oldTime = df.parse(TextUtils.isEmpty(oldStr) ? "2015-03-20" : oldStr);
+
+								if (newTime.getTime() > oldTime.getTime()) {
+									Config.setUpdateProvinceTime(context, updateTime);
+									Config.setAreasData(context, dataObj.toString());
+									ObserverManager.getInstance().notifyAreasOchange();
+									handler.sendEmptyMessage(COPY_DB_SUCCESS);
+//									Gson gson = new Gson();
+//									AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
+//									}.getType());
+//
+//									Logger.d(TAG, areasBean.toString());
+
+								} else {
+//									String data = Config.getAreasData(context);
+//									Gson gson = new Gson();
+//									AreasBean areasBean = gson.fromJson(data, new TypeToken<AreasBean>() {
+//									}.getType());
+//									Logger.d(TAG, areasBean.toString());
+								}
+
+							}
+
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					isStart = false;
+					DialogUtil.progressDialogDismiss();
+				}
+
+			}
+
+			@Override
+			public void handlerError(String error) {
+				// TODO Auto-generated method stub
+				Log.e(TAG, error);
+				isStart = false;
+				DialogUtil.progressDialogDismiss();
+			}
+
+		}, params);
 
 	}
 }
