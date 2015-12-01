@@ -67,8 +67,8 @@ public class CouponListAdapter extends BaseAdapter {
 
 		CouponBean item = couponBeanList.get(arg0);
 
-		int tmp1 = new Random().nextInt(getCount()+1)+1;
-		int tmp2 = new Random().nextInt(arg0+1)+1;
+		int tmp1 = arg0;//new Random().nextInt(getCount()+1)+1;
+		int tmp2 = 2;//new Random().nextInt(arg0+1)+1;
 
 		View coupon_item_bg_layout = ViewHolder.get(arg1, R.id.coupon_item_bg_layout);
 		if(tmp1%(tmp2) == 0){

@@ -53,6 +53,6 @@ dependencies {
     compile files('libs/ormlite-core-4.48.jar')
     compile files('libs/universal-image-loader-1.9.4-SNAPSHOT.jar')
     compile files('libs/umeng-update-v2.6.0.1.jar')
-    compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/com.umeng.message.lib_v2.5.0.jar')
+    compile files('libs/umeng-analytics-v5.6.3.jar')
 }

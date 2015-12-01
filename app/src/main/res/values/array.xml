@@ -3,8 +3,8 @@
 <resources>
     <string-array  name="near_nemus">
         <item>全部</item>
-        <item>类型</item>
-        <item>排序</item>
+        <item>全部</item>
+        <item>智能排序</item>
     </string-array>
 
     <string-array  name="near_nemu0">
