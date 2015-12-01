@@ -72,7 +72,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
-public class NearFragmentPage extends Fragment implements OnClickListener{
+public class NearFragmentPage extends BaseFragment implements OnClickListener{
 	private static String TAG="NearFragmentPage";
 	public final static int UPDATE_DATA_LIST = 1;
 	public final static int MORE_DATE_LIST = 2;
@@ -143,7 +143,8 @@ public class NearFragmentPage extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		activity = getActivity();
-		mQueue = Volley.newRequestQueue(activity);  
+		mQueue = Volley.newRequestQueue(activity);
+		this.seTAnalysis(true);
 	}
 
 	@Override

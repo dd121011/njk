@@ -3,7 +3,6 @@ package com.njk.fragment;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
-public class SubscribeFragmentPage extends Fragment{
+public class SubscribeFragmentPage extends BaseFragment{
 	private static String TAG="NearFragmentPage";
 	
 	private View rootView;

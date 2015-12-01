@@ -101,6 +101,7 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 //							cityManger.setCurrCity(context, cityList.get(arg2).getName());
 							cityManger.setCurrCity(context, cityList.get(arg2));
+							context.setResult(RESULT_OK);
 							context.finish();
 						}
 					});

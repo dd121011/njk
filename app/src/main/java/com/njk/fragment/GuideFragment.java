@@ -2,7 +2,6 @@ package com.njk.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ import com.njk.utils.Config;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
-public final class GuideFragment extends Fragment {
+public final class GuideFragment extends BaseFragment {
     private static final String KEY_CONTENT = "GuideFragment:Content";
     private static final String KEY_IMAGEID = "GuideFragment:imageId";
 

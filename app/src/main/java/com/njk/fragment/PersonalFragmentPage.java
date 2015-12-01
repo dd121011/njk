@@ -3,7 +3,6 @@ package com.njk.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,7 +35,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PersonalFragmentPage extends Fragment implements OnClickListener{
+public class PersonalFragmentPage extends BaseFragment implements OnClickListener{
 	private static String TAG="PersonalFragmentPage";
 	
 	private View rootView,info_layout;
@@ -54,6 +53,7 @@ public class PersonalFragmentPage extends Fragment implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		activity = getActivity();
 		mQueue = Volley.newRequestQueue(activity);
+		this.seTAnalysis(true);
 	}
 	
 	@Override

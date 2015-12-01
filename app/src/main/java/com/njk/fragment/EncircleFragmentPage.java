@@ -18,7 +18,7 @@ import com.njk.activity.AddNjyActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EncircleFragmentPage extends Fragment implements OnClickListener{
+public class EncircleFragmentPage extends BaseFragment implements OnClickListener{
 
 private static String TAG="EncircleFragmentPage";
 	

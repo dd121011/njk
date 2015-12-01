@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,7 +43,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
-public class CouponFragmentPage extends Fragment{
+public class CouponFragmentPage extends BaseFragment{
 	private static String TAG="CouponFragmentPage";
 
 	public final static int UPDATE_DATA_LIST = 1;
@@ -105,7 +104,8 @@ public class CouponFragmentPage extends Fragment{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		activity = getActivity();
-		mQueue = Volley.newRequestQueue(activity);  
+		mQueue = Volley.newRequestQueue(activity);
+		this.seTAnalysis(true);
 	}
 	
 	

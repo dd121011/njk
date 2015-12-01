@@ -3,7 +3,6 @@ package com.njk.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,7 +16,7 @@ import com.njk.activity.VipCardListActivity;
 import com.njk.utils.Utils;
 import com.njk.utils.Utils.TOP_BTN_MODE;
 
-public class DiscoverFragmentPage extends Fragment implements OnClickListener{
+public class DiscoverFragmentPage extends BaseFragment implements OnClickListener{
 	private static String TAG="DiscoverFragmentPage";
 	
 	private View rootView;

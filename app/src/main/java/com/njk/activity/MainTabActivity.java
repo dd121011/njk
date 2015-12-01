@@ -36,6 +36,9 @@ import com.njk.photo.util.Res;
 import com.njk.utils.Config;
 import com.njk.utils.LocalDisplay;
 import com.njk.utils.Logger;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
+import com.umeng.update.UmengUpdateAgent;
 
 import org.json.JSONObject;
 
@@ -77,7 +80,12 @@ public class MainTabActivity extends BaseActivity{
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_tab_layout);
-        
+		this.seTAnalysis(false);//设置此页面不进行统计
+		UmengUpdateAgent.update(this);
+		PushAgent mPushAgent = PushAgent.getInstance(this);
+		mPushAgent.enable();
+		String device_token = UmengRegistrar.getRegistrationId(this);
+		Logger.e(device_token);
         MApplication app = (MApplication) getApplication();
         app.finishLoginActivity();
                

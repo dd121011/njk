@@ -34,7 +34,7 @@ public class WelcomActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		
+		this.seTAnalysis(false);//设置此页面不进行统计
 		setContentView(R.layout.welcom_layout);
 		context = this;
 		
@@ -112,7 +112,11 @@ public class WelcomActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode == 1000){
-			startNextActivity();
+			if(resultCode == RESULT_OK){
+				startNextActivity();
+			}else{
+				this.finish();
+			}
 		}
 	}
 

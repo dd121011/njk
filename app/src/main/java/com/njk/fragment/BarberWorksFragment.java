@@ -2,7 +2,6 @@ package com.njk.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +19,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import java.util.Arrays;
 import java.util.LinkedList;
 
-public class BarberWorksFragment extends Fragment implements OnClickListener{
+public class BarberWorksFragment extends BaseFragment implements OnClickListener{
 private static String TAG="BarberFragment";
 	
 	private View rootView;

@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.njk.utils.LocationClientUtils;
+import com.njk.utils.UMengAnalysisUtils;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -31,6 +32,7 @@ public class MApplication extends Application {
 		
 		initImageLoader(getApplicationContext());
 
+		UMengAnalysisUtils.openActivityDurationTrack(false);
 	}
 
 
