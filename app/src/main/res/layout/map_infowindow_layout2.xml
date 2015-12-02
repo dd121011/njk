@@ -26,13 +26,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="vertical" >
+
                 <com.njk.view.SelectableRoundedImageView
                     android:id="@+id/face_img"
                     android:layout_width="45dip"
                     android:layout_height="45dip"
+                    android:scaleType="centerCrop"
                     android:src="@mipmap/img_default_icon"
                     app:sriv_border_color="@color/text_color0"
-                    app:sriv_border_width="0dip"
+                    app:sriv_border_width="@dimen/content_margin_inside"
                     app:sriv_left_bottom_corner_radius="48dip"
                     app:sriv_left_top_corner_radius="16dip"
                     app:sriv_oval="true"

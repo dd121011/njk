@@ -9,16 +9,21 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -28,6 +33,9 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationConfiguration;
+import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
+import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
@@ -35,17 +43,19 @@ import com.baidu.mapapi.model.LatLngBounds;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.BaseActivity;
+import com.njk.Global;
 import com.njk.R;
 import com.njk.bean.NearMapBean;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.utils.Config;
 import com.njk.utils.DialogUtil;
-import com.njk.utils.LocationClientUtils;
 import com.njk.utils.Logger;
 import com.njk.utils.Utils;
-import com.njk.utils.Utils.TOP_BTN_MODE;
 import com.njk.view.MapItemLayout;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import org.json.JSONObject;
 
@@ -62,17 +72,19 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 	public final static int UPATE_LIST_LAYOUT = 3;
 	public final static int GET_DATE_FAIL = 100;
 
-	/**
-	 * MapView 是地图主控件
-	 */
+	// 定位相关
+	private LocationClient mLocClient;
+	public MyLocationListenner myListener = new MyLocationListenner();
+	private LocationMode mCurrentMode;
+	private BitmapDescriptor mCurrentMarker;
+
 	private MapView mMapView;
 	private BaiduMap mBaiduMap;
 	private InfoWindow mInfoWindow;
 	private List<Marker> markerList;
-	
 	// 初始化全局 bitmap 信息，不用时及时 recycle
 	BitmapDescriptor bdN = BitmapDescriptorFactory
-				.fromResource(R.mipmap.icon_markd);
+			.fromResource(R.mipmap.icon_markd);
 	BitmapDescriptor bdA = BitmapDescriptorFactory
 			.fromResource(R.mipmap.map_tag01);
 	BitmapDescriptor bdB = BitmapDescriptorFactory
@@ -91,9 +103,14 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 	private List<OverlayOptions> overlayOptionses;
 	private List<NearMapBean> nearBeanList;
 
+	boolean isFirstLoc = true;// 是否首次定位
+
+	private DisplayImageOptions options;
 	private RequestQueue mQueue;
 	private Activity context;
 
+	private String lng ="";
+	private String lat="";
 	private int offset = 0;
 	private int per_page = 10;
 
@@ -132,52 +149,74 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 	};
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = this;
 		mQueue = Volley.newRequestQueue(context);
-		View rootView = LayoutInflater.from(context).inflate(
-				R.layout.map_list_layout, null);
+		View rootView = LayoutInflater.from(context).inflate(R.layout.map_list_layout, null);
 		setContentView(rootView);
-		Utils.showTopBtn(rootView, "附近", TOP_BTN_MODE.SHOWBACK,"","");
+		Utils.showTopBtn(rootView, "附近", Utils.TOP_BTN_MODE.SHOWBACK, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
-		ViewGroup shareLayout = (ViewGroup) rootView
-				.findViewById(R.id.share_btn);
+		ViewGroup shareLayout = (ViewGroup) rootView.findViewById(R.id.share_btn);
 		Button shareBtn = (Button) shareLayout.getChildAt(0);
 		shareBtn.setText("列表");
 		shareBtn.setBackgroundColor(Color.TRANSPARENT);
 
-		nearBeanList = new ArrayList<NearMapBean>();
-
 		initData();
 
-		initItemView();
-
-		initMap();
+		initMapView();
 	}
 
 	private void initData(){
-		String lat = Config.getCurLat(context);
-		String lng = Config.getCurLng(context);
-		if(!TextUtils.isEmpty(lat) || !TextUtils.isEmpty(lng)){
-			startGetData();
-		}else{
-			LocationClientUtils.getInstance().addListenter(locationListener);
-			LocationClientUtils.getInstance().start();
-		}
-	}
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.mipmap.img_default_icon)
+				.showImageForEmptyUri(R.mipmap.img_default_icon)
+				.showImageOnFail(R.mipmap.img_default_icon)
+				.cacheInMemory(true)
+				.cacheOnDisk(true)
+				.considerExifParams(true)
+				.displayer(new SimpleBitmapDisplayer())
+				.build();
 
-	private void initItemView(){
-		ViewGroup container = (ViewGroup) findViewById(R.id.infowindow_container);
-	}
+		nearBeanList = new ArrayList<NearMapBean>();
 
-	private void initMap() {
 		markerList = new ArrayList<>();
+	}
+
+	private void initMapView() {
+		// 地图初始化
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
-		MapStatusUpdate msu = MapStatusUpdateFactory.zoomTo(14.0f);
-		mBaiduMap.setMapStatus(msu);
+		// 开启定位图层
+		mBaiduMap.setMyLocationEnabled(true);
+
+//		mCurrentMode = LocationMode.FOLLOWING; 跟随
+//		mCurrentMode = LocationMode.COMPASS;  罗盘
+		mCurrentMode = LocationMode.NORMAL;
+		mCurrentMarker = null; //当前位置显示默认图标，// 修改为自定义markermCurrentMarker = BitmapDescriptorFactory.fromResource(R.drawable.icon_geo);
+		mBaiduMap.setMyLocationConfigeration(new MyLocationConfiguration(mCurrentMode, true, mCurrentMarker));
+
+		// 定位初始化
+		mLocClient = new LocationClient(this);
+		mLocClient.registerLocationListener(myListener);
+		LocationClientOption option = new LocationClientOption();
+		option.setOpenGps(true);// 打开gps
+		option.setCoorType("bd09ll"); // 设置坐标类型
+		option.setScanSpan(1000);
+		mLocClient.setLocOption(option);
+		mLocClient.start();
+
+		setOnMarkerClickListener();
+	}
+
+
+	private void setOnMarkerClickListener() {
+		mBaiduMap.setOnMapTouchListener(new BaiduMap.OnMapTouchListener(){
+			@Override
+			public void onTouch(MotionEvent motionEvent) {
+				mBaiduMap.hideInfoWindow();
+			}
+		});
 		mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
 			@Override
 			public boolean onMarkerClick(final Marker marker) {
@@ -189,11 +228,9 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 					View view = new MapItemLayout(context);
 					view.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
-//							marker.setIcon(bdC);
 							mBaiduMap.hideInfoWindow();
-
-							Intent intent = new Intent(context,ShopDetailsActivity.class);
-							intent.putExtra("id",mapBean.id);
+							Intent intent = new Intent(context, ShopDetailsActivity.class);
+							intent.putExtra("id", mapBean.id);
 							startActivity(intent);
 						}
 					});
@@ -206,6 +243,8 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 					range_text.setText(mapBean.range+"km");
 					TextView view_text = (TextView)view.findViewById(R.id.view_text);
 					view_text.setText(mapBean.view);
+					ImageView face_img = (ImageView)view.findViewById(R.id.face_img);
+					ImageLoader.getInstance().displayImage(Global.base_url + mapBean.img, face_img, options);
 
 					LatLng ll = marker.getPosition();
 					mInfoWindow = new InfoWindow(view, ll, -57);
@@ -215,6 +254,7 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 			}
 		});
 	}
+
 
 	public void initOverlay2(){
 		if(overlayOptionses==null){
@@ -283,10 +323,10 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 
 		}
 	}
-	
+
 	/**
 	 * 清除所有Overlay
-	 * 
+	 *
 	 * @param view
 	 */
 	public void clearOverlay(View view) {
@@ -295,7 +335,7 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 
 	/**
 	 * 重新添加Overlay
-	 * 
+	 *
 	 * @param view
 	 */
 	public void resetOverlay(View view) {
@@ -304,50 +344,80 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 	}
 
 	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.back_btn:
+				this.finish();
+				break;
+			case R.id.share_btn:
+
+				break;
+			default:
+				break;
+		}
+
+	}
+
+	/**
+	 * 定位SDK监听函数
+	 */
+	public class MyLocationListenner implements BDLocationListener {
+
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+			// map view 销毁后不在处理新接收的位置
+			if (location == null || mMapView == null) {
+				return;
+			}
+			MyLocationData locData = new MyLocationData.Builder()
+					.accuracy(location.getRadius())
+							// 此处设置开发者获取到的方向信息，顺时针0-360
+					.direction(100).latitude(location.getLatitude())
+					.longitude(location.getLongitude()).build();
+			mBaiduMap.setMyLocationData(locData);
+			if (isFirstLoc) {
+				isFirstLoc = false;
+				LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
+				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+				mBaiduMap.animateMapStatus(u);
+				lat = ll.latitude+"";
+				lng = ll.longitude+"";
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						startGetData();
+					}
+				});
+			}
+
+		}
+
+		public void onReceivePoi(BDLocation poiLocation) {
+		}
+	}
+
+	@Override
 	protected void onPause() {
-		// MapView的生命周期与Activity同步，当activity挂起时需调用MapView.onPause()
 		mMapView.onPause();
 		super.onPause();
 	}
 
 	@Override
 	protected void onResume() {
-		// MapView的生命周期与Activity同步，当activity恢复时需调用MapView.onResume()
 		mMapView.onResume();
 		super.onResume();
 	}
 
 	@Override
 	protected void onDestroy() {
-		// MapView的生命周期与Activity同步，当activity销毁时需调用MapView.destroy()
+		// 退出时销毁定位
+		mLocClient.stop();
+		// 关闭定位图层
+		mBaiduMap.setMyLocationEnabled(false);
 		mMapView.onDestroy();
+		mMapView = null;
 		super.onDestroy();
-		// 回收 bitmap 资源
-		bdA.recycle();
-		bdB.recycle();
-		bdC.recycle();
-		bdD.recycle();
-		bdE.recycle();
-		bdG.recycle();
-
-		LocationClientUtils.getInstance().removeListener(locationListener);
 	}
-	
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.back_btn:
-			this.finish();
-			break;
-		case R.id.share_btn:
-
-			break;
-		default:
-			break;
-		}
-
-	}
-
 
 	private boolean isStart = false;
 	public void startGetData(){
@@ -360,8 +430,8 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		params.put("Token", Config.getUserToken(context));
 //		params.put("offset", offset+"");
 //		params.put("per_page", per_page+"");
-		params.put("latitude", Config.getCurLat(context));
-		params.put("longitude", Config.getCurLng(context));
+		params.put("latitude", lat);
+		params.put("longitude", lng);
 		params.put("range", 50000+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.FINDFAMILY_LISTLBS, new RequestUtils.ResponseHandlerInterface() {
@@ -413,21 +483,4 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		}, params);
 
 	}
-
-	private LocationClientUtils.LocatonListener locationListener = new LocationClientUtils.LocatonListener() {
-
-		@Override
-		public void onReceiveLocation(final BDLocation location) {
-
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (location != null) {
-						startGetData();
-					}
-				}
-			});
-		}
-	};
-
 }
