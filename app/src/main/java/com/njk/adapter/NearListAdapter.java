@@ -35,9 +35,9 @@ public class NearListAdapter extends BaseAdapter {
 		this.nearBeanList = nearBeanList;
 		
 		options = new DisplayImageOptions.Builder()
-		.showImageOnLoading(R.mipmap.img_default_icon)
-		.showImageForEmptyUri(R.mipmap.img_default_icon)
-		.showImageOnFail(R.mipmap.img_default_icon)
+		.showImageOnLoading(null)
+		.showImageForEmptyUri(null)
+		.showImageOnFail(null)
 		.cacheInMemory(true)
 		.cacheOnDisk(true)
 		.considerExifParams(true)

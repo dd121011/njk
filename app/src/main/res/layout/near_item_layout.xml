@@ -65,7 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/content_margin_inside"
                 android:scaleType="fitXY"
-                android:src="@mipmap/adress_icon" >
+                android:src="@mipmap/adress_icon"
+                android:visibility="gone">
             </ImageView>
 
             <TextView
@@ -78,12 +79,17 @@
         </LinearLayout>
 
         <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="160dip"
+            android:layout_below="@id/title_layout"
+            android:src="@mipmap/img_default_icon" >
+        </ImageView>
+        <ImageView
             android:id="@+id/item_img"
             android:layout_width="fill_parent"
             android:layout_height="160dip"
             android:layout_below="@id/title_layout"
-            android:scaleType="fitXY"
-            android:src="@mipmap/test1" >
+            android:scaleType="fitXY">
         </ImageView>
 
         <com.njk.view.SelectableRoundedImageView
