@@ -8,7 +8,7 @@ import android.util.Log;
  *
  */
 public class Logger {
-    private static final String TAG = "yunmeike";
+    private static final String TAG = "Logger";
     private static final boolean DEBUG = true;
 
     public static void v(String message) {

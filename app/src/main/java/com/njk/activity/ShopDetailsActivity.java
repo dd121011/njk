@@ -42,6 +42,7 @@ import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.utils.Config;
 import com.njk.utils.DialogUtil;
+import com.njk.utils.NaviUtils;
 import com.njk.utils.Utils;
 import com.njk.utils.Utils.TOP_BTN_MODE;
 import com.njk.view.CustomListView;
@@ -169,7 +170,9 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		int[] wh = Utils.getDisplayMetrics(context);
 		topImg.getLayoutParams().width = wh[0];
 		topImg.getLayoutParams().height = wh[0]*2/3;
-		
+
+		NaviUtils.getInstance().init(this,null);
+
 		startGetData();
 	}
 
@@ -509,8 +512,10 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			break;
 		case R.id.shop_adress_layout:
 //			intent = new Intent(context,ShopRouteSearchActivity.class);
-			intent = new Intent(context,BNDemoMainActivity.class);
-			context.startActivity(intent);
+//			intent = new Intent(context,BNDemoMainActivity.class);
+//			context.startActivity(intent);
+
+			startNavi();
 			break;
 		case R.id.fav_do_btn:
 			if(!UserManager.getInstance().getUserLoginState(context)){
@@ -524,8 +529,9 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			familyCancelFav();
 			break;
 		case R.id.navigate_btn:
-			intent = new Intent(context,ShopRouteSearchActivity.class);
-			context.startActivity(intent);
+//			intent = new Intent(context,ShopRouteSearchActivity.class);
+//			context.startActivity(intent);
+			startNavi();
 			break;
 		case R.id.call_btn:
 			if(detailBean == null){
@@ -556,6 +562,22 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			break;
 		}
 		
+	}
+
+	private void startNavi(){
+		Double lng = Double.valueOf(detailBean.getLng());
+		Double lat = Double.valueOf(detailBean.getLat());
+		NaviUtils.getInstance().startNavi(lng, lat, detailBean.getAddress(), new NaviUtils.MyRoutePlanListener() {
+			@Override
+			public void onJumpToNavigator() {
+
+			}
+
+			@Override
+			public void onRoutePlanFailed() {
+
+			}
+		});
 	}
 
 	class TextAdapter extends BaseAdapter{

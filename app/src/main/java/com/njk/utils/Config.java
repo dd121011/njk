@@ -42,6 +42,24 @@ public class Config {
 	 * @param context
 	 */
 	public static String getCurLng(Context context){
+		return getStringPreferences(context,Global.cur_addr);
+	}
+
+	/**
+	 * 保存用户当前纬度
+	 * @param context
+	 * @param value
+	 */
+	public static void setCurAddr(Context context, String value){
+		setPreferences(context, Global.cur_addr, value);
+	}
+
+	/**
+	 * 获取用户当前纬度
+	 * @param context
+	 * @param context
+	 */
+	public static String getCurAddr(Context context){
 		return getStringPreferences(context,Global.cur_lng);
 	}
 	

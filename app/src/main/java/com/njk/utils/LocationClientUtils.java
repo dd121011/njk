@@ -155,6 +155,7 @@ public class LocationClientUtils {
 			Config.setLocationCity(context, cityName);
 			Config.setCurLat(context, location.getLatitude() + "");
 			Config.setCurLng(context,location.getLongitude()+"");
+			Config.setCurAddr(context,location.getLocationDescribe());
 			for(LocatonListener listener : locatonListeners){
 				listener.onReceiveLocation(location);
 			}

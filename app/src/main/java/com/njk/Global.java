@@ -19,6 +19,7 @@ public class Global {
 	public final static String mobile = "mobile"; //用户token
 	public final static String cur_lat = "cur_lat"; //用户当前经度
 	public final static String cur_lng = "cur_lng"; //用户当前经度
+	public final static String cur_addr = "cur_lng"; //用户当前地址
 	public final static String search_key = "search_key"; //用户当前经度
 
 	

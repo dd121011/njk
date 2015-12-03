@@ -292,6 +292,7 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 					bd = bdG;
 					break;
 			}
+			markerOptions.animateType(MarkerOptions.MarkerAnimateType.grow);
 			OverlayOptions ooA = markerOptions.icon(bd);
 
 			Marker marker =(Marker)mBaiduMap.addOverlay(ooA);
