@@ -152,6 +152,7 @@
                             app:sriv_left_bottom_corner_radius="48dip"
                             app:sriv_left_top_corner_radius="16dip"
                             app:sriv_oval="true"
+                            android:visibility="gone"
                             app:sriv_right_bottom_corner_radius="16dip"
                             app:sriv_right_top_corner_radius="0dip" />
                     </RelativeLayout>

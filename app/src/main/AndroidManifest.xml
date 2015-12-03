@@ -237,6 +237,16 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.njk.activity.BNDemoMainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.njk.activity.BNDemoGuideActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
 
         <!-- 百度相关 -->
         <service

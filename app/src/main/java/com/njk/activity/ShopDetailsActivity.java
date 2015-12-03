@@ -508,7 +508,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 			this.finish();
 			break;
 		case R.id.shop_adress_layout:
-			intent = new Intent(context,ShopRouteSearchActivity.class);
+//			intent = new Intent(context,ShopRouteSearchActivity.class);
+			intent = new Intent(context,BNDemoMainActivity.class);
 			context.startActivity(intent);
 			break;
 		case R.id.fav_do_btn:
