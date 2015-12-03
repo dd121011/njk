@@ -21,17 +21,20 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <!-- 定位相关 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-    <uses-permission android:name="android.permission.READ_LOGS"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.READ_LOGS" >
+    </uses-permission>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <!-- umeng推送 -->
+    <!--umeng推送-->
     <!-- 必选 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- 【必选】用以设置前台是否显示通知 -->
+    <!--【必选】用以设置前台是否显示通知-->
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
@@ -45,12 +48,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".MApplication"
+        android:name="com.njk.MApplication"
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
-        <activity android:name=".WelcomActivity">
+        android:theme="@style/AppTheme" >
+
+        <activity android:name="com.njk.WelcomActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,148 +70,182 @@
                <category android:name="android.intent.category.LAUNCHER" />
            </intent-filter>
        </activity>
-        -->
+       -->
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.njk.activity.LoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.RegisterActivity"
+            android:name="com.njk.activity.RegisterActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.RecoveredActivity"
+            android:name="com.njk.activity.RecoveredActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.SetPasswordActivity"
+            android:name="com.njk.activity.SetPasswordActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.ReSetPasswordActivity"
+            android:name="com.njk.activity.ReSetPasswordActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.SelectUserTypeActivity"
+            android:name="com.njk.activity.SelectUserTypeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.MainTabActivity"
+            android:name="com.njk.activity.MainTabActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="com.njk.activity.SearchActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.ShopDetailsActivity"
+            android:name="com.njk.activity.ShopDetailsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.ReviewDoActivity"
+            android:name="com.njk.activity.ReviewDoActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.DetailWebViewActivity"
+            android:name="com.njk.activity.DetailWebViewActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.DetailsWebActivity"
+            android:name="com.njk.activity.DetailsWebActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.CouponDetailActivity"
+            android:name="com.njk.activity.CouponDetailActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.BarberDetailsActivity"
+            android:name="com.njk.activity.BarberDetailsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.EventListActivity"
+            android:name="com.njk.activity.EventListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.VipCardListActivity"
+            android:name="com.njk.activity.VipCardListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.SwitchCityActivity"
+            android:name="com.njk.activity.SwitchCityActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.ShopMapListActivity"
+            android:name="com.njk.activity.ShopMapListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.ShopRouteSearchActivity"
+            android:name="com.njk.activity.ShopRouteSearchActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.VipDetailsActivity"
+            android:name="com.njk.activity.VipDetailsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.MyClientActivity"
+            android:name="com.njk.activity.MyClientActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.MessgeListActivity"
+            android:name="com.njk.activity.MessgeListActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.MyClientDetailsActivity"
+            android:name="com.njk.activity.MyClientDetailsActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.FavoritesNjyActivity"
+            android:name="com.njk.activity.FavoritesNjyActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.TravelNotesActivity"
+            android:name="com.njk.activity.TravelNotesActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.MyCheapActivity"
+            android:name="com.njk.activity.MyCheapActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.MoreActivity"
+            android:name="com.njk.activity.MoreActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".activity.AddNjyActivity"
+            android:name="com.njk.activity.AddNjyActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".photo.activity.AlbumActivity"
+            android:name="com.njk.photo.activity.AlbumActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".photo.activity.GalleryActivity"
+            android:name="com.njk.photo.activity.GalleryActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".photo.activity.ImageFolderActivity"
+            android:name="com.njk.photo.activity.ImageFolderActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".photo.activity.SendPhotoActivity"
+            android:name="com.njk.photo.activity.SendPhotoActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
         <activity
-            android:name=".photo.activity.ShowAllPhotoActivity"
+            android:name="com.njk.photo.activity.ShowAllPhotoActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" >
+        </activity>
 
         <!-- 百度相关 -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote">
+            android:process=":remote" >
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
             </intent-filter>
         </service>
 
@@ -216,35 +254,35 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="gZ5GSIkHPXAMojmrVbnOounD" />
 
-        <!-- 友盟更新相关 -->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="565d416e67e58e5f260021fd" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="Channel ID" />
+
+        <!--友盟更新相关-->
+        <meta-data android:value="565d416e67e58e5f260021fd" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="4449dd0fa92b72921263487464c23a59"></meta-data>
+            android:value="4449dd0fa92b72921263487464c23a59" >
+        </meta-data>
 
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService"></service>
-
+            android:process=":DownloadingService" >
+        </service>
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
 
-        <!-- 友盟推送 -->
+        <!--友盟推送-->
         <!-- 监听通知点击或者忽略处理的广播 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
-            android:exported="false"></receiver>
+            android:exported="false" >
+        </receiver>
 
         <!-- 监听开机运行、网络连接变化、卸载的广播 -->
         <receiver
             android:name="com.umeng.message.SystemReceiver"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -253,7 +291,6 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
@@ -262,7 +299,7 @@
         <receiver
             android:name="com.umeng.message.MessageReceiver"
             android:exported="false"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.RECEIVE" />
             </intent-filter>
@@ -271,10 +308,9 @@
         <!-- 监听宿主选举的广播 -->
         <receiver
             android:name="com.umeng.message.ElectionReceiver"
-            android:process=":push">
+            android:process=":push" >
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.ELECTION_RESULT_V4" />
-
                 <category android:name="umeng" />
             </intent-filter>
         </receiver>
@@ -283,12 +319,12 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <receiver
             android:name="com.umeng.message.RegistrationReceiver"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.njk.intent.action.COMMAND" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.umeng.message.UmengMessageBootReceiver">
+        <receiver android:name="com.umeng.message.UmengMessageBootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
@@ -298,9 +334,9 @@
         <!-- 【应用包名】字符串需要替换成本应用的应用包名 -->
         <service
             android:name="com.umeng.message.UmengService"
-            android:exported="true"
             android:label="PushService"
-            android:process=":push">
+            android:exported="true"
+            android:process=":push" >
             <intent-filter>
                 <action android:name="com.njk.intent.action.START" />
             </intent-filter>
@@ -309,21 +345,19 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.PING_V4" />
-
                 <category android:name="umeng" />
             </intent-filter>
         </service>
 
         <!-- Umeng的消息接收服务 -->
-        <service
-            android:name="com.umeng.message.UmengIntentService"
+        <service android:name="com.umeng.message.UmengIntentService"
             android:process=":push" />
 
         <!-- Umeng的消息路由服务 -->
         <service
             android:name="com.umeng.message.UmengMessageIntentReceiverService"
-            android:exported="true"
-            android:process=":push">
+            android:process=":push"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="org.android.agoo.client.MessageReceiverService" />
             </intent-filter>
@@ -333,20 +367,19 @@
         </service>
 
         <!-- v2.4.1添加的Service，Umeng的消息接收后的处理服务 -->
-        <service
-            android:name="com.umeng.message.UmengMessageCallbackHandlerService"
+        <service android:name="com.umeng.message.UmengMessageCallbackHandlerService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.umeng.messge.registercallback.action" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.unregistercallback.action" />
+                <action android:name="com.umeng.message.unregistercallback.action"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.message.handler.action" />
+                <action android:name="com.umeng.message.message.handler.action"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.umeng.message.autoupdate.handler.action" />
+                <action android:name="com.umeng.message.autoupdate.handler.action"/>
             </intent-filter>
         </service>
 
@@ -355,16 +388,9 @@
 
         <!-- V2.5.0添加的Service，用于本地通知 -->
         <!-- 如果不使用本地通知，可以注释掉本地通知服务的配置 -->
-        <service
-            android:name="com.umeng.message.local.UmengLocalNotificationService"
+        <service android:name="com.umeng.message.local.UmengLocalNotificationService"
             android:exported="false" />
 
-        <activity android:name=".activity.BNDemoMainActivity"></activity>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
