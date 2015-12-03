@@ -565,9 +565,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void startNavi(){
-		Double lng = Double.valueOf(detailBean.getLng());
-		Double lat = Double.valueOf(detailBean.getLat());
-		NaviUtils.getInstance().startNavi(lng, lat, detailBean.getAddress(), new NaviUtils.MyRoutePlanListener() {
+//		NaviUtils.getInstance().startNavi(detailBean.getLng(), detailBean.getLat(), detailBean.getAddress(),null);
+		NaviUtils.getInstance().startNavi(detailBean.getLng(), detailBean.getLat(), detailBean.getAddress(), new NaviUtils.MyRoutePlanListener() {
 			@Override
 			public void onJumpToNavigator() {
 
@@ -575,7 +574,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 
 			@Override
 			public void onRoutePlanFailed() {
-
+				Toast.makeText(context,"路线规划失败",Toast.LENGTH_SHORT).show();
 			}
 		});
 	}

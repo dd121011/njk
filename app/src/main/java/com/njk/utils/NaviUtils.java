@@ -76,7 +76,7 @@ public class NaviUtils {
         }
     }
 
-    public void startNavi(Double endLng,Double enLat,String endName,MyRoutePlanListener myRoutePlanListener){
+    public void startNavi(String eLng,String eLat,String endName,MyRoutePlanListener myRoutePlanListener){
 
         if(myRoutePlanListener!=null){
             this.myRoutePlanListener = myRoutePlanListener;
@@ -108,9 +108,25 @@ public class NaviUtils {
             return;
         }
 
+        Double endLng = 0d;
+        Double endLat = 0d;
+        if(!TextUtils.isEmpty(eLng)){
+            endLng =Double.valueOf(eLng);
+        }else{
+            this.myRoutePlanListener.onRoutePlanFailed();
+            return;
+        }
+        if(!TextUtils.isEmpty(eLat)){
+            endLat =Double.valueOf(eLat);
+        }else{
+            this.myRoutePlanListener.onRoutePlanFailed();
+            return;
+        }
+
+
         BNRoutePlanNode sNode = new BNRoutePlanNode(lng, lat,
                 Config.getCurAddr(context), null, naviType);
-        BNRoutePlanNode eNode = new BNRoutePlanNode(endLng, enLat,
+        BNRoutePlanNode eNode = new BNRoutePlanNode(endLng, endLat,
                 endName, null, naviType);
 
         if (sNode != null && eNode != null) {

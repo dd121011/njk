@@ -97,7 +97,7 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 	
 	private List<CategoryMenuBean> menuList;
 	private CategoryMenuBean menuBean0,menuBean1,menuBean2;
-	
+
 	private int offset = 0;
 	private int per_page = 10;
 	
@@ -359,10 +359,13 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 						int position, long id) {
 					CategorySubListAdapter adapter = (CategorySubListAdapter) parent.getAdapter();
 					CategoryBean subItem = (CategoryBean) adapter.getItem(position);
-					categoryGroup.setTmpSubCategory(subItem);	
+					categoryGroup.setTmpSubCategory(subItem);
+					categoryGroup.setCurrCategory(subItem);
 					dismiss();
 					menuItem.title = subItem.name;
 					menuAdapter.notifyDataSetChanged();
+					offset = 0;
+					startGetData();
 				}
 			});
 		}else{
@@ -387,18 +390,24 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 								int position, long id) {
 							CategorySubListAdapter adapter = (CategorySubListAdapter) parent.getAdapter();
 							CategoryBean subItem = (CategoryBean) adapter.getItem(position);
-							categoryGroup.setTmpSubCategory(subItem);	
+							categoryGroup.setTmpSubCategory(subItem);
+							categoryGroup.setCurrCategory(subItem);
 							dismiss();
 							menuItem.title = subItem.name;
 							menuAdapter.notifyDataSetChanged();
+							offset = 0;
+							startGetData();
 						}
 					});
 				}else{
 					categoryGroup.setTmpCategory(item);
 					categoryGroup.setTmpSubCategory(item);
+					categoryGroup.setCurrCategory(item);
 					dismiss();
 					menuItem.title = item.name;
 					menuAdapter.notifyDataSetChanged();
+					offset = 0;
+					startGetData();
 				}
 				
 			}
@@ -458,6 +467,8 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 //		params.put("lat", Config.getCurLat(activity));
 //		params.put("lng", Config.getCurLng(activity));
 		params.put("city_id", Config.getCurrCityId(activity));
+		params.put("category_id", menuBean1.getCategoryGroup().getCurrCategory().id);
+		params.put("orderby", menuBean2.getCategoryGroup().getCurrCategory().id);
 //		params.put("scenic_id", "scenic_id");
 //		params.put("orderby", "orderby");
 //		Token	Token值
@@ -609,7 +620,9 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 				public void run() {
 					if(!TextUtils.isEmpty(city)){
 			        	currCity.setText(city);
-			        	setCurProvinceCategoryGroup(city);
+//			        	setCurProvinceCategoryGroup(city);
+						offset = 0;
+						startGetData();
 			        };
 				}
 			});			

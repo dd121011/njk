@@ -95,6 +95,7 @@ public class NearListAdapter extends BaseAdapter {
 			item.range = "0";
 		}
 		range_text.setText(item.range+"km");
+		range_text.setVisibility(View.GONE);
 
 		TextView titleText = ViewHolder.get(arg1, R.id.title_text);
 		titleText.setText(item.title);

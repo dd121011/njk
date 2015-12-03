@@ -8,7 +8,8 @@ public class CategoryGroup implements Serializable {
 	private List<CategoryBean> categoryListData;
 	private CategoryBean tmpCategory;
 	private CategoryBean tmpSubCategory;
-	
+	private CategoryBean currCategory;
+
 	public CategoryGroup(List<CategoryBean> listData) {
 		this.categoryListData = listData;
 	}
@@ -35,6 +36,13 @@ public class CategoryGroup implements Serializable {
 
 	public void setTmpSubCategory(CategoryBean tmpSubCategory) {
 		this.tmpSubCategory = tmpSubCategory;
+	}
+	public CategoryBean getCurrCategory() {
+		return currCategory;
+	}
+
+	public void setCurrCategory(CategoryBean currCategory) {
+		this.currCategory = currCategory;
 	}
 	
 	public void clear(){

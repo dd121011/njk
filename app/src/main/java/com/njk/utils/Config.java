@@ -42,7 +42,7 @@ public class Config {
 	 * @param context
 	 */
 	public static String getCurLng(Context context){
-		return getStringPreferences(context,Global.cur_addr);
+		return getStringPreferences(context,Global.cur_lng);
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class Config {
 	 * @param context
 	 */
 	public static String getCurAddr(Context context){
-		return getStringPreferences(context,Global.cur_lng);
+		return getStringPreferences(context,Global.cur_addr);
 	}
 	
 	/**

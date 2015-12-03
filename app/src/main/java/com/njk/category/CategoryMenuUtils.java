@@ -43,12 +43,13 @@ public class CategoryMenuUtils {
 			List<CategoryBean> listData = new ArrayList<CategoryBean>();
 			CategoryBean categoryBean = new CategoryBean();
 			categoryBean.name = strArr[i];
-			categoryBean.id = 9999+"";
+			categoryBean.id = "";
 			listData.add(categoryBean);
 			
 			CategoryGroup categoryGroup = new CategoryGroup(listData);
 			categoryGroup.setTmpCategory(categoryBean);
 			categoryGroup.setTmpSubCategory(categoryBean);
+			categoryGroup.setCurrCategory(categoryBean);
 			
 			item.setCategoryGroup(categoryGroup);
 			

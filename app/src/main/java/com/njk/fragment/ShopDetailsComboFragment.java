@@ -68,42 +68,42 @@ public final class ShopDetailsComboFragment extends BaseFragment {
 			DetailInfoBean item1 = new DetailInfoBean();
 			item1.setIconId(R.mipmap.info_icon1);
 			item1.setTitle("农家简介");
-			item1.setContent("比例康西草原，克林之风。。。");
+			item1.setContent("放松感受农家宁静，乡土之情。。");
 			item1.setType(DetailInfoBean.InfoType.INTRO);
 			mListItems.add(item1);
 
 			item1 = new DetailInfoBean();
 			item1.setIconId(R.mipmap.info_icon2);
 			item1.setTitle("饮食特色");
-			item1.setContent("比例康西草原，克林之风。。。");
+			item1.setContent("吃野味、常特产，只要新鲜。。");
 			item1.setType(DetailInfoBean.InfoType.FEATURE);
 			mListItems.add(item1);
 
 			item1 = new DetailInfoBean();
 			item1.setIconId(R.mipmap.info_icon3);
 			item1.setTitle("住宿环境");
-			item1.setContent("比例康西草原，克林之风。。。");
+			item1.setContent("躺土炕、睡竹楼，亲近自然美。。");
 			item1.setType(DetailInfoBean.InfoType.STAY);
 			mListItems.add(item1);
 
 			item1 = new DetailInfoBean();
 			item1.setIconId(R.mipmap.info_icon4);
 			item1.setTitle("娱乐游玩");
-			item1.setContent("比例康西草原，克林之风。。。");
+			item1.setContent("嬉戏乡间美景，找儿时感觉。。");
 			item1.setType(DetailInfoBean.InfoType.RECREATION);
 			mListItems.add(item1);
 
 			item1 = new DetailInfoBean();
 			item1.setIconId(R.mipmap.info_icon5);
 			item1.setTitle("行程路线");
-			item1.setContent("比例康西草原，克林之风。。。");
+			item1.setContent("万事俱备，只待出发，启程。。");
 			item1.setType(DetailInfoBean.InfoType.ROUTE);
 			mListItems.add(item1);
 
 			item1 = new DetailInfoBean();
 			item1.setIconId(R.mipmap.info_icon5);
 			item1.setTitle("费用说明");
-			item1.setContent("比例康西草原，克林之风。。。");
+			item1.setContent("农家优惠券，有么有。。");
 			item1.setType(DetailInfoBean.InfoType.SPECIAL);
 			mListItems.add(item1);
 //			INTRO,FEATURE,STAY,RECREATION,ROUTE,SPECIAL
