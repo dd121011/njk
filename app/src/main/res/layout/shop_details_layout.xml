@@ -43,7 +43,7 @@
                         <ImageView
                             android:id="@+id/shop_top_img"
                             android:layout_width="fill_parent"
-                            android:layout_height="260dp"
+                            android:layout_height="200dp"
                             android:scaleType="fitXY"/>
 
                         <LinearLayout
@@ -75,7 +75,7 @@
                                     android:id="@+id/discount_num_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="263"
+                                    android:text="0"
                                     android:textSize="@dimen/text_size4"/>
                             </LinearLayout>
 
@@ -104,7 +104,7 @@
                                     android:id="@+id/remark_num_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="12364"
+                                    android:text="0"
                                     android:textSize="@dimen/text_size4"/>
                             </LinearLayout>
 
@@ -133,7 +133,7 @@
                                     android:id="@+id/enjoy_num_text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="550345"
+                                    android:text="0"
                                     android:textColor="@color/text_color5"
                                     android:textSize="@dimen/text_size5"
                                     android:ellipsize="end"
@@ -186,7 +186,7 @@
                             android:id="@+id/shop_name_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="西二旗审美 造型上地店"
+                            android:text=""
                             android:textSize="@dimen/text_size4" />
                     </LinearLayout>
 
@@ -218,7 +218,7 @@
                             android:layout_marginBottom="@dimen/content_margin_outside"
                             android:layout_marginTop="@dimen/content_margin_outside"
                             android:layout_weight="1"
-                            android:text="北京市海淀区西二旗辉煌国际6号楼"
+                            android:text=""
                             android:textSize="@dimen/text_size4" />
 
                         <View

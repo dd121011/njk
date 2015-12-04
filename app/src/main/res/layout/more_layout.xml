@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/content_margin_vertical"
                 android:layout_weight="1"
-                android:text="客户电话：010-57415598"
+                android:text="农家官方微信：nongjiake888"
                 android:textColor="@color/text_color2"
                 android:textSize="@dimen/text_size1" />
 

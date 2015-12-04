@@ -42,7 +42,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="王猛瞄"
+                    android:text=" "
                     android:textColor="@color/text_color2"
                     android:textSize="@dimen/text_size2" />
 
@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="/美发师"
+                    android:text=" "
                     android:textColor="@color/text_color2"
                     android:textSize="@dimen/text_size5"
                     android:layout_marginLeft="@dimen/content_margin_inside" />
@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2015-4-5"
+                    android:text=" "
                     android:textColor="@color/text_color3"
                     android:textSize="@dimen/text_size5" />
             </LinearLayout>
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/content_margin_inside"
-                android:text="丽人由我开始"
+                android:text=" "
                 android:textColor="@color/text_color3"
                 android:textSize="@dimen/text_size3" />
         </LinearLayout>
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/content_margin_inside"
-            android:text="回复"
+            android:text=""
             android:textColor="@color/text_color3"
             android:textSize="@dimen/text_size5" 
             android:gravity="center_vertical"/>

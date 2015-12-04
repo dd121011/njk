@@ -29,6 +29,8 @@ import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.utils.Config;
 import com.njk.utils.DialogUtil;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.message.PushAgent;
 
 import org.json.JSONObject;
 
@@ -46,7 +48,7 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 	private RequestQueue mQueue;
 	
 	private UserInfo userInfo;
-		
+	FeedbackAgent fb;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -54,6 +56,7 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 		activity = getActivity();
 		mQueue = Volley.newRequestQueue(activity);
 		this.seTAnalysis(true);
+		setUpUmengFeedback();
 	}
 	
 	@Override
@@ -114,29 +117,30 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 		params.put("Token", Config.getUserToken(activity)+"");
 		params.put("user_id", Config.getUserId(activity)+"");
 
-		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.USERINFO_INDEX,new ResponseHandlerInterface(){
+		RequestUtils.startStringRequest(Method.POST, mQueue, RequestCommandEnum.USERINFO_INDEX, new ResponseHandlerInterface() {
 
 			@Override
 			public void handlerSuccess(String response) {
 				// TODO Auto-generated method stub
-				 Log.d(TAG, response);
-				 DialogUtil.progressDialogDismiss();
-				 try {
-					if(!TextUtils.isEmpty(response)){
-						 JSONObject obj = new JSONObject(response);
-						 if(obj.has("stacode") && obj.getString("stacode").equals("1000")){
-							 String jsonArray = obj.getString("data");
-							 Gson gson = new Gson();
-							 userInfo = gson.fromJson(jsonArray, new TypeToken<UserInfo>(){}.getType());
-							 Log.d(TAG, userInfo+"");
-							 activity.runOnUiThread(new Runnable() {
-								 @Override
-								 public void run() {
-									 updateUI();
-								 }
-							 });
-						 }
-					 }
+				Log.d(TAG, response);
+				DialogUtil.progressDialogDismiss();
+				try {
+					if (!TextUtils.isEmpty(response)) {
+						JSONObject obj = new JSONObject(response);
+						if (obj.has("stacode") && obj.getString("stacode").equals("1000")) {
+							String jsonArray = obj.getString("data");
+							Gson gson = new Gson();
+							userInfo = gson.fromJson(jsonArray, new TypeToken<UserInfo>() {
+							}.getType());
+							Log.d(TAG, userInfo + "");
+							activity.runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									updateUI();
+								}
+							});
+						}
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -150,7 +154,30 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 				DialogUtil.progressDialogDismiss();
 			}
 
-		},params);
+		}, params);
+	}
+
+	private void setUpUmengFeedback() {
+		fb = new FeedbackAgent(activity);
+		// check if the app developer has replied to the feedback or not.
+		fb.sync();
+		fb.openAudioFeedback();
+		fb.openFeedbackPush();
+		PushAgent.getInstance(activity).setDebugMode(true);
+		PushAgent.getInstance(activity).enable();
+
+		//fb.setWelcomeInfo();
+		//  fb.setWelcomeInfo("Welcome to use umeng feedback app");
+//        FeedbackPush.getInstance(this).init(true);
+//        PushAgent.getInstance(this).setPushIntentServiceClass(MyPushIntentService.class);
+
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				boolean result = fb.updateUserInfo();
+			}
+		}).start();
 	}
 	
 	@Override
@@ -178,6 +205,7 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 		case R.id.add_nongjiayuan:
 //			intent = new Intent(activity,AddNjyActivity.class);
 //			startActivity(intent);
+			fb.startFeedbackActivity();
 			break;
 		case R.id.more_btn:
 			intent = new Intent(activity,MoreActivity.class);

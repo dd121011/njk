@@ -24,7 +24,7 @@
             android:textSize="24sp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="50元抵金券"/>
+            android:text="0元抵金券"/>
         <TextView
             android:id="@+id/content_text"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_marginTop="20dp"
             android:textSize="18sp"
             android:textColor="@color/gray"
-            android:text="人均消费100减20，可自助海鲜"/>
+            android:text="抵用券领取成功可享受优惠"/>
     </LinearLayout>
 
     <TextView
@@ -45,7 +45,7 @@
         android:gravity="center"
         android:textSize="@dimen/text_size0"
         android:textColor="@color/gray"
-        android:text="农家有效期：2015-8-30至2015-10-21"/>
+        android:text=""/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size0"
-            android:text="海生农家乐-推荐"/>
+            android:text=""/>
     </LinearLayout>
 
     <Button

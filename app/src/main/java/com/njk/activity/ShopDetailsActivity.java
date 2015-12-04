@@ -119,7 +119,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void initView() {
-		Utils.showTopBtn(rootView, "店铺详情", TOP_BTN_MODE.SHOWBOTH, "", "");
+		Utils.showTopBtn(rootView, "详情", TOP_BTN_MODE.SHOWBOTH, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
 		swithRadio = (RadioGroup) rootView.findViewById(R.id.swith_shop_details);	
 
@@ -238,6 +238,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	
 	private void updateUI(){
 		if(detailBean!=null){
+			Utils.showTopBtn(rootView, detailBean.getTitle(), TOP_BTN_MODE.SHOWBOTH, "", "");
 			swithRadio.check(R.id.radio_btn1);
 			ImageLoader.getInstance().displayImage(Global.base_url+detailBean.getImg(), topImg, options);
 			face_img.setImageResource(R.mipmap.face_test1);

@@ -31,7 +31,8 @@
         android:layout_centerInParent="true"
         android:text="发现"
         android:textColor="@color/text_color0"
-        android:textSize="@dimen/text_size0" />
+        android:textSize="@dimen/text_size0"
+        android:singleLine="true"/>
 
     
     <LinearLayout

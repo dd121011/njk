@@ -23,7 +23,7 @@
                 android:layout_width="150dip"
                 android:layout_height="100dip"
                 android:scaleType="fitXY"
-                android:src="@mipmap/test1" />
+                android:src="@mipmap/img_default_icon" />
 
             <LinearLayout
                 android:layout_width="match_parent"

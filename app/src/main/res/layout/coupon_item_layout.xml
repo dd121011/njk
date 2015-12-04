@@ -44,7 +44,7 @@
                     android:id="@+id/family_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="顺义北京顺义区"
+                    android:text=" "
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:singleLine="true"
@@ -54,7 +54,7 @@
                     android:id="@+id/areaname_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="顺义北京顺义区"
+                    android:text=" "
                     android:textSize="16sp"
                     android:singleLine="true"/>
             </LinearLayout>
@@ -69,7 +69,7 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/content_margin_inside"
                 android:layout_marginRight="@dimen/content_margin_outside"
-                android:text="20元"/>
+                android:text=" "/>
         </LinearLayout>
 
         <LinearLayout
@@ -94,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/content_margin_inside"
                     android:textSize="14sp"
-                    android:text="15年8月17到8月17日"/>
+                    android:text=" "/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/content_margin_inside"
                     android:textSize="14sp"
-                    android:text="消费满100元立减20元"/>
+                    android:text=" "/>
             </LinearLayout>
 
         </LinearLayout>

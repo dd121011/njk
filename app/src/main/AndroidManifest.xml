@@ -400,7 +400,9 @@
         <!-- 如果不使用本地通知，可以注释掉本地通知服务的配置 -->
         <service android:name="com.umeng.message.local.UmengLocalNotificationService"
             android:exported="false" />
-
+        <!--umeng用户反馈-->
+        <activity
+            android:name="com.umeng.fb.ConversationActivity"/>
     </application>
 
 </manifest>

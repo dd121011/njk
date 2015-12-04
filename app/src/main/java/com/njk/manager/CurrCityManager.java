@@ -11,7 +11,6 @@ import com.njk.bean.AreasBean.Item;
 import com.njk.bean.AreasBean.Items;
 import com.njk.pinnedheaderlistView.City;
 import com.njk.utils.Config;
-import com.njk.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +71,7 @@ public class CurrCityManager {
         TreeMap<String,Items> province = areasBean.province;
 
         for (Map.Entry<String,Items> entry : province.entrySet()) {
-            Logger.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+//            Logger.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
             String key = entry.getKey();
             Items items = entry.getValue();
             for (Item item: items.items){

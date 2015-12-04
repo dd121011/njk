@@ -8,9 +8,9 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/near_switch_btn"
+        android:layout_width="3dp"
+        android:layout_height="match_parent"
+        android:background="#fa4700"
         android:visibility="gone"/>
 
     <TextView
@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@drawable/switch_text_color"
-        android:text="全城" />
+        android:text="全城"
+        android:layout_marginLeft="@dimen/content_margin_inside"/>
 
     <TextView
         android:id="@+id/hint_text"

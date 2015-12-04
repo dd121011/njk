@@ -61,8 +61,14 @@ public class CategoryListAdapter extends BaseAdapter {
 		
 		if(item.equals(categoryGroup.getTmpCategory())){
 			convertView.setBackgroundColor(Color.TRANSPARENT);
+			title_text.setSelected(true);
+			icon.setVisibility(View.VISIBLE);
+			icon.setSelected(true);
 		}else{
 			convertView.setBackgroundColor(Color.WHITE);
+			title_text.setSelected(false);
+			icon.setVisibility(View.INVISIBLE);
+			icon.setSelected(false);
 		}
 		
 		return convertView;

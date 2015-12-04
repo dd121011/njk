@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dip"
-    android:layout_height="100dip" >
+    android:layout_height="100dip"
+    android:paddingRight="@dimen/content_margin_inside">
 
     <ImageView
         android:layout_width="260dip"
@@ -57,7 +58,8 @@
                         android:id="@+id/view_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="214545"
+                        android:layout_marginLeft="@dimen/content_margin_inside"
+                        android:text="0"
                         android:textColor="@color/text_color5"
                         android:textSize="@dimen/text_size5" />
                 </LinearLayout>
@@ -76,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/content_margin_outside"
                     android:singleLine="true"
-                    android:text="审美造型上地店"
+                    android:text=" "
                     android:textColor="@color/text_color2"
                     android:textSize="@dimen/text_size1" />
 
@@ -84,7 +86,7 @@
                     android:id="@+id/adress_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="东三环中路39号建外大街"
+                    android:text=" "
                     android:textColor="@color/text_color3"
                     android:textSize="@dimen/text_size4" />
             </LinearLayout>
@@ -95,7 +97,7 @@
             android:layout_width="50dip"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="517.8km"
+            android:text=" "
             android:textColor="@color/text_color0"
             android:textSize="@dimen/text_size6"
             android:layout_marginTop="50dip" />

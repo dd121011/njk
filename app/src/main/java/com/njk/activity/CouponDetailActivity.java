@@ -1,6 +1,7 @@
 package com.njk.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,7 @@ import com.njk.BaseActivity;
 import com.njk.Global;
 import com.njk.R;
 import com.njk.bean.CouponDetailBean;
+import com.njk.manager.UserManager;
 import com.njk.net.RequestCommandEnum;
 import com.njk.net.RequestUtils;
 import com.njk.utils.Config;
@@ -45,6 +47,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 	public final static int GET_COUPON_FAIL = 102;
 	public final static int GET_DATA_FINISH = 1001;
 	public final static int GET_DATA_START = 1000;
+	private final static int getcoupon_do_btn_index = 9999;
 	private DisplayImageOptions options;
 	private RequestQueue mQueue; 
 	private Activity activity;
@@ -257,7 +260,17 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		}, params);
 
 	}
-
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (resultCode){
+			case LoginActivity.LOGIN_SUCCESS:
+				if(requestCode == getcoupon_do_btn_index){
+					getCoupon();
+				}
+				break;
+		}
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -265,7 +278,12 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 				this.finish();
 				break;
 			case R.id.get_coupon_layout_btn:
-				getCoupon();
+				if(!UserManager.getInstance().getUserLoginState(activity)){
+					Intent intent = new Intent(activity,LoginActivity.class);
+					startActivityForResult(intent, getcoupon_do_btn_index);
+				}else{
+					getCoupon();
+				}
 				break;
 			default:
 				break;

@@ -110,13 +110,13 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 					mAdapter.notifyDataSetChanged();
 				}
 
+				findView();
+				LocationClientUtils.getInstance().addListenter(locationListener);
+				LocationClientUtils.getInstance().start();
 				break;
 
 			case COPY_DB_SUCCESS:
 				requestData2();
-				findView();
-				LocationClientUtils.getInstance().addListenter(locationListener);
-				LocationClientUtils.getInstance().start();
 				break;
 			case UPDATE_CITY_LIST:
 				String city = Config.getLocationCity(context);
@@ -148,7 +148,7 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 
 		View rootView = LayoutInflater.from(context).inflate(R.layout.switch_city_layout, null);
 		setContentView(rootView);
-		Utils.showTopBtn(rootView, "城市切换", TOP_BTN_MODE.SHOWBACK, "", "");
+		Utils.showTopBtn(rootView, "城市选择", TOP_BTN_MODE.SHOWBACK, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
 
 //		helper = new DBHelper();
