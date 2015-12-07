@@ -230,6 +230,7 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 						// 判断是否滚动到底部
 						if (view.getLastVisiblePosition() == view.getCount() - 1) {
 							//加载更多功能的代码
+							startGetData();
 						}
 					}
 				}
@@ -240,7 +241,7 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 					// 判断是否滚动到底部
 					if (totalItemCount>visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
 						//加载更多功能的代码
-						startGetData();
+//						startGetData();
 					}
 				}
 			});

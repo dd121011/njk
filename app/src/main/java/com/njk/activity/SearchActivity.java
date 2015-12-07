@@ -73,6 +73,8 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 	private int offset = 0;
 	private int per_page = 10;
 
+	private String keyword = "";
+
 	private Handler handler = new Handler(){
 
 		@Override
@@ -132,8 +134,9 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 						imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
 								InputMethodManager.HIDE_NOT_ALWAYS);
 					if(!TextUtils.isEmpty(search_text.getText().toString())){
-						search();
-						setKey(activity, search_text.getText().toString());
+						keyword = search_text.getText().toString();
+						search(keyword);
+						setKey(activity, keyword);
 						return true;
 					}
 					return false;
@@ -159,6 +162,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 					// 判断是否滚动到底部
 					if (view.getLastVisiblePosition() == view.getCount() - 1) {
 						//加载更多功能的代码
+						startGetData();
 					}
 				}
 			}
@@ -169,7 +173,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 				// 判断是否滚动到底部
 				if (totalItemCount>visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
 					//加载更多功能的代码
-					startGetData();
+//					startGetData();
 				}
 			}
 		});
@@ -180,7 +184,7 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		mPtrFrame.setPtrHandler(new PtrHandler() {
 			@Override
 			public void onRefreshBegin(PtrFrameLayout frame) {
-				search();
+				search(keyword);
 			}
 
 			@Override
@@ -229,7 +233,8 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		
 	}
 
-	private void search(){
+	private void search(String keyword){
+		this.keyword = keyword;
 		offset = 0;
 		startGetData();
 	}
@@ -245,12 +250,12 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		params.put("offset", offset+"");
 		params.put("per_page", per_page+"");
 		params.put("Token", Config.getUserToken(activity)+"");
-		params.put("keyword", search_text.getText().toString());
-		params.put("lat", Config.getCurLat(activity));
-		params.put("lng", Config.getCurLng(activity));
+		params.put("keyword", this.keyword);
+//		params.put("lat", Config.getCurLat(activity));
+//		params.put("lng", Config.getCurLng(activity));
 //		params.put("city_id", Config.getCurrCityId(activity));
 
-		RequestUtils.startStringRequest(Method.GET,mQueue, RequestCommandEnum.FAMILY_LIST,new ResponseHandlerInterface(){
+		RequestUtils.startStringRequest(Method.POST,mQueue, RequestCommandEnum.FAMILY_LIST,new ResponseHandlerInterface(){
 
 			@Override
 			public void handlerSuccess(String response) {
@@ -399,9 +404,11 @@ public class SearchActivity extends BaseActivity implements OnClickListener{
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			if(parent.getAdapter().getCount()-1 == position){
+				keyword = "";
 				clearKeys(activity);
 			}else{
-				search();
+				keyword =(String) parent.getAdapter().getItem(position);
+				search(keyword);
 			}
 		}
 	};

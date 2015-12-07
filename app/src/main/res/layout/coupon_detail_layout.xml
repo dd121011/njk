@@ -32,7 +32,9 @@
             android:layout_marginTop="20dp"
             android:textSize="18sp"
             android:textColor="@color/gray"
-            android:text="抵用券领取成功可享受优惠"/>
+            android:text="抵用券领取成功可享受优惠"
+            android:layout_marginLeft="@dimen/content_margin_outside"
+            android:layout_marginRight="@dimen/content_margin_outside"/>
     </LinearLayout>
 
     <TextView
@@ -48,6 +50,7 @@
         android:text=""/>
 
     <LinearLayout
+        android:id="@+id/next_detail_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -73,7 +76,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size0"
+            android:layout_weight="1"
             android:text=""/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/content_margin_outside"
+            android:src="@mipmap/next_cion" />
     </LinearLayout>
 
     <Button

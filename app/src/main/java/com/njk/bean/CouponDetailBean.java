@@ -3,36 +3,33 @@ package com.njk.bean;
 import java.io.Serializable;
 
 public class CouponDetailBean implements Serializable {
-//	"data": {
-//		"id": "15",
-//				"province": "1",
-//				"city": "294",
-//				"scenic": "92",
-//				"family_id": "227",
-//				"title": "",
+//	{
+//		"stacode": "1000",
+//			"data": {
+//				"id": "38",
 //				"money": "20",
-//				"content": "满120元立减20元",
-//				"create_time": "1439781320",
-//				"starttime": "2015-08-17",
-//				"endtime": "2016-08-17",
-//				"status": "0",
-//				"family_title": "北京昌顺普蓝特采摘园",
-//				"img": "/tmp/upload/c/4/1/family/fe/9f/14397785473332.png",
-//				"is_fav": "1"
+//				"family_id": "275",
+//				"province": "11",
+//				"city": "207",
+//				"scenic": "604",
+//				"content": "收藏、转发本店铺，享受折扣优惠。 详情请咨询店主。",
+//				"starttime": "2015-12-03",
+//				"endtime": "2016-12-04",
+//				"family_title": "东山临湖缘生态农家乐",
+//				"family_img": "/tmp/upload/c/4/1/family/73/5b/14489486888366.jpg",
+//				"is_fav": "0"
+//			}
 //	}
 	public String id;
+	public String money;
+	public String family_id;
 	public String province;
 	public String city;
 	public String scenic;
-	public String family_id;
-	public String title;
-	public String money;
 	public String content;
-	public String create_time;
 	public String starttime;
 	public String endtime;
-	public String status;
 	public String family_title;
-	public String img;
+	public String family_img;
 	public String is_fav;
 }

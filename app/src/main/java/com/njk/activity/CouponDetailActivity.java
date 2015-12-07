@@ -58,6 +58,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 
 	private CouponDetailBean couponDetailBean;
 	private String couponId="";
+	private String user_id ="";
 
 	private Handler handler = new Handler() {
 
@@ -125,8 +126,15 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		item_img = (ImageView)findViewById(R.id.item_img);
 		get_coupon_layout_btn = findViewById(R.id.get_coupon_layout_btn);
 		get_coupon_layout_btn.setOnClickListener(this);
+		findViewById(R.id.next_detail_btn).setOnClickListener(this);
 
 		couponId = getIntent().getStringExtra("obj");
+		user_id = getIntent().getStringExtra("user_id");
+		if(!TextUtils.isEmpty(user_id)){
+			user_id = Config.getUserId(activity)+"";
+		}else{
+			user_id = "";
+		}
 		if(!TextUtils.isEmpty(couponId)){
 			startGetData();
 		}
@@ -140,7 +148,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 			valid_date_text.setText("有效期："+couponDetailBean.starttime+"至"+couponDetailBean.endtime);
 			content_text.setText(couponDetailBean.content);
 			money_text.setText(couponDetailBean.money+"元抵用券");
-			ImageLoader.getInstance().displayImage(Global.base_url + couponDetailBean.img, item_img, options);
+			ImageLoader.getInstance().displayImage(Global.base_url + couponDetailBean.family_img, item_img, options);
 		}
 	}
 
@@ -149,12 +157,10 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 //		if(isStart){
 //			return;
 //		}
-//		DialogUtil.progressDialogShow(activity, activity.getResources().getString(R.string.is_loading));
-//		isStart = true;
 		handler.sendEmptyMessage(GET_DATA_START);
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Token", Config.getUserToken(activity)+"");
-		params.put("user_id", Config.getUserId(activity)+"");
+		params.put("user_id",user_id);
 		params.put("coupon_id", couponId+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.COUPON_DETAILS, new RequestUtils.ResponseHandlerInterface() {
@@ -205,7 +211,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Token", Config.getUserToken(activity)+"");
 		params.put("user_id", Config.getUserId(activity)+"");
-		params.put("coupon_id", couponId+"");
+		params.put("id", couponId+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.COUPONN_ADD, new RequestUtils.ResponseHandlerInterface() {
 
@@ -283,6 +289,13 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 					startActivityForResult(intent, getcoupon_do_btn_index);
 				}else{
 					getCoupon();
+				}
+				break;
+			case R.id.next_detail_btn:
+				if(couponDetailBean!=null){
+					Intent intent = new Intent(activity,ShopDetailsActivity.class);
+					intent.putExtra("id",couponDetailBean.family_id);
+					activity.startActivity(intent);
 				}
 				break;
 			default:

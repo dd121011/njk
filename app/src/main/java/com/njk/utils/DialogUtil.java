@@ -32,6 +32,13 @@ public class DialogUtil {
 		}
 	}
 
+	public static boolean isShow(Activity context){
+		if(loadingDialog==null){
+			return false;
+		}
+		return loadingDialog.isShowing();
+	}
+
 	/**
      * 全局性进度对话框
      */

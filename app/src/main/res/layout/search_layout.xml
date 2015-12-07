@@ -55,7 +55,8 @@
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:background="@android:color/transparent"
-                android:layout_marginRight="@dimen/content_margin_outside"/>
+                android:layout_marginRight="@dimen/content_margin_outside"
+                android:imeOptions="actionSearch"/>
 
             <LinearLayout
                 android:id="@+id/clear_btn"

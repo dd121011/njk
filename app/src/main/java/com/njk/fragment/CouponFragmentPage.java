@@ -127,13 +127,21 @@ public class CouponFragmentPage extends BaseFragment{
 
 				@Override
 				public void onScrollStateChanged(AbsListView view, int scrollState) {
+					// 当不滚动时
+					if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+						// 判断是否滚动到底部
+						if (view.getLastVisiblePosition() == view.getCount() - 1) {
+							//加载更多功能的代码
+							startGetData();
+						}
+					}
 				}
 
 				@Override
 				public void onScroll(AbsListView view, int firstVisibleItem,
 									 int visibleItemCount, int totalItemCount) {
 					if (totalItemCount>visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
-						startGetData();
+//						startGetData();
 					}
 
 				}

@@ -1,6 +1,7 @@
 package com.njk.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -185,10 +186,11 @@ public class MyCheapActivity extends BaseActivity implements OnClickListener{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
-//			MyCheapBean bean = (MyCheapBean)parent.getAdapter().getItem(position);
-//			Intent intent = new Intent(context, CouponDetailActivity.class);
-//			intent.putExtra("obj",bean.message_id);
-//			context.startActivity(intent);
+			MyCheapBean bean = (MyCheapBean)parent.getAdapter().getItem(position);
+			Intent intent = new Intent(context, CouponDetailActivity.class);
+			intent.putExtra("obj",bean.message_id);
+			intent.putExtra("user_id",Config.getUserId(context)+"");
+			context.startActivity(intent);
 		}
 		
 	};
