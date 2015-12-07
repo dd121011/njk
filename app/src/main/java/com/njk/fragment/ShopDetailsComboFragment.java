@@ -101,7 +101,7 @@ public final class ShopDetailsComboFragment extends BaseFragment {
 			mListItems.add(item1);
 
 			item1 = new DetailInfoBean();
-			item1.setIconId(R.mipmap.info_icon5);
+			item1.setIconId(R.mipmap.info_icon6);
 			item1.setTitle("费用说明");
 			item1.setContent("农家优惠券，有么有。。");
 			item1.setType(DetailInfoBean.InfoType.SPECIAL);

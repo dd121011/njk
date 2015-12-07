@@ -119,7 +119,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	}
 
 	private void initView() {
-		Utils.showTopBtn(rootView, "详情", TOP_BTN_MODE.SHOWBOTH, "", "");
+		Utils.showTopBtn(rootView, "详情", TOP_BTN_MODE.SHOWBACK, "", "");
 		rootView.findViewById(R.id.back_btn).setOnClickListener(this);
 		swithRadio = (RadioGroup) rootView.findViewById(R.id.swith_shop_details);	
 
@@ -238,7 +238,7 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 	
 	private void updateUI(){
 		if(detailBean!=null){
-			Utils.showTopBtn(rootView, detailBean.getTitle(), TOP_BTN_MODE.SHOWBOTH, "", "");
+			Utils.showTopBtn(rootView, detailBean.getTitle(), TOP_BTN_MODE.SHOWBACK, "", "");
 			swithRadio.check(R.id.radio_btn1);
 			ImageLoader.getInstance().displayImage(Global.base_url+detailBean.getImg(), topImg, options);
 			face_img.setImageResource(R.mipmap.face_test1);
@@ -295,6 +295,8 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					isStart = false;
+					DialogUtil.progressDialogDismiss();
 				}
 
 			}
@@ -565,17 +567,36 @@ public class ShopDetailsActivity extends BaseActivity implements OnClickListener
 		
 	}
 
+	boolean isStartNavi = false;
 	private void startNavi(){
 //		NaviUtils.getInstance().startNavi(detailBean.getLng(), detailBean.getLat(), detailBean.getAddress(),null);
+		if(isStartNavi){
+			return;
+		}
+		isStartNavi = true;
+		DialogUtil.progressDialogShow(context,"正在规划路线");
 		NaviUtils.getInstance().startNavi(detailBean.getLng(), detailBean.getLat(), detailBean.getAddress(), new NaviUtils.MyRoutePlanListener() {
 			@Override
 			public void onJumpToNavigator() {
-
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						DialogUtil.progressDialogDismiss();
+						isStartNavi = false;
+					}
+				});
 			}
 
 			@Override
 			public void onRoutePlanFailed() {
-				Toast.makeText(context,"路线规划失败",Toast.LENGTH_SHORT).show();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						isStartNavi = false;
+						DialogUtil.progressDialogDismiss();
+						Toast.makeText(context, "路线规划失败", Toast.LENGTH_SHORT).show();
+					}
+				});
 			}
 		});
 	}

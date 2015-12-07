@@ -170,7 +170,7 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 			FavoritesListAdapter adapter = (FavoritesListAdapter)parent.getAdapter();
 			FavoritesBean item = adapter.getItem(position);
 			Intent intent = new Intent(context,ShopDetailsActivity.class);
-			intent.putExtra("id",item.getMessage_id());
+			intent.putExtra("id",item.getFamily_id());
 			context.startActivity(intent);
 		}
 		

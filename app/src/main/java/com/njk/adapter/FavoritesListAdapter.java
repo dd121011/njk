@@ -1,7 +1,6 @@
 package com.njk.adapter;
 
 import android.app.Activity;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class FavoritesListAdapter extends BaseAdapter {
@@ -90,9 +88,8 @@ public class FavoritesListAdapter extends BaseAdapter {
 		per_capita_text.setText("人均(￥)"+item.getPer_capita());
 
 		CustomListView list = ViewHolder.get(arg1, R.id.list_layout);
-		String tagStr = item.getTag();
-		if(!TextUtils.isEmpty(tagStr)){
-			List<String> tag = Arrays.asList(tagStr.split("、"));
+		List<String> tag = item.getTag();
+		if(tag!=null){
 			list.setAdapter(new TextTypeAdapter(context, tag));
 		}
 
