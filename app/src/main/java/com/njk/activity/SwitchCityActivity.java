@@ -123,9 +123,11 @@ public class SwitchCityActivity extends BaseActivity implements OnClickListener 
 				if(city!=null && cityList!=null && cityList.size()>0){
 //					City item = cityList.get(0);
 					City c = cityManger.findCity(context, city);
-					City item = cityManger.clone(c);
-//					item.setName(city);
-					cityList.set(0,item);
+					if(c!=null){
+						City item = cityManger.clone(c);
+//						item.setName(city);
+						cityList.set(0,item);
+					}
 				}
 				if (mAdapter != null) {
 					mAdapter.notifyDataSetChanged();

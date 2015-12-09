@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ZoomControls;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -81,6 +82,9 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 	private MapView mMapView;
 	private BaiduMap mBaiduMap;
 	private InfoWindow mInfoWindow;
+	private Marker longClickMarker;
+	private OverlayOptions longClickOverlayOptions;
+	private LatLng currLatLng;
 	private List<Marker> markerList;
 	// 初始化全局 bitmap 信息，不用时及时 recycle
 	BitmapDescriptor bdN = BitmapDescriptorFactory
@@ -100,7 +104,6 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 	BitmapDescriptor bdG = BitmapDescriptorFactory
 			.fromResource(R.mipmap.map_tag07);
 
-	private List<OverlayOptions> overlayOptionses;
 	private List<NearMapBean> nearBeanList;
 
 	boolean isFirstLoc = true;// 是否首次定位
@@ -135,7 +138,8 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 					handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
 					break;
 				case UPATE_LIST_LAYOUT:
-					initOverlay2();
+					resetOverlay(mMapView);
+//					initOverlay2();
 
 					break;
 				case GET_DATE_FAIL:
@@ -162,9 +166,17 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		shareBtn.setText("列表");
 		shareBtn.setBackgroundColor(Color.TRANSPARENT);
 
+		findViewById(R.id.back_curlocal_btn).setOnClickListener(this);
+
+		initView();
+
 		initData();
 
 		initMapView();
+	}
+
+	private void initView(){
+
 	}
 
 	private void initData(){
@@ -187,6 +199,7 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		// 地图初始化
 		mMapView = (MapView) findViewById(R.id.bmapView);
 		mBaiduMap = mMapView.getMap();
+		hideZoomView(mMapView);
 		// 开启定位图层
 		mBaiduMap.setMyLocationEnabled(true);
 
@@ -206,7 +219,47 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 
+		setOnMapLongCilickListener();
+
 		setOnMarkerClickListener();
+
+
+	}
+
+
+	private void setOnMapLongCilickListener(){
+		mBaiduMap.setOnMapLongClickListener(new BaiduMap.OnMapLongClickListener() {
+			@Override
+			public void onMapLongClick(LatLng latLng) {
+				MarkerOptions markerOptions = new MarkerOptions().position(latLng).zIndex(9).draggable(true);
+				markerOptions.animateType(MarkerOptions.MarkerAnimateType.none);
+				BitmapDescriptor bdN = BitmapDescriptorFactory.fromResource(R.mipmap.zuobiao);
+				longClickOverlayOptions= markerOptions.icon(bdN);
+
+				addLongClickMarker();
+
+				startGetMapData(latLng.latitude+"",latLng.longitude+"");
+			}
+		});
+	}
+
+	private void addLongClickMarker(){
+		if(longClickMarker!=null){
+			longClickMarker.remove();
+		}
+		if(longClickOverlayOptions != null){
+			longClickMarker =(Marker)mBaiduMap.addOverlay(longClickOverlayOptions);
+		}
+	}
+
+	private void removeLongClickMarker(){
+		if(longClickMarker!=null){
+			longClickMarker.remove();
+		}
+
+		if(longClickOverlayOptions != null){
+			longClickOverlayOptions = null;
+		}
 	}
 
 
@@ -221,8 +274,8 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 			@Override
 			public boolean onMarkerClick(final Marker marker) {
 				Bundle bundle = marker.getExtraInfo();
-				if(bundle!=null){
-					final NearMapBean mapBean = (NearMapBean)bundle.getSerializable("bean");
+				if (bundle != null) {
+					final NearMapBean mapBean = (NearMapBean) bundle.getSerializable("bean");
 					Logger.d(TAG, mapBean.toString());
 
 					View view = new MapItemLayout(context);
@@ -235,15 +288,15 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 						}
 					});
 
-					TextView title_text = (TextView)view.findViewById(R.id.title_text);
+					TextView title_text = (TextView) view.findViewById(R.id.title_text);
 					title_text.setText(mapBean.title);
-					TextView adress_text = (TextView)view.findViewById(R.id.adress_text);
+					TextView adress_text = (TextView) view.findViewById(R.id.adress_text);
 					adress_text.setText(mapBean.address);
-					TextView range_text = (TextView)view.findViewById(R.id.range_text);
-					range_text.setText(mapBean.range+"km");
-					TextView view_text = (TextView)view.findViewById(R.id.view_text);
+					TextView range_text = (TextView) view.findViewById(R.id.range_text);
+					range_text.setText(mapBean.range + "km");
+					TextView view_text = (TextView) view.findViewById(R.id.view_text);
 					view_text.setText(mapBean.view);
-					ImageView face_img = (ImageView)view.findViewById(R.id.face_img);
+					ImageView face_img = (ImageView) view.findViewById(R.id.face_img);
 					ImageLoader.getInstance().displayImage(Global.base_url + mapBean.img, face_img, options);
 
 					LatLng ll = marker.getPosition();
@@ -257,9 +310,10 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 
 
 	public void initOverlay2(){
-		if(overlayOptionses==null){
-			overlayOptionses = new ArrayList<>();
+		if(longClickOverlayOptions != null){
+			addLongClickMarker();
 		}
+
 		for (NearMapBean mapBean : nearBeanList){
 //			LatLng llA = new LatLng(39.963175, 116.400244);
 			double lat = Double.valueOf(mapBean.lat);
@@ -325,6 +379,20 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		}
 	}
 
+	private void backCurrLocal(){
+		removeLongClickMarker();
+		if(currLatLng != null){
+			MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(currLatLng);
+			mBaiduMap.animateMapStatus(u);
+			startGetMapData(currLatLng.latitude + "", currLatLng.longitude + "");
+		}else{
+			if(mLocClient!=null){
+				isFirstLoc = true;
+				mLocClient.start();
+			}
+		}
+	}
+
 	/**
 	 * 清除所有Overlay
 	 *
@@ -344,6 +412,30 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		initOverlay2();
 	}
 
+	/**
+	 * 隐藏地图缩放控件
+	 *
+	 * @param mapView
+	 */
+	private void hideZoomView(MapView mapView) {
+		// 隐藏缩放控件
+		int childCount = mapView.getChildCount();
+		View zoom = null;
+		for (int i = 0; i < childCount; i++) {
+			View child = mapView.getChildAt(i);
+			if (child instanceof ZoomControls ||child instanceof ImageView) {
+				zoom = child;
+				break;
+			}
+		}
+		zoom.setVisibility(View.GONE);
+
+		//地图上比例尺
+		mapView.showScaleControl(false);
+		// 隐藏缩放控件
+		mapView.showZoomControls(false);
+	}
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -352,6 +444,9 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 				break;
 			case R.id.share_btn:
 
+				break;
+			case R.id.back_curlocal_btn:
+				backCurrLocal();
 				break;
 			default:
 				break;
@@ -378,17 +473,10 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 			mBaiduMap.setMyLocationData(locData);
 			if (isFirstLoc) {
 				isFirstLoc = false;
-				LatLng ll = new LatLng(location.getLatitude(),location.getLongitude());
-				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
+				currLatLng = new LatLng(location.getLatitude(),location.getLongitude());
+				MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(currLatLng);
 				mBaiduMap.animateMapStatus(u);
-				lat = ll.latitude+"";
-				lng = ll.longitude+"";
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						startGetData();
-					}
-				});
+				startGetMapData(currLatLng.latitude + "", currLatLng.longitude + "");
 			}
 
 		}
@@ -420,6 +508,13 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 		super.onDestroy();
 	}
 
+	public void startGetMapData(String lat, String lng){
+		this.lat = lat;
+		this.lng = lng;
+		this.offset = 0;
+		startGetData();
+	}
+
 	private boolean isStart = false;
 	public void startGetData(){
 		if(isStart){
@@ -433,7 +528,7 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 //		params.put("per_page", per_page+"");
 		params.put("latitude", lat);
 		params.put("longitude", lng);
-		params.put("range", 50000+"");
+		params.put("range", 100000+"");
 
 		RequestUtils.startStringRequest(Request.Method.GET, mQueue, RequestCommandEnum.FINDFAMILY_LISTLBS, new RequestUtils.ResponseHandlerInterface() {
 

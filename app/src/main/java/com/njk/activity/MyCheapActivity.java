@@ -118,15 +118,24 @@ public class MyCheapActivity extends BaseActivity implements OnClickListener{
 
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// 当不滚动时
+				if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+					// 判断是否滚动到底部
+					if (view.getLastVisiblePosition() == view.getCount() - 1) {
+						//加载更多功能的代码
+						startGetData();
+					}
+				}
 			}
 
 			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem,
 								 int visibleItemCount, int totalItemCount) {
+				// 判断是否滚动到底部
 				if (totalItemCount>visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
-					startGetData();
+					//加载更多功能的代码
+//						startGetData();
 				}
-
 			}
 		});
 		mPtrFrame = (PtrClassicFrameLayout) rootView
@@ -205,8 +214,8 @@ public class MyCheapActivity extends BaseActivity implements OnClickListener{
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("Token", Config.getUserToken(context)+"");
 		params.put("user_id", Config.getUserId(context)+"");
-		params.put("offset", offset+"");
-		params.put("per_page", per_page+"");
+//		params.put("offset", offset+"");
+//		params.put("per_page", per_page+"");
 
 		RequestUtils.startStringRequest(Request.Method.POST, mQueue, RequestCommandEnum.COUPON_MY_COUPON, new RequestUtils.ResponseHandlerInterface() {
 

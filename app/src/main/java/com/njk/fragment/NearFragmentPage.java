@@ -113,6 +113,8 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 				List<NearBean> dataList = (List<NearBean>) msg.getData().getSerializable("data");
 				if(offset == 0){
 					nearBeanList.clear();
+					mAdapter = new NearListAdapter(getActivity(), nearBeanList);
+					listView.setAdapter(mAdapter);
 				}
 				offset = per_page;
 				nearBeanList.addAll(dataList);
@@ -218,7 +220,6 @@ public class NearFragmentPage extends BaseFragment implements OnClickListener{
 			
 			nearBeanList = new ArrayList<NearBean>();
 			mAdapter = new NearListAdapter(getActivity(), nearBeanList);
-			
 			listView.setAdapter(mAdapter);
 			
 			listView.setOnScrollListener(new OnScrollListener() {

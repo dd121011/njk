@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -110,7 +111,30 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 		dataList = new ArrayList<FavoritesBean>();
 		mAdapter = new FavoritesListAdapter(context, dataList);
 		listView.setAdapter(mAdapter);
+		listView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// 当不滚动时
+				if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+					// 判断是否滚动到底部
+					if (view.getLastVisiblePosition() == view.getCount() - 1) {
+						//加载更多功能的代码
+						startGetData();
+					}
+				}
+			}
+
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+								 int visibleItemCount, int totalItemCount) {
+				// 判断是否滚动到底部
+				if (totalItemCount > visibleItemCount && view.getLastVisiblePosition() == view.getCount() - 2) {
+					//加载更多功能的代码
+//						startGetData();
+				}
+			}
+		});
 		mPtrFrame = (PtrClassicFrameLayout) rootView
 				.findViewById(R.id.rotate_header_list_view_frame);
 		mPtrFrame.setLastUpdateTimeRelateObject(this);
