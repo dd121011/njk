@@ -33,7 +33,7 @@
                     android:layout_width="45dip"
                     android:layout_height="45dip"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/img_default_icon"
+                    android:src="@mipmap/user_face_icon"
                     app:sriv_border_color="@color/text_color0"
                     app:sriv_border_width="@dimen/content_margin_inside"
                     app:sriv_left_bottom_corner_radius="48dip"

@@ -138,8 +138,11 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 					handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
 					break;
 				case UPATE_LIST_LAYOUT:
-					resetOverlay(mMapView);
-//					initOverlay2();
+					if(longClickOverlayOptions!=null){
+						resetOverlay(mMapView);
+					}else{
+						initOverlay2();
+					}
 
 					break;
 				case GET_DATE_FAIL:
@@ -181,9 +184,9 @@ public class ShopMapListActivity extends BaseActivity implements OnClickListener
 
 	private void initData(){
 		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.mipmap.img_default_icon)
-				.showImageForEmptyUri(R.mipmap.img_default_icon)
-				.showImageOnFail(R.mipmap.img_default_icon)
+				.showImageOnLoading(R.mipmap.user_face_icon)
+				.showImageForEmptyUri(R.mipmap.user_face_icon)
+				.showImageOnFail(R.mipmap.user_face_icon)
 				.cacheInMemory(true)
 				.cacheOnDisk(true)
 				.considerExifParams(true)

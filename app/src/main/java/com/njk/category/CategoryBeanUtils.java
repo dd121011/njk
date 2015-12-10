@@ -5,11 +5,10 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.bean.AreasBean;
-import com.njk.bean.AreasBean.ScenciImp;
 import com.njk.bean.AreasBean.City;
+import com.njk.bean.AreasBean.ScenciImp;
 import com.njk.bean.GetscenicBean;
 import com.njk.utils.Config;
-import com.njk.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +87,7 @@ public class CategoryBeanUtils {
 		TreeMap<String,AreasBean.Items> province = areasBean.province;
 
 		for (Map.Entry<String,AreasBean.Items> entry : province.entrySet()) {
-			Logger.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+//			Logger.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
 			String key = entry.getKey();
 			AreasBean.Items items = entry.getValue();
 			for (AreasBean.Item item: items.items){

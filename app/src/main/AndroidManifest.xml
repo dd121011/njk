@@ -213,6 +213,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name="com.njk.activity.FeedBackActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name="com.njk.photo.activity.AlbumActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -267,7 +272,8 @@
 
         <!--友盟更新相关-->
         <meta-data android:value="565d416e67e58e5f260021fd" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+        <!--<meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>-->
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
             android:value="4449dd0fa92b72921263487464c23a59" >
@@ -400,9 +406,6 @@
         <!-- 如果不使用本地通知，可以注释掉本地通知服务的配置 -->
         <service android:name="com.umeng.message.local.UmengLocalNotificationService"
             android:exported="false" />
-        <!--umeng用户反馈-->
-        <activity
-            android:name="com.umeng.fb.ConversationActivity"/>
     </application>
 
 </manifest>

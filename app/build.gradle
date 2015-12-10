@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
-
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
 android {
     signingConfigs {
         config {
@@ -17,12 +19,30 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        // 默认是umeng的渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Channel ID"]
     }
     buildTypes {
         release {
+            // 移除无用的resource文件
+            shrinkResources true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为nongjiake_v1.0_2015-01-15_wandoujia.apk
+                        def fileName = "nongjiake_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
         debug {
             signingConfig signingConfigs.config
@@ -37,6 +57,18 @@ android {
     lintOptions{
         checkReleaseBuilds false
         abortOnError false
+    }
+
+    productFlavors {
+        "laike" {}
+        "xiaomi" {}
+        "360" {}
+        "baidu" {}
+        "wandoujia" {}
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
 }
 
@@ -55,5 +87,4 @@ dependencies {
     compile files('libs/com.umeng.message.lib_v2.5.0.jar')
     compile files('libs/umeng-analytics-v5.6.3.jar')
     compile files('libs/httpmime-4.1.2.jar')
-    compile files('libs/com.umeng.fb.5.4.0.jar')
 }

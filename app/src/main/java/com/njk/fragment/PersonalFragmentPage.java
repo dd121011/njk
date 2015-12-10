@@ -19,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.njk.R;
 import com.njk.activity.FavoritesNjyActivity;
+import com.njk.activity.FeedBackActivity;
 import com.njk.activity.LoginActivity;
 import com.njk.activity.MoreActivity;
 import com.njk.activity.MyCheapActivity;
@@ -29,8 +30,6 @@ import com.njk.net.RequestUtils;
 import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.utils.Config;
 import com.njk.utils.DialogUtil;
-import com.umeng.fb.FeedbackAgent;
-import com.umeng.message.PushAgent;
 
 import org.json.JSONObject;
 
@@ -39,7 +38,10 @@ import java.util.Map;
 
 public class PersonalFragmentPage extends BaseFragment implements OnClickListener{
 	private static String TAG="PersonalFragmentPage";
-	
+	private static int mycheap_btn_index = 1000;
+	private static int favorites_btn_index = 1001;
+	private static int getUserInfo_btn_index = 1002;
+	private static int feedback_btn_index = 1003;
 	private View rootView,info_layout;
 	private ImageView face_img;
 	private TextView personal_name;
@@ -48,7 +50,6 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 	private RequestQueue mQueue;
 	
 	private UserInfo userInfo;
-	FeedbackAgent fb;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -56,7 +57,6 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 		activity = getActivity();
 		mQueue = Volley.newRequestQueue(activity);
 		this.seTAnalysis(true);
-		setUpUmengFeedback();
 	}
 	
 	@Override
@@ -157,28 +157,6 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 		}, params);
 	}
 
-	private void setUpUmengFeedback() {
-		fb = new FeedbackAgent(activity);
-		// check if the app developer has replied to the feedback or not.
-		fb.sync();
-		fb.openAudioFeedback();
-		fb.openFeedbackPush();
-		PushAgent.getInstance(activity).setDebugMode(true);
-		PushAgent.getInstance(activity).enable();
-
-		//fb.setWelcomeInfo();
-		//  fb.setWelcomeInfo("Welcome to use umeng feedback app");
-//        FeedbackPush.getInstance(this).init(true);
-//        PushAgent.getInstance(this).setPushIntentServiceClass(MyPushIntentService.class);
-
-
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				boolean result = fb.updateUserInfo();
-			}
-		}).start();
-	}
 	
 	@Override
 	public void onClick(View v) {
@@ -187,7 +165,7 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 		case R.id.info_layout:
 			if(!UserManager.getInstance().getUserLoginState(activity)){
 				intent = new Intent(activity,LoginActivity.class);
-				startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+				startActivityForResult(intent, getUserInfo_btn_index);
 			}
 			break;
 		case R.id.face_layout:
@@ -195,17 +173,32 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 			break;
 		case R.id.my_cheap_layout:
 //			intent = new Intent(activity,TravelNotesActivity.class);
-			intent = new Intent(activity,MyCheapActivity.class);
-			startActivity(intent);
+			if(!UserManager.getInstance().getUserLoginState(activity)){
+				intent = new Intent(activity,LoginActivity.class);
+				startActivityForResult(intent, mycheap_btn_index);
+			}else{
+				intent = new Intent(activity,MyCheapActivity.class);
+				startActivity(intent);
+			}
+
 			break;
 		case R.id.favorites_nongjia:
-			intent = new Intent(activity,FavoritesNjyActivity.class);
-			startActivity(intent);
+			if(!UserManager.getInstance().getUserLoginState(activity)){
+				intent = new Intent(activity,LoginActivity.class);
+				startActivityForResult(intent, favorites_btn_index);
+			}else{
+				intent = new Intent(activity,FavoritesNjyActivity.class);
+				startActivity(intent);
+			}
 			break;
 		case R.id.add_nongjiayuan:
-//			intent = new Intent(activity,AddNjyActivity.class);
-//			startActivity(intent);
-			fb.startFeedbackActivity();
+			if(!UserManager.getInstance().getUserLoginState(activity)){
+				intent = new Intent(activity,LoginActivity.class);
+				startActivityForResult(intent, feedback_btn_index);
+			}else{
+				intent = new Intent(activity,FeedBackActivity.class);
+				startActivity(intent);
+			}
 			break;
 		case R.id.more_btn:
 			intent = new Intent(activity,MoreActivity.class);
@@ -227,9 +220,22 @@ public class PersonalFragmentPage extends BaseFragment implements OnClickListene
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+
+		Intent intent = null;
 		switch (resultCode){
 			case LoginActivity.LOGIN_SUCCESS:
-				getUserInfoIndex();
+				if(requestCode == mycheap_btn_index){
+					intent = new Intent(activity,MyCheapActivity.class);
+					activity.startActivity(intent);
+				}else if(requestCode == favorites_btn_index){
+					intent = new Intent(activity,FavoritesNjyActivity.class);
+					startActivity(intent);
+				}else if(requestCode == getUserInfo_btn_index){
+					getUserInfoIndex();
+				}else if(requestCode == feedback_btn_index){
+					intent = new Intent(activity,FeedBackActivity.class);
+					startActivity(intent);
+				}
 				break;
 		}
 	}

@@ -110,7 +110,7 @@ public class MoreActivity extends BaseActivity implements OnClickListener{
 									public void run() {
 
 										UserManager.getInstance().exitUser(context);
-										Toast.makeText(context, code + " = 0", Toast.LENGTH_SHORT).show();
+//										Toast.makeText(context, code + " = 0", Toast.LENGTH_SHORT).show();
 									}
 								});
 							} else {

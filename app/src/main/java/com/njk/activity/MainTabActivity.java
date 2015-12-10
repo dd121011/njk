@@ -2,6 +2,8 @@ package com.njk.activity;
 
 
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,12 +21,9 @@ import android.widget.Toast;
 import com.android.volley.Request.Method;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.njk.BaseActivity;
 import com.njk.MApplication;
 import com.njk.R;
-import com.njk.bean.AreasBean;
 import com.njk.bean.ObserverManager;
 import com.njk.fragment.CouponFragmentPage;
 import com.njk.fragment.NearFragmentPage;
@@ -98,6 +97,14 @@ public class MainTabActivity extends BaseActivity{
     }
 	 
 	private void initData() {
+
+		try {
+			ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+			String msg=appInfo.metaData.getString("UMENG_CHANNEL");
+			Logger.e(msg);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 
 		Res.init(this);       
 		LocalDisplay.init(this);
@@ -200,11 +207,11 @@ public class MainTabActivity extends BaseActivity{
 									Config.setUpdateProvinceTime(activity, updateTime);
 									Config.setAreasData(activity, dataObj.toString());
 									ObserverManager.getInstance().notifyAreasOchange();
-									Gson gson = new Gson();
-									AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
-									}.getType());
-
-									Logger.d(TAG, areasBean.toString());
+//									Gson gson = new Gson();
+//									AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
+//									}.getType());
+//
+//									Logger.d(TAG, areasBean.toString());
 
 //									JSONObject province = dataObj.getJSONObject("province");
 //									JSONObject A = province.getJSONObject("A");
@@ -240,11 +247,11 @@ public class MainTabActivity extends BaseActivity{
 //									msg.setData(data);
 //									msg.sendToTarget();
 								}else{
-									String data = Config.getAreasData(activity);
-									Gson gson = new Gson();
-									AreasBean areasBean = gson.fromJson(data, new TypeToken<AreasBean>() {
-									}.getType());
-									Logger.d(TAG, areasBean.toString());
+//									String data = Config.getAreasData(activity);
+//									Gson gson = new Gson();
+//									AreasBean areasBean = gson.fromJson(data, new TypeToken<AreasBean>() {
+//									}.getType());
+//									Logger.d(TAG, areasBean.toString());
 								}
 								
 							}
