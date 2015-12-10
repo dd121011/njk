@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +55,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 
 	private TextView family_title_text,valid_date_text,content_text,money_text;
 	private ImageView item_img;
-	private View get_coupon_layout_btn;
+	private Button get_coupon_layout_btn;
 
 	private CouponDetailBean couponDetailBean;
 	private String couponId="";
@@ -124,7 +125,7 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 		valid_date_text = (TextView)findViewById(R.id.valid_date_text);
 		family_title_text = (TextView)findViewById(R.id.family_title_text);
 		item_img = (ImageView)findViewById(R.id.item_img);
-		get_coupon_layout_btn = findViewById(R.id.get_coupon_layout_btn);
+		get_coupon_layout_btn = (Button)findViewById(R.id.get_coupon_layout_btn);
 		get_coupon_layout_btn.setOnClickListener(this);
 		findViewById(R.id.next_detail_btn).setOnClickListener(this);
 
@@ -149,6 +150,11 @@ public class CouponDetailActivity extends BaseActivity implements View.OnClickLi
 			content_text.setText(couponDetailBean.content);
 			money_text.setText(couponDetailBean.money+"元抵用券");
 			ImageLoader.getInstance().displayImage(Global.base_url + couponDetailBean.family_img, item_img, options);
+
+			if("1".equals(couponDetailBean.is_fav)){
+				get_coupon_layout_btn.setClickable(false);
+				get_coupon_layout_btn.setText("此券已领");
+			}
 		}
 	}
 

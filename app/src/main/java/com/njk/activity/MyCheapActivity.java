@@ -123,6 +123,7 @@ public class MyCheapActivity extends BaseActivity implements OnClickListener{
 					// 判断是否滚动到底部
 					if (view.getLastVisiblePosition() == view.getCount() - 1) {
 						//加载更多功能的代码
+						offset = 0;
 						startGetData();
 					}
 				}

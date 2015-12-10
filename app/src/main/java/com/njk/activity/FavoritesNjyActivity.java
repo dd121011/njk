@@ -61,7 +61,9 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 	private FavoritesListAdapter mAdapter;
 
 	private RequestQueue mQueue;
-	
+
+	private int offset = 0;
+	private int per_page = 10;
 	
 	private Handler handler = new Handler(){
 
@@ -70,12 +72,17 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 			switch (msg.what) {
 			case UPDATE_DATA_LIST:
 				List<FavoritesBean> list = (List<FavoritesBean>) msg.getData().getSerializable("data");
-				dataList.clear();
+				if(offset == 0){
+					dataList.clear();
+				}
+				offset = per_page;
 				dataList.addAll(list);
 				handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
 				break;
 			case MORE_DATE_LIST:
-				
+				offset += per_page;
+				List<FavoritesBean> moreList = (List<FavoritesBean>) msg.getData().getSerializable("data");
+				dataList.addAll(moreList);
 				handler.sendEmptyMessage(UPATE_LIST_LAYOUT);
 				break;
 			case UPATE_LIST_LAYOUT:				 
@@ -120,6 +127,7 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 					// 判断是否滚动到底部
 					if (view.getLastVisiblePosition() == view.getCount() - 1) {
 						//加载更多功能的代码
+						offset = 0;
 						startGetData();
 					}
 				}
@@ -141,6 +149,7 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 		mPtrFrame.setPtrHandler(new PtrHandler() {
 			@Override
 			public void onRefreshBegin(PtrFrameLayout frame) {
+				offset = 0;
 				startGetData();
 			}
 
@@ -229,7 +238,12 @@ public class FavoritesNjyActivity extends BaseActivity implements OnClickListene
 							 Logger.d(TAG, dataList+"");
 							 Bundle data = new Bundle();
 							 data.putSerializable("data", dataList);
-							 Message msg = handler.obtainMessage(UPDATE_DATA_LIST);							 
+							 Message msg = null;
+							 if(offset == 0){
+								 msg = handler.obtainMessage(UPDATE_DATA_LIST);
+							 }else{
+								 msg = handler.obtainMessage(MORE_DATE_LIST);
+							 }
 							 msg.setData(data);
 							 msg.sendToTarget();
 						 }else{

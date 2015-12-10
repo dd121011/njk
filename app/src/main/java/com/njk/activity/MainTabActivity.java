@@ -2,8 +2,6 @@ package com.njk.activity;
 
 
 import android.app.Activity;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,9 +32,7 @@ import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.photo.util.Res;
 import com.njk.utils.Config;
 import com.njk.utils.LocalDisplay;
-import com.njk.utils.Logger;
 import com.umeng.message.PushAgent;
-import com.umeng.message.UmengRegistrar;
 import com.umeng.update.UmengUpdateAgent;
 
 import org.json.JSONObject;
@@ -83,8 +79,8 @@ public class MainTabActivity extends BaseActivity{
 		UmengUpdateAgent.update(this);
 		PushAgent mPushAgent = PushAgent.getInstance(this);
 		mPushAgent.enable();
-		String device_token = UmengRegistrar.getRegistrationId(this);
-		Logger.e(device_token);
+//		String device_token = UmengRegistrar.getRegistrationId(this);
+//		Logger.e(device_token);
         MApplication app = (MApplication) getApplication();
         app.finishLoginActivity();
                
@@ -97,14 +93,14 @@ public class MainTabActivity extends BaseActivity{
     }
 	 
 	private void initData() {
-
-		try {
-			ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-			String msg=appInfo.metaData.getString("UMENG_CHANNEL");
-			Logger.e(msg);
-		}catch (Exception e){
-			e.printStackTrace();
-		}
+//
+//		try {
+//			ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+//			String msg=appInfo.metaData.getString("UMENG_CHANNEL");
+//			Logger.e(msg);
+//		}catch (Exception e){
+//			e.printStackTrace();
+//		}
 
 		Res.init(this);       
 		LocalDisplay.init(this);
