@@ -32,6 +32,8 @@ import com.njk.net.RequestUtils.ResponseHandlerInterface;
 import com.njk.photo.util.Res;
 import com.njk.utils.Config;
 import com.njk.utils.LocalDisplay;
+import com.njk.utils.Logger;
+import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.message.PushAgent;
 import com.umeng.update.UmengUpdateAgent;
 
@@ -93,14 +95,13 @@ public class MainTabActivity extends BaseActivity{
     }
 	 
 	private void initData() {
-//
-//		try {
-//			ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-//			String msg=appInfo.metaData.getString("UMENG_CHANNEL");
-//			Logger.e(msg);
-//		}catch (Exception e){
-//			e.printStackTrace();
-//		}
+
+		try {
+			String msg= AnalyticsConfig.getChannel(this);
+			Logger.e(msg+"=========================================");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 
 		Res.init(this);       
 		LocalDisplay.init(this);

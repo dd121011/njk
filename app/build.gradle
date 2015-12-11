@@ -61,10 +61,20 @@ android {
 
     productFlavors {
         "laike" {}
-        "xiaomi" {}
-        "360" {}
-        "baidu" {}
         "wandoujia" {}
+        "yingyonghui" {}
+        "yingyongbao" {}
+        "nduo" {}
+        "mumayi" {}
+        "anzhi" {}
+        "360zhushou" {}
+        "360yystroe" {}
+        "xiaomi" {}
+        "ppzhushou" {}
+        "sogouzhushou" {}
+        "baidu" {}
+        "anzhuostroe" {}
+        "91zhushou" {}
     }
 
     productFlavors.all {

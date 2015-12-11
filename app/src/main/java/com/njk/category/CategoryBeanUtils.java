@@ -84,38 +84,39 @@ public class CategoryBeanUtils {
 		Gson gson = new Gson();
 		AreasBean areasBean = gson.fromJson(dataObj.toString(), new TypeToken<AreasBean>() {
 		}.getType());
-		TreeMap<String,AreasBean.Items> province = areasBean.province;
+		if(areasBean != null){
+			TreeMap<String,AreasBean.Items> province = areasBean.province;
 
-		for (Map.Entry<String,AreasBean.Items> entry : province.entrySet()) {
+			for (Map.Entry<String,AreasBean.Items> entry : province.entrySet()) {
 //			Logger.e("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-			String key = entry.getKey();
-			AreasBean.Items items = entry.getValue();
-			for (AreasBean.Item item: items.items){
-				if(currCity.equals(item.name) && item.citys!=null){
-					for (City city: item.citys){
-						CategoryBean categoryBean = new CategoryBean();
-						categoryBean.id = city.id;
-						categoryBean.name = city.name;
-						if(city.scenic!=null && city.scenic.size()>0){
+				String key = entry.getKey();
+				AreasBean.Items items = entry.getValue();
+				for (AreasBean.Item item: items.items){
+					if(currCity.equals(item.name) && item.citys!=null){
+						for (City city: item.citys){
+							CategoryBean categoryBean = new CategoryBean();
+							categoryBean.id = city.id;
+							categoryBean.name = city.name;
+							if(city.scenic!=null && city.scenic.size()>0){
 
-							List<CategoryBean> subList = new ArrayList<>();
-							for (ScenciImp scenic : city.scenic){
-								CategoryBean subBean = new CategoryBean();
-								subBean.name = scenic.title;
-								subBean.id = scenic.id;
-								subList.add(subBean);
+								List<CategoryBean> subList = new ArrayList<>();
+								for (ScenciImp scenic : city.scenic){
+									CategoryBean subBean = new CategoryBean();
+									subBean.name = scenic.title;
+									subBean.id = scenic.id;
+									subList.add(subBean);
+								}
+
+								categoryBean.subList = subList;
+
+								list.add(categoryBean);
 							}
 
-							categoryBean.subList = subList;
-
-							list.add(categoryBean);
 						}
-
 					}
 				}
 			}
 		}
-
 		return list;
 	}
 }

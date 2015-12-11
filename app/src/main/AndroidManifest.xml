@@ -272,23 +272,23 @@
 
         <!--友盟更新相关-->
         <meta-data android:value="565d416e67e58e5f260021fd" android:name="UMENG_APPKEY"/>
-        <!--<meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>-->
+        <!-- <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>-->
         <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
-        <meta-data
-            android:name="UMENG_MESSAGE_SECRET"
-            android:value="4449dd0fa92b72921263487464c23a59" >
-        </meta-data>
+         <meta-data
+             android:name="UMENG_MESSAGE_SECRET"
+             android:value="4449dd0fa92b72921263487464c23a59" >
+         </meta-data>
 
-        <service
-            android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
-        </service>
-        <activity
-            android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
+         <service
+             android:name="com.umeng.update.net.DownloadingService"
+             android:process=":DownloadingService" >
+         </service>
+         <activity
+             android:name="com.umeng.update.UpdateDialogActivity"
+             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+         </activity>
 
-        <!--友盟推送-->
+         <!--友盟推送-->
         <!-- 监听通知点击或者忽略处理的广播 -->
         <receiver
             android:name="com.umeng.message.NotificationProxyBroadcastReceiver"
