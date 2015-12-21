@@ -43,7 +43,7 @@ public final class ShopDetailsNearFragment extends BaseFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		if(rootView == null){
-			rootView = inflater.inflate(R.layout.shop_details_web, container, false);
+			rootView = inflater.inflate(R.layout.shop_details_near_web, container, false);
 			detail_web_content = (WebView)rootView.findViewById(R.id.detail_web_content);
 			Bundle bundle = getArguments();
 			if(bundle!=null){
