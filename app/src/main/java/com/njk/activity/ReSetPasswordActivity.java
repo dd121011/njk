@@ -74,11 +74,33 @@ public class ReSetPasswordActivity extends BaseActivity implements OnClickListen
 		}
 		
 	}
-	
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		Intent intent = null;
+		switch (resultCode){
+			case LoginActivity.LOGIN_SUCCESS:
+				if(requestCode==resetpassword_btn_index){
+					toMainAcitivity();
+				}
+				break;
+		}
+	}
+
+	private void toMainAcitivity(){
+		Intent intent = new Intent(context, MainTabActivity.class);
+		startActivity(intent);
+		MApplication app2 = (MApplication) ReSetPasswordActivity.this.getApplication();
+		app2.addLoginAcitivity(ReSetPasswordActivity.this);
+	}
+
+	private static int resetpassword_btn_index = 1004;
 	private void toLoginActivity(){
 //		Intent intent = new Intent(this, SelectUserTypeActivity.class);
 		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent,resetpassword_btn_index);
 		MApplication app = (MApplication) getApplication();
 		app.addLoginAcitivity(this);
 	}
